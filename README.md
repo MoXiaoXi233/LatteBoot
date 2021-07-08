@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
+<a href="https://github.com/AndyER03/LatteBoot/"><img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" /></a>
 </p>
 <p align="center">
    <b><a href="https://github.com/AndyER03/LatteBoot/">LatteBoot</a></b>
