@@ -1,15 +1,18 @@
-# LatteBoot
-#### Advanced boot options for MI Pad 2 tablet
-![](https://raw.githubusercontent.com/AndyER03/LatteBoot/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
+<p align="center">
+<img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
+</p>
+<p align="center">
+   <b><a href="https://github.com/AndyER03/LatteBoot/">LatteBoot</a></b>
+</p>
+<p align="center">
+   Advanced boot options for MI Pad 2 tablet
+</p>
 
 ### Features:
 * Small app size
 * Simple reboot by one click
 * App supports dualboot *(Android + Windows)*
 *App checking for EFI BIOS OS boot availability by checking efi boot file in EFI partition exists and show or hide Windows boot option depending on it*
-
-### Screenshots:
-<img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_1.png" width=45% height=25%> <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_2.png" width=45% height=25%>
 
 #### For booting to Android modes and Windows:
 * Just grant app Root permission
@@ -25,3 +28,12 @@
     * App mounts boot partition to mnt folder and changes the names of boot files with efi extension
       * bootx64.efi -> bootx64.efi.miui
       * bootx64.efi.win -> bootx64.efi
+---
+<p align="center">
+Screenshots:
+</p>
+<p align="center">
+   <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_1.png" width=30% height=25%> <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_2.png" width=30% height=25%>
+</p>
+
+---
