@@ -8,6 +8,9 @@
 * App supports dualboot *(Android + Windows)*
 *App checking for EFI BIOS OS boot availability by checking efi boot file in EFI partition exists and show or hide Windows boot option depending on it*
 
+### Screenshots:
+<img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_1.png" width=25% height=25%> <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_2.png" width=25% height=25%>
+
 #### For booting to Android modes and Windows:
 * Just grant app Root permission
 
