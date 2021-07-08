@@ -14,10 +14,10 @@
 * App supports dualboot *(Android + Windows)*
 * *App checking for EFI BIOS OS boot availability by checking efi boot file in EFI partition exists and show or hide Windows boot option depending on it*
 
-#### For booting to Android modes and Windows:
+### For booting to Android modes and Windows:
 * Just grant app Root permission
 
-#### For Dual Boot users:
+### For Dual Boot users:
 * Preparing to EFI BIOS OS (such as Windows) boot availability:
     * [**Boot files**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo?usp=sharing "Google Drive") must be placed to mmcblk0p8 to /EFI/BOOT/ in advance
     * *(Be careful)* delete exists bootx64.efi file
