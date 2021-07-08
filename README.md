@@ -24,7 +24,7 @@
     * bootx64.efi.win file must be renamed to bootx64.efi to boot into Windows (then bootx64.efi.miui file to be placed near is needed)
     * bootx64.efi.miui file must be renamed to bootx64.efi to boot into Android (then bootx64.efi.win file to be placed near is needed)
     
-* How booting to Windows OS works:
+* How boot to Windows works:
     * App mounts boot partition to mnt folder and changes the names of boot files with efi extension
     * bootx64.efi -> bootx64.efi.miui
     * bootx64.efi.win -> bootx64.efi
