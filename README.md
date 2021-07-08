@@ -1,6 +1,6 @@
 # LatteBoot
 #### Advanced boot options for MI Pad 2 tablet
-![](https://raw.githubusercontent.com/AndyER03/WinBoot/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
+![](https://raw.githubusercontent.com/AndyER03/LatteBoot/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
 ### Features:
 * Small app size
