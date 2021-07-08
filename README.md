@@ -26,8 +26,8 @@
     
 * How booting to Windows OS works:
     * App mounts boot partition to mnt folder and changes the names of boot files with efi extension
-      * bootx64.efi -> bootx64.efi.miui
-      * bootx64.efi.win -> bootx64.efi
+    bootx64.efi -> bootx64.efi.miui
+    bootx64.efi.win -> bootx64.efi
 ---
 <p align="center">
 Screenshots:
