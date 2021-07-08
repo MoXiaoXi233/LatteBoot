@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mi_pad_2_toast">Только для MI Pad 2</string>
+    <string name="choose_option_title">Выберите режим</string>
+    <string name="reboot_shutdown_title">Выкл</string>
+    <string name="reboot_android_toast">Перезагрузка</string>
+    <string name="reboot_windows_toast">Загрузка Windows</string>
+    <string name="reboot_recovery_toast">Загрузка Recovery</string>
+    <string name="reboot_bootloader_toast">Загрузка Bootloader</string>
+    <string name="reboot_dnx_toast">Загрузка DNX</string>
+    <string name="reboot_shutdown_toast">Выключение</string>
+    <string name="root_not_found_toast">Отказ в правах Root доступа</string>
+</resources>
