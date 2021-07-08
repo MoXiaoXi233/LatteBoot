@@ -38,5 +38,5 @@ Screenshots:
 
 ---
 <p align="right">
-Created by AndyER03
+By AndyER03
 </p>
