@@ -12,7 +12,7 @@
 * Small app size
 * Simple reboot by one click
 * App supports dualboot *(Android + Windows)*
-* App checking for EFI BIOS OS boot availability by checking efi boot file in EFI partition exists and show or hide Windows boot option depending on it*
+* *App checking for EFI BIOS OS boot availability by checking efi boot file in EFI partition exists and show or hide Windows boot option depending on it*
 
 #### For booting to Android modes and Windows:
 * Just grant app Root permission
