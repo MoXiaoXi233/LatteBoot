@@ -18,7 +18,7 @@
 * Just grant app Root permission
 
 ### For Dual Boot users:
-* Preparing to EFI BIOS OS (such as Windows) boot availability:
+* Preparing EFI partition:
     * [**Boot files**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo?usp=sharing "Google Drive") must be placed to mmcblk0p8 to /EFI/BOOT/ in advance
     * *(Be careful)* delete exists bootx64.efi file
     * bootx64.efi.win file must be renamed to bootx64.efi to boot into Windows (then bootx64.efi.miui file to be placed near is needed)
