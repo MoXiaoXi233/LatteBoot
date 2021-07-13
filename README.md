@@ -19,7 +19,7 @@
 
 ### For Dual Boot users:
 * Preparing EFI partition:
-    * [**Boot files**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo?usp=sharing "Google Drive") must be placed to mmcblk0p8 to /EFI/BOOT/ in advance *(You can do this with diskpart utility in Windows or WinPE booted on MI Pad 2 tablet)*
+    * [**Boot files**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo?usp=sharing "Google Drive") must be placed to mmcblk0p7 to /EFI/BOOT/ in advance *(You can do this with diskpart utility in Windows or WinPE booted on MI Pad 2 tablet)*
     * bootx64.efi.win file must be renamed to bootx64.efi to boot into Windows (then bootx64.efi.miui file to be placed near is needed)
     * bootx64.efi.miui file must be renamed to bootx64.efi to boot into Android (then bootx64.efi.win file to be placed near is needed)
     
