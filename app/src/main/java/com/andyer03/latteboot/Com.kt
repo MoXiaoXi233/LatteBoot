@@ -10,7 +10,7 @@ class Com {
     val cifs = "mkdir /mnt/cifs"
     val efi = "mkdir /mnt/cifs/efi"
     val umount = "umount $efiPath"
-    val mount = "mount | grep $efiPath > /dev/null 2>&1 || mount -t vfat /dev/block/mmcblk0p7 $efiPath"
+    val mount = "mount | grep $efiPath > /dev/null 2>&1 || mount -t vfat /dev/block/platform/pci*/*/by-name/*loader $efiPath"
     val miui = "mv $efiPath/EFI/BOOT/$file $efiPath/EFI/BOOT/$file.miui"
     val win = "mv $efiPath/EFI/BOOT/$file.win $efiPath/EFI/BOOT/$file"
 

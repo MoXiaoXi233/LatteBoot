@@ -1,8 +1,8 @@
 package com.andyer03.latteboot
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,7 +10,6 @@ import android.widget.Toast
 import java.io.File
 
 open class MainActivity : AppCompatActivity() {
-    @SuppressLint("SdCardPath")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -20,7 +19,7 @@ open class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
-            val tempFile = "/sdcard/.latteboot"
+            val tempFile = Environment.getExternalStorageDirectory().path + "/.latteboot"
             val fileName = File(tempFile).isFile
             if (!fileName) {
                 System("mountefi").boot()

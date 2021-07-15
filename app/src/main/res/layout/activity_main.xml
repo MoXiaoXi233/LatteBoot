@@ -36,8 +36,8 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_marginEnd="15dp"
-                app:srcCompat="@drawable/ic_android"
-                android:contentDescription="@string/reboot_android_title"/>
+                app:srcCompat="@drawable/ic_restart"
+                android:contentDescription="@string/reboot_device_title"/>
 
             <ImageView
                 android:id="@+id/imageSafeMode"
@@ -45,13 +45,14 @@
                 android:layout_height="130dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                app:srcCompat="@drawable/ic_shield" />
+                app:srcCompat="@drawable/ic_shield"
+                android:contentDescription="@string/reboot_device_title" />
 
             <ImageView
                 android:id="@+id/imageScrnOff"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 app:srcCompat="@drawable/ic_shutdown"
                 android:contentDescription="@string/reboot_shutdown_title" />
 
@@ -66,9 +67,9 @@
                 android:id="@+id/textAndroid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
                 android:gravity="center"
-                android:text="@string/reboot_android_title"
+                android:text="@string/reboot_device_title"
                 android:textAlignment="center"
                 android:textSize="34sp"
                 android:textStyle="bold" />
@@ -89,7 +90,7 @@
                 android:id="@+id/textScrnOff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:gravity="center"
                 android:text="@string/reboot_screenoff_title"
                 android:textAlignment="center"
@@ -108,7 +109,7 @@
                 android:id="@+id/imageRecovery"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
                 android:contentDescription="@string/reboot_recovery_title"
                 app:srcCompat="@drawable/ic_recovery" />
 
@@ -125,7 +126,7 @@
                 android:id="@+id/imageDNX"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:contentDescription="@string/reboot_dnx_title"
                 app:srcCompat="@drawable/ic_bootloader" />
 
@@ -141,7 +142,7 @@
                 android:id="@+id/textRecovery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
                 android:gravity="center"
                 android:text="@string/reboot_recovery_title"
                 android:textAlignment="center"
@@ -164,7 +165,7 @@
                 android:id="@+id/textDNX"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:gravity="center"
                 android:text="@string/reboot_dnx_title"
                 android:textAlignment="center"
@@ -183,7 +184,7 @@
                 android:id="@+id/imageShutdown"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
                 android:contentDescription="@string/reboot_shutdown_title"
                 app:srcCompat="@drawable/ic_shutdown" />
 
@@ -206,7 +207,7 @@
                 android:id="@+id/textPowerOff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
                 android:gravity="center"
                 android:text="@string/reboot_shutdown_title"
                 android:textAlignment="center"
@@ -240,6 +241,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp"/>
+        android:layout_marginEnd="15dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,8 +36,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginEnd="15dp"
-                app:srcCompat="@drawable/ic_android"
-                android:contentDescription="@string/reboot_android_title"/>
+                app:srcCompat="@drawable/ic_restart"
+                android:contentDescription="@string/reboot_device_title"/>
 
             <ImageView
                 android:id="@+id/imageSafeMode"
@@ -45,7 +45,8 @@
                 android:layout_height="100dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                app:srcCompat="@drawable/ic_shield" />
+                app:srcCompat="@drawable/ic_shield"
+                android:contentDescription="@string/reboot_device_title" />
 
             <ImageView
                 android:id="@+id/imageScrnOff"
@@ -77,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:gravity="center"
-                android:text="@string/reboot_android_title"
+                android:text="@string/reboot_device_title"
                 android:textAlignment="center"
                 android:textSize="34sp"
                 android:textStyle="bold" />
