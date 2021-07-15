@@ -2,8 +2,8 @@
 <resources>
     <string name="mi_pad_2_toast">Только для MI Pad 2</string>
     <string name="choose_option_title">Выберите режим:</string>
-    <string name="reboot_shutdown_title">Выключить</string>
+    <string name="reboot_shutdown_title">Выключить планшет</string>
     <string name="root_not_found_toast">Отказано в правах Root доступа</string>
-    <string name="reboot_screenoff_title">Выкл экран</string>
-    <string name="reboot_device_title">Перезагрузка</string>
+    <string name="reboot_screenoff_title">Выключить экран</string>
+    <string name="reboot_safemode_title">Безопасный режим</string>
 </resources>
