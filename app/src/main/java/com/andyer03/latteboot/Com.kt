@@ -20,5 +20,5 @@ class Com {
     val dnx = "reboot dnx"
     val shutdown = "reboot -p"
     val safemode = "echo \"1\" > /data/property/persist.sys.safemode\n"
-    val scrnoff = "input keyevent 26"
+    val screenoff = "input keyevent 26"
 }
