@@ -7,12 +7,18 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import com.andyer03.latteboot.databinding.ActivityMainBinding
 import java.io.File
 
 open class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
+    private val adapter = BootAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (!Device().check()) {
             Toast.makeText(this, R.string.mi_pad_2_toast, Toast.LENGTH_SHORT).show()
@@ -28,6 +34,7 @@ open class MainActivity : AppCompatActivity() {
                     hideStack("2")
                 }
             }
+            init()
 
             val and = findViewById<ImageView>(R.id.imageAndroid)
             val win = findViewById<ImageView>(R.id.imageWindows)
@@ -205,5 +212,34 @@ open class MainActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    private fun init() = with(binding) {
+        val imageIdList = listOf(
+            R.drawable.ic_restart,
+            R.drawable.ic_shield,
+            R.drawable.ic_shutdown,
+            R.drawable.ic_recovery,
+            R.drawable.ic_bootloader,
+            R.drawable.ic_bootloader,
+            R.drawable.ic_shutdown,
+            R.drawable.ic_windows
+        )
+
+        val titleIdList = listOf(
+            R.string.reboot_device_title,
+            R.string.reboot_safemode_title,
+            R.string.reboot_screenoff_title,
+            R.string.reboot_recovery_title,
+            R.string.reboot_bootloader_title,
+            R.string.reboot_dnx_title,
+            R.string.reboot_shutdown_title,
+            R.string.reboot_win_title
+        )
+
+        rcView?.layoutManager = GridLayoutManager(this@MainActivity, 3)
+        rcView?.adapter = adapter
+        val bootOptions = BootOptions(imageIdList[0], titleIdList[0].toString())
+        adapter.addBootOptions(bootOptions)
     }
 }
