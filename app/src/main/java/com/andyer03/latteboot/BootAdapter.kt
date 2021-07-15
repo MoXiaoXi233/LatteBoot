@@ -15,6 +15,38 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
             icon.setImageResource(bootOptions.imageId)
             title.text = bootOptions.title
         }
+
+        init {
+            itemView.setOnClickListener {
+                when (adapterPosition) {
+                    0 -> {
+                        System("and").boot()
+                    }
+                    1 -> {
+                        System("sfm").boot()
+                    }
+                    2 -> {
+                        System("scn").boot()
+                    }
+                    3 -> {
+                        System("rec").boot()
+                    }
+                    4 -> {
+                        System("fbt").boot()
+                    }
+                    5 -> {
+                        System("dnx").boot()
+                    }
+                    6 -> {
+                        System("pwd").boot()
+                    }
+                    7 -> {
+                        System("mountefi").boot()
+                        System("win").boot()
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BootHolder {
