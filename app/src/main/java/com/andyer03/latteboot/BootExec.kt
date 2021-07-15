@@ -34,7 +34,7 @@ class BootExec {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().safemode))
         android()
     }
-    fun scrnoff() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().scrnoff))
+    fun screenoff() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().screenoff))
     }
 }

@@ -29,7 +29,7 @@ class System (private val OS: String) : MainActivity() {
                 BootExec().safemode()
             }
             "scn" -> {
-                BootExec().scrnoff()
+                BootExec().screenoff()
             }
         }
     }

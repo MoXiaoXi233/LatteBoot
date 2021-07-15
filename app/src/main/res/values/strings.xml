@@ -2,14 +2,14 @@
     <string name="app_name" translatable="false">LatteBoot</string>
     <string name="mi_pad_2_toast">Only for MI Pad 2</string>
     <string name="reboot_win_title" translatable="false">Windows</string>
-    <string name="reboot_device_title" translatable="false">Reboot</string>
+    <string name="reboot_device_title">Reboot</string>
     <string name="reboot_recovery_title" translatable="false">Recovery</string>
     <string name="reboot_bootloader_title" translatable="false">Fastboot</string>
     <string name="reboot_dnx_title" translatable="false">DNX</string>
-    <string name="choose_option_title">Choose option</string>
+    <string name="choose_option_title">Choose boot option:</string>
     <string name="reboot_shutdown_title">Turn off</string>
-    <string name="reboot_safemode_title" translatable="false">Safemode</string>
-    <string name="reboot_screenoff_title">Scrn off</string>
+    <string name="reboot_safemode_title" translatable="false">Safe mode</string>
+    <string name="reboot_screenoff_title">Screen off</string>
     <string name="about_title" translatable="false">By AndyER03</string>
     <string name="root_not_found_toast">Root permission denied</string>
 </resources>
