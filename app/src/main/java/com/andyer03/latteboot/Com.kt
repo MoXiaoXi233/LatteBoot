@@ -19,6 +19,7 @@ class Com {
     val bootloader= "reboot bootloader"
     val dnx = "reboot dnx"
     val shutdown = "reboot -p"
-    val safemode = "echo \"1\" > /data/property/persist.sys.safemode\n"
+    val safemode = "echo \"1\" > /data/property/persist.sys.safemode"
+    val mountSafeModeFile = "chmod 600 /data/property/persist.sys.safemode"
     val screenoff = "input keyevent 26"
 }

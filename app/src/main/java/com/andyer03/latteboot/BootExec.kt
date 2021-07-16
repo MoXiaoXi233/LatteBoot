@@ -32,6 +32,7 @@ class BootExec {
     }
     fun safemode() {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().safemode))
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().mountSafeModeFile))
         android()
     }
     fun screenoff() {
