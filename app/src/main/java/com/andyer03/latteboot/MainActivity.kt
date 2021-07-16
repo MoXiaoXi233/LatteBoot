@@ -15,6 +15,8 @@ open class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        System("lsData").boot()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -23,7 +25,6 @@ open class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
-            System("lsData").boot()
             init()
         }
     }
