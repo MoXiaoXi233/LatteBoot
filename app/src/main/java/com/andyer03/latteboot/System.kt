@@ -4,6 +4,9 @@ class System (private val OS: String) : MainActivity() {
 
     fun boot() {
         when (OS) {
+            "lsData" -> {
+                BootExec().lsData()
+            }
             "and" -> {
                 BootExec().android()
             }

@@ -23,6 +23,7 @@ open class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
+            System("lsData").boot()
             init()
         }
     }

@@ -3,6 +3,9 @@ package com.andyer03.latteboot
 import com.andyer03.latteboot.Com as C
 
 class BootExec {
+    fun lsData() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().lsData))
+    }
     fun android() {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().reboot))
     }
