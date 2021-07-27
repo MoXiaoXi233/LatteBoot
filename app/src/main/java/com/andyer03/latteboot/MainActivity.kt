@@ -15,7 +15,6 @@ open class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        System("lsData").boot()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -32,11 +31,14 @@ open class MainActivity : AppCompatActivity() {
     @SuppressLint("SdCardPath")
     private fun init() = with(binding) {
         val tempFile = "/sdcard/.latteboot"
-        val fileName = File(tempFile).isFile
-        if (!fileName) {
+        val latteboot = File(tempFile).exists()
+        if (!latteboot) {
             System("mountefi").boot()
             Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi.win /sdcard/.latteboot")
         }
+
+        val bin = File("/system/bin/su")
+        val xbin = File("/system/xbin/su")
 
         val imageIdList = listOf(
             R.drawable.ic_restart,
@@ -44,7 +46,7 @@ open class MainActivity : AppCompatActivity() {
             R.drawable.ic_shutdown,
             R.drawable.ic_recovery,
             R.drawable.ic_bootloader,
-            R.drawable.ic_bootloader,
+            R.drawable.ic_dnx,
             R.drawable.ic_shutdown,
             R.drawable.ic_windows
         )
@@ -76,14 +78,17 @@ open class MainActivity : AppCompatActivity() {
         val shutdown = BootOptions(imageIdList[6], shutdownTitle)
 
         adapter.addBootOptions(reboot)
-        adapter.addBootOptions(safemode)
         adapter.addBootOptions(screenoff)
         adapter.addBootOptions(recovery)
         adapter.addBootOptions(bootloader)
         adapter.addBootOptions(dnx)
         adapter.addBootOptions(shutdown)
 
-        if (fileName) {
+        if (bin.exists() || xbin.exists()) {
+            adapter.addBootOptions(safemode)
+        }
+
+        if ((bin.exists() || xbin.exists()) && latteboot) {
             val windowsTitle = getString(R.string.reboot_win_title)
             val windows = BootOptions(imageIdList[7], windowsTitle)
             adapter.addBootOptions(windows)

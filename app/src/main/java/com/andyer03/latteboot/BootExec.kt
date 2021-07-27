@@ -3,11 +3,8 @@ package com.andyer03.latteboot
 import com.andyer03.latteboot.Com as C
 
 class BootExec {
-    fun lsData() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().lsData))
-    }
     fun android() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().reboot))
+        Runtime.getRuntime().exec(C().reboot)
     }
     fun mountefi() {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().remount)).waitFor()
@@ -22,23 +19,22 @@ class BootExec {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().reboot))
     }
     fun recovery() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().recovery))
+        Runtime.getRuntime().exec(arrayOf(C().reboot, C().recovery))
     }
     fun bootloader() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().bootloader))
+        Runtime.getRuntime().exec(arrayOf(C().reboot, C().bootloader))
     }
     fun dnx() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().dnx))
+        Runtime.getRuntime().exec(arrayOf(C().reboot, C().dnx))
     }
     fun shutdown() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().shutdown))
+        Runtime.getRuntime().exec(arrayOf(C().reboot, C().shutdown))
     }
     fun safemode() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().safemode))
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().mountSafeModeFile))
-        android()
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().safemode)).waitFor()
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().reboot))
     }
     fun screenoff() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().screenoff))
+        Runtime.getRuntime().exec(arrayOf(C().screenoff))
     }
 }
