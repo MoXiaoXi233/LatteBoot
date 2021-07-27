@@ -4,14 +4,8 @@ class System (private val OS: String) : MainActivity() {
 
     fun boot() {
         when (OS) {
-            "lsData" -> {
-                BootExec().lsData()
-            }
             "and" -> {
                 BootExec().android()
-            }
-            "sfm" -> {
-                BootExec().safemode()
             }
             "scn" -> {
                 BootExec().screenoff()
@@ -30,6 +24,9 @@ class System (private val OS: String) : MainActivity() {
             }
             "mountefi" -> {
                 BootExec().mountefi()
+            }
+            "sfm" -> {
+                BootExec().safemode()
             }
             "win" -> {
                 BootExec().windows()

@@ -23,22 +23,22 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                         System("and").boot()
                     }
                     1 -> {
-                        System("sfm").boot()
-                    }
-                    2 -> {
                         System("scn").boot()
                     }
-                    3 -> {
+                    2 -> {
                         System("rec").boot()
                     }
-                    4 -> {
+                    3 -> {
                         System("fbt").boot()
                     }
-                    5 -> {
+                    4 -> {
                         System("dnx").boot()
                     }
-                    6 -> {
+                    5 -> {
                         System("pwd").boot()
+                    }
+                    6 -> {
+                        System("sfm").boot()
                     }
                     7 -> {
                         System("mountefi").boot()
