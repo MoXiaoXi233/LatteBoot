@@ -18,7 +18,7 @@
 * Grant app Root permission and click on preferred card
 
 ### For booting to other modes:
-* Just click on preferred card *Root permissions not required*
+* Just click on preferred card *(Root permissions not required)*
 
 ### For Dual Boot users:
 * Preparing EFI partition:
