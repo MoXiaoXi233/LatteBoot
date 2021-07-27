@@ -14,8 +14,11 @@
 * App supports dualboot *(Android + Windows)*
 * *App checking for EFI BIOS OS boot availability by boot file in EFI partition exists and show or hide Windows boot option depending on it*
 
-### For booting to Android modes and Windows:
-* Just grant app Root permission
+### For booting to Safe mode and Windows:
+* Grant app Root permission and click on preferred card
+
+### For booting to other modes:
+* Just click on preferred card *Root permissions not required*
 
 ### For Dual Boot users:
 * Preparing EFI partition:
