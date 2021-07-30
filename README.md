@@ -42,3 +42,5 @@ Screenshots:
 <p align="right">
 By AndyER03
 </p>
+
+[**Russian README**](https://github.com/AndyER03/LatteBoot/blob/master/README.ru.md "Russian README")
