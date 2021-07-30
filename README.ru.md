@@ -43,4 +43,4 @@
 By AndyER03
 </p>
 
-[**Английский README**](https://github.com/AndyER03/LatteBoot/blob/master/README.md "README")
+[**Английский README**](https://github.com/AndyER03/LatteBoot/blob/master/README.md "Английский README")
