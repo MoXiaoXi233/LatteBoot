@@ -22,7 +22,7 @@
 
 ### Для пользователей Dual Boot:
 * Подготовка EFI раздела:
-    * [**Загрузочные файлы**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo?usp=sharing "Google Drive") должны быть размещены в разделе по пути **"/dev/block/platform/pci\*/\*/by-name/\*loader"**, а именно в директорию **/EFI/BOOT/** *(Можно сделать через утилиту diskpart в Windows или в WinPE на планшете MI Pad 2)*
+    * [**Загрузочные файлы**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo?usp=sharing "Google Drive") должны быть размещены в разделе по пути **"/dev/block/platform/pci\*/\*/by-name/\*loader"**, а именно в директорию **/EFI/BOOT/** *(Можно сделать через утилиту diskpart в Windows или в WinPE на планшете MI Pad 2, выбрав 7 или 8 раздел который имеет метку "Системный")*
     * Файл bootx64.efi.win должен быть назван bootx64.efi для загрузки в Windows (также, рядом необходимо разместить файл bootx64.efi.miui)
     * Файл bootx64.efi.miui должен быть назван bootx64.efi для загрузки в Android (также,рядом необходимо разместить файл bootx64.efi.win)
     
