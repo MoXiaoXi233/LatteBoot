@@ -34,9 +34,9 @@
 <p align="center">
 Screenshots:
 </p>
-<p align="center">
-   <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_1.png" width=30% height=25%> <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_2.png" width=30% height=25%> <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_3.png" width=30% height=25%> <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_4.png" width=30% height=25%>
-</p>
+<center>
+<img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_1.png" width=30% height=25%> <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_2.png" width=30% height=25%> <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_3.png" width=30% height=25%> <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_4.png" width=30% height=25%>
+</center>
 
 ---
 <p align="right">
