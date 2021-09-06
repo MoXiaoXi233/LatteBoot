@@ -9,11 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.andyer03.latteboot.databinding.ActivityMainBinding
 import java.io.File
 import android.content.pm.PackageManager
-
 import android.content.ComponentName
-
-
-
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
