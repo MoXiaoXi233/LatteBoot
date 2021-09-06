@@ -20,6 +20,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name="WindowsWidget"
+            android:icon="@drawable/ic_windows"
+            android:label="@string/widget_name">
+            <intent-filter>
+                <action
+                    android:name="android.appwidget.action.APPWIDGET_UPDATE">
+                </action>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/windows_widget_metadata">
+            </meta-data>
+        </receiver>
     </application>
 
 </manifest>
