@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.andyer03.latteboot">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
     <application
@@ -13,6 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.LatteBoot">
+        <activity
+            android:name=".WidgetReboot"
+            android:exported="true" />
+        <activity
+            android:name=".WidgetRebootWindows"
+            android:exported="true" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,18 +29,16 @@
         </activity>
 
         <receiver
-            android:name="WindowsWidget"
+            android:name=".WindowsWidget"
             android:icon="@drawable/ic_windows"
             android:label="@string/widget_name">
             <intent-filter>
-                <action
-                    android:name="android.appwidget.action.APPWIDGET_UPDATE">
-                </action>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/windows_widget_metadata">
-            </meta-data>
+                android:resource="@xml/windows_widget_metadata" />
         </receiver>
     </application>
 

@@ -1,6 +1,7 @@
 package com.andyer03.latteboot
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
@@ -40,7 +41,7 @@ open class MainActivity : AppCompatActivity() {
         val bin = File("/system/bin/su")
         val xbin = File("/system/xbin/su")
 
-        val imageIdList = listOf(
+        val imageIdList = listOf (
             R.drawable.ic_restart,
             R.drawable.ic_shield,
             R.drawable.ic_shutdown,

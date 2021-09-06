@@ -9,17 +9,13 @@ import android.widget.RemoteViews
 
 class WindowsWidget : AppWidgetProvider() {
 
-    override fun onEnabled(context: Context) {
-        super.onEnabled(context)
-    }
-
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
         for (appWidgetId in appWidgetIds) {
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, WidgetReboot::class.java)
             val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
             val views = RemoteViews(context.packageName, R.layout.windows)
             views.setOnClickPendingIntent(R.id.windows, pendingIntent)
