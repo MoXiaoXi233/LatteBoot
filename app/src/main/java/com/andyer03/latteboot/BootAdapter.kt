@@ -64,6 +64,5 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
 
     fun addBootOptions(bootOptions: BootOptions) {
         bootList.add(bootOptions)
-        notifyDataSetChanged()
     }
 }

@@ -5,4 +5,5 @@
     <string name="reboot_shutdown_title">Выключить планшет</string>
     <string name="reboot_screenoff_title">Выключить экран</string>
     <string name="reboot_safemode_title">Безопасный режим</string>
+    <string name="unavailable_title">Недоступно</string>
 </resources>

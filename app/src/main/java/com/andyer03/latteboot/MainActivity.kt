@@ -1,7 +1,6 @@
 package com.andyer03.latteboot
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
@@ -9,6 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.andyer03.latteboot.databinding.ActivityMainBinding
 import java.io.File
+import android.content.pm.PackageManager
+
+import android.content.ComponentName
+
+
+
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -36,6 +41,23 @@ open class MainActivity : AppCompatActivity() {
         if (!latteboot) {
             System("mountefi").boot()
             Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi.win /sdcard/.latteboot")
+        }
+
+        // Show or hide Windows icon from app drawer
+        val p = packageManager
+        val componentName = ComponentName(applicationContext, RebootWindows::class.java)
+        if (latteboot) {
+            p.setComponentEnabledSetting(
+                componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP
+            )
+        } else {
+            p.setComponentEnabledSetting(
+                componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP
+            )
         }
 
         val bin = File("/system/bin/su")
