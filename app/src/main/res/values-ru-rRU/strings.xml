@@ -6,6 +6,8 @@
     <string name="reboot_screenoff_title">Выключить экран</string>
     <string name="reboot_safemode_title">Безопасный режим</string>
     <string name="unavailable_title">Недоступно</string>
+    <string name="title_dialog_about">О приложении</string>
+    <string name="exit_button">Закрыть</string>
     
     <string name="title_activity_settings">Настройки</string>
     <string name="launcher_icons_preferences_title">Ярлыки</string>

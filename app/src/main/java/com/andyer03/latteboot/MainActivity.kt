@@ -10,9 +10,11 @@ import com.andyer03.latteboot.databinding.ActivityMainBinding
 import java.io.File
 import android.content.pm.PackageManager
 import android.content.ComponentName
+import android.content.DialogInterface
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -113,7 +115,21 @@ open class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
+            R.id.about -> {
+                aboutDialog()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private fun aboutDialog() {
+        val builder = AlertDialog.Builder(this)
+            .setTitle(R.string.app_name)
+            .setMessage(getString(R.string.app_name) + " " + getString(R.string.about_title))
+        builder.setPositiveButton(R.string.exit_button) { _: DialogInterface?, _: Int ->
+            DialogInterface.BUTTON_POSITIVE
+        }
+        builder.show()
+    }
+
 }
