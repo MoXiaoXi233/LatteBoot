@@ -20,7 +20,9 @@
             android:icon="@drawable/ic_windows"
             android:exported="true"
             android:label="@string/reboot_win_title"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:launchMode="singleInstance"
+            android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,7 +32,8 @@
         <activity
             android:name=".MainActivity"
             android:icon="@mipmap/ic_launcher"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

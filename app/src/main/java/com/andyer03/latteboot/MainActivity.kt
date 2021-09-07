@@ -26,6 +26,7 @@ open class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
+            Runtime.getRuntime().exec(arrayOf(Com().su, Com().c)).waitFor()
             init()
         }
     }
