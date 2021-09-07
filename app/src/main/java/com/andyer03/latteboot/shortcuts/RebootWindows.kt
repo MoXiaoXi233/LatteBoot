@@ -1,11 +1,11 @@
-package com.andyer03.latteboot
+package com.andyer03.latteboot.shortcuts
 
 import android.annotation.SuppressLint
-import android.content.ComponentName
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.andyer03.latteboot.R
+import com.andyer03.latteboot.commands.System
 import java.io.File
 
 class RebootWindows : AppCompatActivity() {
@@ -20,15 +20,6 @@ class RebootWindows : AppCompatActivity() {
             System("win").boot()
         } else {
             Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
-
-            // Hide app from drawer
-            val p = packageManager
-            val componentName = ComponentName(applicationContext, RebootWindows::class.java)
-            p.setComponentEnabledSetting(
-                componentName,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-            )
         }
         super.onCreate(savedInstanceState)
         finish()

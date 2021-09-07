@@ -1,4 +1,6 @@
-package com.andyer03.latteboot
+package com.andyer03.latteboot.commands
+
+import com.andyer03.latteboot.MainActivity
 
 class System (private val OS: String) : MainActivity() {
 

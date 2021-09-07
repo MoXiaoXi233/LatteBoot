@@ -2,8 +2,16 @@
 <resources>
     <string name="mi_pad_2_toast">Только для MI Pad 2</string>
     <string name="choose_option_title">Выберите режим:</string>
-    <string name="reboot_shutdown_title">Выключить планшет</string>
-    <string name="reboot_screenoff_title">Выключить экран</string>
+    <string name="reboot_shutdown_title">Выключить</string>
+    <string name="reboot_screenoff_title">Сон</string>
     <string name="reboot_safemode_title">Безопасный режим</string>
     <string name="unavailable_title">Недоступно</string>
+    <string name="title_dialog_about">О приложении</string>
+    <string name="exit_button">Закрыть</string>
+    
+    <string name="title_activity_settings">Настройки</string>
+    <string name="launcher_icons_preferences_title">Ярлыки лаунчера</string>
+    <string name="icon_preference_summary_on">Ярлык включен</string>
+    <string name="icon_preference_summary_off">Ярлык отключен</string>
+    <string name="reboot_device_title">Перезапуск</string>
 </resources>

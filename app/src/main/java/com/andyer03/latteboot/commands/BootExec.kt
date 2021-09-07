@@ -1,6 +1,6 @@
-package com.andyer03.latteboot
+package com.andyer03.latteboot.commands
 
-import com.andyer03.latteboot.Com as C
+import com.andyer03.latteboot.commands.Com as C
 
 class BootExec {
     fun android() {

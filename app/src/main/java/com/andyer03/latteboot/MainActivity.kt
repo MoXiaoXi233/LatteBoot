@@ -8,8 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.andyer03.latteboot.databinding.ActivityMainBinding
 import java.io.File
-import android.content.pm.PackageManager
-import android.content.ComponentName
+import android.content.DialogInterface
+import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
+import com.andyer03.latteboot.*
+import com.andyer03.latteboot.commands.Com
+import com.andyer03.latteboot.commands.System
+import com.andyer03.latteboot.other.Device
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -40,34 +47,17 @@ open class MainActivity : AppCompatActivity() {
             Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi.win /sdcard/.latteboot")
         }
 
-        // Show or hide Windows icon from app drawer
-        val p = packageManager
-        val componentName = ComponentName(applicationContext, RebootWindows::class.java)
-        if (latteboot) {
-            p.setComponentEnabledSetting(
-                componentName,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP
-            )
-        } else {
-            p.setComponentEnabledSetting(
-                componentName,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-            )
-        }
-
         val bin = File("/system/bin/su")
         val xbin = File("/system/xbin/su")
 
         val imageIdList = listOf (
             R.drawable.ic_restart,
             R.drawable.ic_shield,
-            R.drawable.ic_shutdown,
+            R.drawable.ic_power,
             R.drawable.ic_recovery,
             R.drawable.ic_bootloader,
-            R.drawable.ic_dnx,
-            R.drawable.ic_shutdown,
+            R.drawable.ic_bootloader,
+            R.drawable.ic_power,
             R.drawable.ic_windows
         )
 
@@ -114,4 +104,34 @@ open class MainActivity : AppCompatActivity() {
             adapter.addBootOptions(windows)
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.about -> {
+                aboutDialog()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun aboutDialog() {
+        val builder = AlertDialog.Builder(this)
+            .setTitle(R.string.app_name)
+            .setMessage(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " " + getString(R.string.about_title))
+        builder.setPositiveButton(R.string.exit_button) { _: DialogInterface?, _: Int ->
+            DialogInterface.BUTTON_POSITIVE
+        }
+        builder.show()
+    }
+
 }
