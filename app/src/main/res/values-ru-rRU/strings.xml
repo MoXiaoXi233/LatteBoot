@@ -6,4 +6,23 @@
     <string name="reboot_screenoff_title">Выключить экран</string>
     <string name="reboot_safemode_title">Безопасный режим</string>
     <string name="unavailable_title">Недоступно</string>
+    
+    <string name="title_activity_settings">Настройки</string>
+    <string name="launcher_icons_preferences_title">Ярлыки</string>
+    <string name="reboot_icon_preference">Ярлык перезагрузки</string>
+    <string name="reboot_icon_preference_summary">Включить ярлык перезагрузки в лаунчере</string>
+    <string name="screen_off_icon_preference">Ярлык спящего режима</string>
+    <string name="screen_off_icon_preference_summary">Включить ярлык спящего режима в лаунчере</string>
+    <string name="recovery_icon_preference">Ярлык Recovery</string>
+    <string name="recovery_icon_preference_summary">Включить ярлык Recovery в лаунчере</string>
+    <string name="fastboot_icon_preference">Ярлык Fastboot</string>
+    <string name="fastboot_icon_preference_summary">Включить ярлык Fastboot в лаунчере</string>
+    <string name="dnx_icon_preference">Ярлык DNX</string>
+    <string name="dnx_icon_preference_summary">Включить ярлык DNX в лаунчере</string>
+    <string name="power_down_icon_preference">Ярлык выключения</string>
+    <string name="power_down_icon_preference_summary">Включить ярлык выключения в лаунчере</string>
+    <string name="safe_mode_icon_preference">Ярлык безопасного режима</string>
+    <string name="safe_mode_icon_preference_summary">Включить ярлык безопасного режима в лаунчере</string>
+    <string name="windows_icon_preference">Ярлык Windows</string>
+    <string name="windows_icon_preference_summary">Включить Ярлык Windows в лаунчере</string>
 </resources>

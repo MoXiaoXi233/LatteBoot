@@ -10,6 +10,9 @@ import com.andyer03.latteboot.databinding.ActivityMainBinding
 import java.io.File
 import android.content.pm.PackageManager
 import android.content.ComponentName
+import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -38,23 +41,6 @@ open class MainActivity : AppCompatActivity() {
         if (!latteboot) {
             System("mountefi").boot()
             Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi.win /sdcard/.latteboot")
-        }
-
-        // Show or hide Windows icon from app drawer
-        val p = packageManager
-        val componentName = ComponentName(applicationContext, RebootWindows::class.java)
-        if (latteboot) {
-            p.setComponentEnabledSetting(
-                componentName,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP
-            )
-        } else {
-            p.setComponentEnabledSetting(
-                componentName,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-            )
         }
 
         val bin = File("/system/bin/su")
@@ -113,5 +99,21 @@ open class MainActivity : AppCompatActivity() {
             val windows = BootOptions(imageIdList[7], windowsTitle)
             adapter.addBootOptions(windows)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
