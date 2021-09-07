@@ -4,9 +4,8 @@ import android.content.ComponentName
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import com.andyer03.latteboot.shortcuts.*
+import androidx.preference.*
 
 class SettingsActivity : AppCompatActivity() {
 

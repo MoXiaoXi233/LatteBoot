@@ -57,7 +57,6 @@
             app:key="windows_icon"
             app:title="@string/windows_icon_preference"
             app:icon="@drawable/ic_windows"
-            app:isPreferenceVisible="false"
             app:summaryOn="@string/windows_icon_preference_summary_on"
             app:summaryOff="@string/windows_icon_preference_summary_off" />
 
