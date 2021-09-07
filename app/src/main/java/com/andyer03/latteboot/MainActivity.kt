@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.andyer03.latteboot.databinding.ActivityMainBinding
 import java.io.File
+import android.content.pm.PackageManager
+import android.content.ComponentName
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -24,6 +26,7 @@ open class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
+            Runtime.getRuntime().exec(arrayOf(Com().su, Com().c)).waitFor()
             init()
         }
     }
@@ -37,10 +40,27 @@ open class MainActivity : AppCompatActivity() {
             Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi.win /sdcard/.latteboot")
         }
 
+        // Show or hide Windows icon from app drawer
+        val p = packageManager
+        val componentName = ComponentName(applicationContext, RebootWindows::class.java)
+        if (latteboot) {
+            p.setComponentEnabledSetting(
+                componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP
+            )
+        } else {
+            p.setComponentEnabledSetting(
+                componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP
+            )
+        }
+
         val bin = File("/system/bin/su")
         val xbin = File("/system/xbin/su")
 
-        val imageIdList = listOf(
+        val imageIdList = listOf (
             R.drawable.ic_restart,
             R.drawable.ic_shield,
             R.drawable.ic_shutdown,

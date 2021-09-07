@@ -35,6 +35,6 @@ class BootExec {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().reboot))
     }
     fun screenoff() {
-        Runtime.getRuntime().exec(arrayOf(C().screenoff))
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().screenoff))
     }
 }

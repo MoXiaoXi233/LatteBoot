@@ -11,4 +11,5 @@
     <string name="reboot_safemode_title">Safe mode</string>
     <string name="reboot_screenoff_title">Screen off</string>
     <string name="about_title" translatable="false">By AndyER03</string>
+    <string name="unavailable_title">Unavailable</string>
 </resources>
