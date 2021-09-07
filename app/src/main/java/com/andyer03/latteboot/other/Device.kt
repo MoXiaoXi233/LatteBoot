@@ -1,4 +1,4 @@
-package com.andyer03.latteboot
+package com.andyer03.latteboot.other
 
 class Device {
     private val brand = "Xiaomi"

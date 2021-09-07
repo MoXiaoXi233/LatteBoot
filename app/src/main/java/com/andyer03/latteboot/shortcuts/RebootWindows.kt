@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.andyer03.latteboot.R
-import com.andyer03.latteboot.System
+import com.andyer03.latteboot.commands.System
 import java.io.File
 
 class RebootWindows : AppCompatActivity() {

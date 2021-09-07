@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.andyer03.latteboot.commands.System
 import com.andyer03.latteboot.databinding.BootItemBinding
 
 class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {

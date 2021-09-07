@@ -1,4 +1,4 @@
-package com.andyer03.latteboot
+package com.andyer03.latteboot.commands
 
 class Com {
     private val file = "bootx64.efi"

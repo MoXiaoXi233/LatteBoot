@@ -8,13 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.andyer03.latteboot.databinding.ActivityMainBinding
 import java.io.File
-import android.content.pm.PackageManager
-import android.content.ComponentName
 import android.content.DialogInterface
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import com.andyer03.latteboot.*
+import com.andyer03.latteboot.commands.Com
+import com.andyer03.latteboot.commands.System
+import com.andyer03.latteboot.other.Device
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -51,11 +53,11 @@ open class MainActivity : AppCompatActivity() {
         val imageIdList = listOf (
             R.drawable.ic_restart,
             R.drawable.ic_shield,
-            R.drawable.ic_shutdown,
+            R.drawable.ic_power,
             R.drawable.ic_recovery,
             R.drawable.ic_bootloader,
-            R.drawable.ic_dnx,
-            R.drawable.ic_shutdown,
+            R.drawable.ic_bootloader,
+            R.drawable.ic_power,
             R.drawable.ic_windows
         )
 

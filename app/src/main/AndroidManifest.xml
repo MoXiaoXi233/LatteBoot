@@ -49,7 +49,7 @@
             android:name=".shortcuts.ScreenOff"
             android:enabled="false"
             android:exported="true"
-            android:icon="@drawable/ic_shutdown"
+            android:icon="@drawable/ic_power"
             android:label="@string/reboot_screenoff_title"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -91,7 +91,7 @@
             android:name=".shortcuts.RebootDNX"
             android:enabled="false"
             android:exported="true"
-            android:icon="@drawable/ic_dnx"
+            android:icon="@drawable/ic_bootloader"
             android:label="@string/reboot_dnx_title"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -105,7 +105,7 @@
             android:name=".shortcuts.ShutDown"
             android:enabled="false"
             android:exported="true"
-            android:icon="@drawable/ic_shutdown"
+            android:icon="@drawable/ic_power"
             android:label="@string/reboot_shutdown_title"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.NoActionBar">
