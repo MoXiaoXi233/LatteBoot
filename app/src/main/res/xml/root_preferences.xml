@@ -6,59 +6,59 @@
 
         <SwitchPreferenceCompat
             app:key="reboot_icon"
-            app:title="@string/reboot_icon_preference"
+            app:title="@string/reboot_device_title"
             app:icon="@drawable/ic_restart"
-            app:summaryOn="@string/reboot_icon_preference_summary_on"
-            app:summaryOff="@string/reboot_icon_preference_summary_off" />
+            app:summaryOn="@string/icon_preference_summary_on"
+            app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="screen_off_icon"
-            app:title="@string/screen_off_icon_preference"
+            app:title="@string/reboot_screenoff_title"
             app:icon="@drawable/ic_power"
-            app:summaryOn="@string/screen_off_icon_preference_summary_on"
-            app:summaryOff="@string/screen_off_icon_preference_summary_off" />
+            app:summaryOn="@string/icon_preference_summary_on"
+            app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="recovery_icon"
-            app:title="@string/recovery_icon_preference"
+            app:title="@string/reboot_recovery_title"
             app:icon="@drawable/ic_recovery"
-            app:summaryOn="@string/recovery_icon_preference_summary_on"
-            app:summaryOff="@string/recovery_icon_preference_summary_off" />
+            app:summaryOn="@string/icon_preference_summary_on"
+            app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="fastboot_icon"
-            app:title="@string/fastboot_icon_preference"
+            app:title="@string/reboot_bootloader_title"
             app:icon="@drawable/ic_bootloader"
-            app:summaryOn="@string/fastboot_icon_preference_summary_on"
-            app:summaryOff="@string/fastboot_icon_preference_summary_off" />
+            app:summaryOn="@string/icon_preference_summary_on"
+            app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="dnx_icon"
-            app:title="@string/dnx_icon_preference"
+            app:title="@string/reboot_dnx_title"
             app:icon="@drawable/ic_bootloader"
-            app:summaryOn="@string/dnx_icon_preference_summary_on"
-            app:summaryOff="@string/dnx_icon_preference_summary_off" />
+            app:summaryOn="@string/icon_preference_summary_on"
+            app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="power_down_icon"
-            app:title="@string/power_down_icon_preference"
+            app:title="@string/reboot_shutdown_title"
             app:icon="@drawable/ic_power"
-            app:summaryOn="@string/power_down_icon_preference_summary_on"
-            app:summaryOff="@string/power_down_icon_preference_summary_off" />
+            app:summaryOn="@string/icon_preference_summary_on"
+            app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="safe_mode_icon"
-            app:title="@string/safe_mode_icon_preference"
+            app:title="@string/reboot_safemode_title"
             app:icon="@drawable/ic_shield"
-            app:summaryOn="@string/safe_mode_icon_preference_summary_on"
-            app:summaryOff="@string/safe_mode_icon_preference_summary_off" />
+            app:summaryOn="@string/icon_preference_summary_on"
+            app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="windows_icon"
-            app:title="@string/windows_icon_preference"
+            app:title="@string/reboot_win_title"
             app:icon="@drawable/ic_windows"
-            app:summaryOn="@string/windows_icon_preference_summary_on"
-            app:summaryOff="@string/windows_icon_preference_summary_off" />
+            app:summaryOn="@string/icon_preference_summary_on"
+            app:summaryOff="@string/icon_preference_summary_off" />
 
     </PreferenceCategory>
 
