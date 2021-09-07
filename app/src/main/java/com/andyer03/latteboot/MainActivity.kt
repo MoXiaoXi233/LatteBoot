@@ -127,7 +127,7 @@ open class MainActivity : AppCompatActivity() {
     private fun aboutDialog() {
         val builder = AlertDialog.Builder(this)
             .setTitle(R.string.app_name)
-            .setMessage(getString(R.string.app_name) + " " + getString(R.string.about_title))
+            .setMessage(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " " + getString(R.string.about_title))
         builder.setPositiveButton(R.string.exit_button) { _: DialogInterface?, _: Int ->
             DialogInterface.BUTTON_POSITIVE
         }
