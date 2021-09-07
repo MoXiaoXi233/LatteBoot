@@ -5,7 +5,8 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.andyer03.latteboot.shortcuts.*
-import androidx.preference.*
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -33,7 +34,7 @@ class SettingsActivity : AppCompatActivity() {
         val rebootDNXComponentName = ComponentName(applicationContext, RebootDNX::class.java)
         val powerDownComponentName = ComponentName(applicationContext, ShutDown::class.java)
         val rebootSafemodeComponentName = ComponentName(applicationContext, RebootSafeMode::class.java)
-        val rebootWindowsComponentName = ComponentName(applicationContext, RebootDevice::class.java)
+        val rebootWindowsComponentName = ComponentName(applicationContext, RebootWindows::class.java)
 
         // Show or hide Windows icon from app drawer
 
