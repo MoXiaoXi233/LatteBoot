@@ -8,50 +8,58 @@
             app:key="reboot_icon"
             app:title="@string/reboot_icon_preference"
             app:icon="@drawable/ic_restart"
-            app:summary="@string/reboot_icon_preference_summary" />
+            app:summaryOn="@string/reboot_icon_preference_summary_on"
+            app:summaryOff="@string/reboot_icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="screen_off_icon"
             app:title="@string/screen_off_icon_preference"
             app:icon="@drawable/ic_power"
-            app:summary="@string/screen_off_icon_preference_summary" />
+            app:summaryOn="@string/screen_off_icon_preference_summary_on"
+            app:summaryOff="@string/screen_off_icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="recovery_icon"
             app:title="@string/recovery_icon_preference"
             app:icon="@drawable/ic_recovery"
-            app:summary="@string/recovery_icon_preference_summary" />
+            app:summaryOn="@string/recovery_icon_preference_summary_on"
+            app:summaryOff="@string/recovery_icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="fastboot_icon"
             app:title="@string/fastboot_icon_preference"
             app:icon="@drawable/ic_bootloader"
-            app:summary="@string/fastboot_icon_preference_summary" />
+            app:summaryOn="@string/fastboot_icon_preference_summary_on"
+            app:summaryOff="@string/fastboot_icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="dnx_icon"
             app:title="@string/dnx_icon_preference"
             app:icon="@drawable/ic_bootloader"
-            app:summary="@string/dnx_icon_preference_summary" />
+            app:summaryOn="@string/dnx_icon_preference_summary_on"
+            app:summaryOff="@string/dnx_icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="power_down_icon"
             app:title="@string/power_down_icon_preference"
             app:icon="@drawable/ic_power"
-            app:summary="@string/power_down_icon_preference_summary" />
+            app:summaryOn="@string/power_down_icon_preference_summary_on"
+            app:summaryOff="@string/power_down_icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="safe_mode_icon"
             app:title="@string/safe_mode_icon_preference"
             app:icon="@drawable/ic_shield"
-            app:summary="@string/safe_mode_icon_preference_summary" />
+            app:summaryOn="@string/safe_mode_icon_preference_summary_on"
+            app:summaryOff="@string/safe_mode_icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
             app:key="windows_icon"
             app:title="@string/windows_icon_preference"
             app:icon="@drawable/ic_windows"
             app:isPreferenceVisible="false"
-            app:summary="@string/windows_icon_preference_summary" />
+            app:summaryOn="@string/windows_icon_preference_summary_on"
+            app:summaryOff="@string/windows_icon_preference_summary_off" />
 
     </PreferenceCategory>
 
