@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import com.andyer03.latteboot.*
+import com.andyer03.latteboot.commands.BootFile
 import com.andyer03.latteboot.commands.Com
 import com.andyer03.latteboot.commands.System
 import com.andyer03.latteboot.other.Device
@@ -33,7 +34,15 @@ open class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
-            Runtime.getRuntime().exec(arrayOf(Com().su, Com().c)).waitFor()
+            if (!BootFile().check()) {
+                System("win").boot()
+                this.title = getString(R.string.next_boot_windows)
+            } else if (BootFile().check()) {
+                System("and").boot()
+                this.title = getString(R.string.next_boot_android)
+            } else {
+                this.title = getString(R.string.next_boot_android)
+            }
             init()
         }
     }
@@ -55,7 +64,6 @@ open class MainActivity : AppCompatActivity() {
             R.drawable.ic_shield,
             R.drawable.ic_power,
             R.drawable.ic_recovery,
-            R.drawable.ic_bootloader,
             R.drawable.ic_bootloader,
             R.drawable.ic_power,
             R.drawable.ic_windows
@@ -84,8 +92,8 @@ open class MainActivity : AppCompatActivity() {
         val screenoff = BootOptions(imageIdList[2], screenoffTitle)
         val recovery = BootOptions(imageIdList[3], recoveryTitle)
         val bootloader = BootOptions(imageIdList[4], bootloaderTitle)
-        val dnx = BootOptions(imageIdList[5], dnxTitle)
-        val shutdown = BootOptions(imageIdList[6], shutdownTitle)
+        val dnx = BootOptions(imageIdList[4], dnxTitle)
+        val shutdown = BootOptions(imageIdList[5], shutdownTitle)
 
         adapter.addBootOptions(reboot)
         adapter.addBootOptions(screenoff)
@@ -100,8 +108,12 @@ open class MainActivity : AppCompatActivity() {
 
         if ((bin.exists() || xbin.exists()) && latteboot) {
             val windowsTitle = getString(R.string.reboot_win_title)
-            val windows = BootOptions(imageIdList[7], windowsTitle)
+            val windows = BootOptions(imageIdList[6], windowsTitle)
             adapter.addBootOptions(windows)
+
+            val anotherOSTitle = getString(R.string.reboot_windows_delayed)
+            val anotherOS = BootOptions(imageIdList[6], anotherOSTitle)
+            adapter.addBootOptions(anotherOS)
         }
     }
 

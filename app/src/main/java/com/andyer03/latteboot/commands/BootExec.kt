@@ -1,9 +1,12 @@
 package com.andyer03.latteboot.commands
 
+import android.content.Intent
+import androidx.core.content.ContextCompat
+import com.andyer03.latteboot.SettingsActivity
 import com.andyer03.latteboot.commands.Com as C
 
 class BootExec {
-    fun android() {
+    fun reboot() {
         Runtime.getRuntime().exec(C().reboot)
     }
     fun mountefi() {
@@ -14,9 +17,12 @@ class BootExec {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().mount)).waitFor()
     }
     fun windows() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().miui)).waitFor()
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().nomiui)).waitFor()
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().win)).waitFor()
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().reboot))
+    }
+    fun android() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().nowin)).waitFor()
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().miui)).waitFor()
     }
     fun recovery() {
         Runtime.getRuntime().exec(arrayOf(C().reboot, C().recovery))
@@ -36,5 +42,12 @@ class BootExec {
     }
     fun screenoff() {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().screenoff))
+    }
+
+    fun copytempboot() {
+        Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi /sdcard/bf").waitFor()
+    }
+    fun deltempboot() {
+        Runtime.getRuntime().exec("rm /storage/emulated/0/bf").waitFor()
     }
 }

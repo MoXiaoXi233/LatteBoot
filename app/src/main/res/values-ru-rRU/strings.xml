@@ -7,7 +7,9 @@
     <string name="unavailable_title">Недоступно</string>
     <string name="title_dialog_about">О приложении</string>
     <string name="exit_button">Закрыть</string>
-    <string name="delayed_launch">Отложенный запуск Windows активирован</string>
+    <string name="next_boot_android">Следующая загрузка в Android</string>
+    <string name="next_boot_windows">Следующая загрузка в Windows</string>
+    <string name="reboot_windows_delayed">Отложить запуск</string>
     
     <string name="title_activity_settings">Настройки</string>
     <string name="launcher_icons_preferences_title">Ярлыки лаунчера</string>

@@ -5,11 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.andyer03.latteboot.commands.*
 
-class RebootWindows : AppCompatActivity() {
+class DelayedRebootWindows : AppCompatActivity() {
     @SuppressLint("SdCardPath")
     override fun onCreate(savedInstanceState: Bundle?) {
-        RebootWindowsCom()
+
+        DelayedRebootWindowsCom().execute()
+
         super.onCreate(savedInstanceState)
-        finish()
     }
 }

@@ -6,8 +6,8 @@ class System (private val OS: String) : MainActivity() {
 
     fun boot() {
         when (OS) {
-            "and" -> {
-                BootExec().android()
+            "reboot" -> {
+                BootExec().reboot()
             }
             "scn" -> {
                 BootExec().screenoff()
@@ -32,6 +32,9 @@ class System (private val OS: String) : MainActivity() {
             }
             "win" -> {
                 BootExec().windows()
+            }
+            "and" -> {
+                BootExec().android()
             }
         }
     }
