@@ -33,13 +33,6 @@ open class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
-            if (!BootFile().check()) {
-                this.title = getString(R.string.next_boot_android)
-            } else if (BootFile().check()) {
-                this.title = getString(R.string.next_boot_windows)
-            } else {
-                return
-            }
             init()
         }
     }
@@ -60,8 +53,8 @@ open class MainActivity : AppCompatActivity() {
             R.drawable.ic_recovery,
             R.drawable.ic_bootloader,
             R.drawable.ic_power,
-            R.drawable.ic_windows,
-            R.drawable.ic_android
+            R.drawable.ic_android,
+            R.drawable.ic_windows
         )
 
         val rebootTitle = getString(R.string.reboot_device_title)
@@ -100,17 +93,26 @@ open class MainActivity : AppCompatActivity() {
         adapter.addBootOptions(safemode)
 
         if (winBoot) {
-            val androidTitle = getString(R.string.reboot_win_title)
-            val android = BootOptions(imageIdList[7], androidTitle)
-            adapter.addBootOptions(android)
 
-            val windowsTitle = getString(R.string.reboot_win_title)
-            val windows = BootOptions(imageIdList[6], windowsTitle)
-            adapter.addBootOptions(windows)
+            if (BootFile().check()) {
+                val androidTitle = getString(R.string.reboot_and_title)
+                val android = BootOptions(imageIdList[6], androidTitle)
+                adapter.addBootOptions(android)
 
-            val delayedBootTitle = getString(R.string.reboot_windows_delayed)
-            val delayedBoot = BootOptions(imageIdList[6], delayedBootTitle)
-            adapter.addBootOptions(delayedBoot)
+                val nextBootTitle = getString(R.string.next_boot_windows)
+                val delayedBoot = BootOptions(imageIdList[7], nextBootTitle)
+                adapter.addBootOptions(delayedBoot)
+            } else if (!BootFile().check()) {
+                val windowsTitle = getString(R.string.reboot_win_title)
+                val windows = BootOptions(imageIdList[7], windowsTitle)
+                adapter.addBootOptions(windows)
+
+                val nextBootTitle = getString(R.string.next_boot_android)
+                val delayedBoot = BootOptions(imageIdList[6], nextBootTitle)
+                adapter.addBootOptions(delayedBoot)
+            } else {
+                return
+            }
         }
     }
 

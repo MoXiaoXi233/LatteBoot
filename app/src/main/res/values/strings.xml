@@ -11,8 +11,8 @@
     <string name="reboot_safemode_title">Safe mode</string>
     <string name="reboot_screenoff_title">Screen off</string>
     <string name="reboot_windows_delayed">Delayed boot</string>
-    <string name="next_boot_android">Next boot in Android</string>
-    <string name="next_boot_windows">Next boot in Windows</string>
+    <string name="next_boot_android">Next boot in Android (Switch)</string>
+    <string name="next_boot_windows">Next boot in Windows (Switch)</string>
     <string name="about_title">created by AndyER03</string>
     <string name="unavailable_title">Unavailable</string>
     <string name="title_dialog_about">About</string>
