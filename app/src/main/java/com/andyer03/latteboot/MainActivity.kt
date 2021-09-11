@@ -47,14 +47,11 @@ open class MainActivity : AppCompatActivity() {
     @SuppressLint("SdCardPath")
     private fun init() = with(binding) {
         val tempFile = "/sdcard/.latteboot"
-        val latteboot = File(tempFile).exists()
-        if (!latteboot) {
+        val winBoot = File(tempFile).exists()
+        if (!winBoot) {
             System("mountefi").boot()
             Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi.win /sdcard/.latteboot")
         }
-
-        val bin = File("/system/bin/su")
-        val xbin = File("/system/xbin/su")
 
         val imageIdList = listOf (
             R.drawable.ic_restart,
@@ -63,7 +60,8 @@ open class MainActivity : AppCompatActivity() {
             R.drawable.ic_recovery,
             R.drawable.ic_bootloader,
             R.drawable.ic_power,
-            R.drawable.ic_windows
+            R.drawable.ic_windows,
+            R.drawable.ic_android
         )
 
         val rebootTitle = getString(R.string.reboot_device_title)
@@ -99,18 +97,20 @@ open class MainActivity : AppCompatActivity() {
         adapter.addBootOptions(dnx)
         adapter.addBootOptions(shutdown)
 
-        if (bin.exists() || xbin.exists()) {
-            adapter.addBootOptions(safemode)
-        }
+        adapter.addBootOptions(safemode)
 
-        if ((bin.exists() || xbin.exists()) && latteboot) {
+        if (winBoot) {
+            val androidTitle = getString(R.string.reboot_win_title)
+            val android = BootOptions(imageIdList[7], androidTitle)
+            adapter.addBootOptions(android)
+
             val windowsTitle = getString(R.string.reboot_win_title)
             val windows = BootOptions(imageIdList[6], windowsTitle)
             adapter.addBootOptions(windows)
 
-            val anotherOSTitle = getString(R.string.reboot_windows_delayed)
-            val anotherOS = BootOptions(imageIdList[6], anotherOSTitle)
-            adapter.addBootOptions(anotherOS)
+            val delayedBootTitle = getString(R.string.reboot_windows_delayed)
+            val delayedBoot = BootOptions(imageIdList[6], delayedBootTitle)
+            adapter.addBootOptions(delayedBoot)
         }
     }
 

@@ -34,6 +34,7 @@ class SettingsActivity : AppCompatActivity() {
         val rebootDNXComponentName = ComponentName(applicationContext, RebootDNX::class.java)
         val powerDownComponentName = ComponentName(applicationContext, ShutDown::class.java)
         val rebootSafemodeComponentName = ComponentName(applicationContext, RebootSafeMode::class.java)
+        val rebootAndroidComponentName = ComponentName(applicationContext, RebootAndroid::class.java)
         val rebootWindowsComponentName = ComponentName(applicationContext, RebootWindows::class.java)
         val delayedRebootWindows = ComponentName(applicationContext, DelayedRebootWindows::class.java)
 
@@ -146,6 +147,22 @@ class SettingsActivity : AppCompatActivity() {
             false -> {
                 p.setComponentEnabledSetting(
                     rebootSafemodeComponentName,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP
+                )
+            }
+        }
+        when (preferenceScreen.getBoolean("android", false)) {
+            true -> {
+                p.setComponentEnabledSetting(
+                    rebootAndroidComponentName,
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP
+                )
+            }
+            false -> {
+                p.setComponentEnabledSetting(
+                    rebootAndroidComponentName,
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                     PackageManager.DONT_KILL_APP
                 )

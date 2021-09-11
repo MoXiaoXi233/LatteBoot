@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andyer03.latteboot.commands.System
 import com.andyer03.latteboot.databinding.BootItemBinding
 import com.andyer03.latteboot.commands.DelayedRebootWindowsCom
+import com.andyer03.latteboot.commands.RebootAndroidCom
 import com.andyer03.latteboot.commands.RebootWindowsCom
 
 
@@ -45,9 +46,12 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                         System("sfm").boot()
                     }
                     7 -> {
-                        RebootWindowsCom().execute()
+                        RebootAndroidCom().execute()
                     }
                     8 -> {
+                        RebootWindowsCom().execute()
+                    }
+                    9 -> {
                         DelayedRebootWindowsCom().execute()
                     }
                 }

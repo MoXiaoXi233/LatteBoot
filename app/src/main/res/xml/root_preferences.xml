@@ -54,6 +54,13 @@
             app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
+            app:key="android"
+            app:title="@string/reboot_and_title"
+            app:icon="@drawable/ic_android"
+            app:summaryOn="@string/icon_preference_summary_on"
+            app:summaryOff="@string/icon_preference_summary_off" />
+
+        <SwitchPreferenceCompat
             app:key="windows"
             app:title="@string/reboot_win_title"
             app:icon="@drawable/ic_windows"

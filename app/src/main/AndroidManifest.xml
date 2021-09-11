@@ -14,7 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.LatteBoot">
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -26,12 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings" />
-
         <activity
             android:name=".shortcuts.RebootDevice"
             android:enabled="false"
@@ -46,7 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".shortcuts.ScreenOff"
             android:enabled="false"
@@ -61,7 +57,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".shortcuts.RebootRecovery"
             android:enabled="false"
@@ -76,7 +71,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".shortcuts.RebootFastboot"
             android:enabled="false"
@@ -91,7 +85,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".shortcuts.RebootDNX"
             android:enabled="false"
@@ -106,7 +99,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".shortcuts.ShutDown"
             android:enabled="false"
@@ -121,7 +113,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".shortcuts.RebootSafeMode"
             android:enabled="false"
@@ -136,7 +127,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".shortcuts.RebootAndroid"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@drawable/ic_android"
+            android:label="@string/reboot_and_title"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".shortcuts.RebootWindows"
             android:enabled="false"
@@ -151,8 +155,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".shortcuts.DelayedRebootWindows"
             android:enabled="false"

@@ -2,6 +2,7 @@
     <string name="app_name" translatable="false">LatteBoot</string>
     <string name="mi_pad_2_toast">Only for MI Pad 2</string>
     <string name="reboot_win_title" translatable="false">Windows</string>
+    <string name="reboot_and_title" translatable="false">Android</string>
     <string name="reboot_device_title">Reboot</string>
     <string name="reboot_recovery_title" translatable="false">Recovery</string>
     <string name="reboot_bootloader_title" translatable="false">Fastboot</string>
