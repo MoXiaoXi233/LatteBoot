@@ -1,7 +1,6 @@
 package com.andyer03.latteboot.commands
 
 import android.annotation.SuppressLint
-import com.andyer03.latteboot.MainActivity
 import java.io.File
 
 class RebootWindowsCom {

@@ -10,9 +10,14 @@ import com.andyer03.latteboot.commands.*
 class RebootAndroid : AppCompatActivity() {
     @SuppressLint("SdCardPath")
     override fun onCreate(savedInstanceState: Bundle?) {
-        RebootAndroidCom()
-        if (BootFile().check()) {
-            Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
+
+        if (Root().check()) {
+            RebootAndroidCom()
+            if (BootFile().check()) {
+                Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            System("and").boot()
         }
         finish()
         super.onCreate(savedInstanceState)

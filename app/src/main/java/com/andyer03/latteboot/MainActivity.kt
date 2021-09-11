@@ -15,6 +15,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import com.andyer03.latteboot.*
 import com.andyer03.latteboot.commands.BootFile
+import com.andyer03.latteboot.commands.Root
 import com.andyer03.latteboot.commands.System
 import com.andyer03.latteboot.other.Device
 
@@ -41,9 +42,13 @@ open class MainActivity : AppCompatActivity() {
     private fun init() = with(binding) {
         val tempFile = "/sdcard/.latteboot"
         val winBoot = File(tempFile).exists()
-        if (!winBoot) {
-            System("mountefi").boot()
-            Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi.win /sdcard/.latteboot")
+
+        if (Root().check()) {
+            if (!winBoot) {
+                System("mountefi").boot()
+                Runtime.getRuntime()
+                    .exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi.win /sdcard/.latteboot")
+            }
         }
 
         val imageIdList = listOf (
@@ -88,39 +93,45 @@ open class MainActivity : AppCompatActivity() {
         adapter.addBootOptions(dnx)
         adapter.addBootOptions(safemode)
 
-        if (winBoot) {
-            val tapToSwitch = getString((R.string.tap_to_switch))
-            if (BootFile().check()) {
-                val rebootTitle = getString(R.string.reboot_device_title)
-                val windows = getString(R.string.reboot_win_title)
-                val reboot = BootOptions(imageIdList[7], "$rebootTitle\n$windows")
-                adapter.addBootOptions(reboot)
+        if (Root().check()) {
+            if (winBoot) {
+                val tapToSwitch = getString((R.string.tap_to_switch))
+                if (BootFile().check()) {
+                    val rebootTitle = getString(R.string.reboot_device_title)
+                    val windows = getString(R.string.reboot_win_title)
+                    val reboot = BootOptions(imageIdList[7], "$rebootTitle\n$windows")
+                    adapter.addBootOptions(reboot)
 
-                val androidTitle = getString(R.string.reboot_and_title)
-                val android = BootOptions(imageIdList[6], androidTitle)
-                adapter.addBootOptions(android)
+                    val androidTitle = getString(R.string.reboot_and_title)
+                    val android = BootOptions(imageIdList[6], androidTitle)
+                    adapter.addBootOptions(android)
 
-                val nextBootTitle = getString(R.string.next_boot_windows)
-                val delayedBoot = BootOptions(imageIdList[0], "$nextBootTitle\n$tapToSwitch")
-                adapter.addBootOptions(delayedBoot)
-            } else if (!BootFile().check()) {
-                val rebootTitle = getString(R.string.reboot_device_title)
-                val android = getString(R.string.reboot_and_title)
-                val reboot = BootOptions(imageIdList[6], "$rebootTitle\n$android")
-                adapter.addBootOptions(reboot)
+                    val nextBootTitle = getString(R.string.next_boot_windows)
+                    val delayedBoot = BootOptions(imageIdList[0], "$nextBootTitle\n$tapToSwitch")
+                    adapter.addBootOptions(delayedBoot)
+                } else if (!BootFile().check()) {
+                    val rebootTitle = getString(R.string.reboot_device_title)
+                    val android = getString(R.string.reboot_and_title)
+                    val reboot = BootOptions(imageIdList[6], "$rebootTitle\n$android")
+                    adapter.addBootOptions(reboot)
 
-                val windowsTitle = getString(R.string.reboot_win_title)
-                val windows = BootOptions(imageIdList[7], windowsTitle)
-                adapter.addBootOptions(windows)
+                    val windowsTitle = getString(R.string.reboot_win_title)
+                    val windows = BootOptions(imageIdList[7], windowsTitle)
+                    adapter.addBootOptions(windows)
 
-                val nextBootTitle = getString(R.string.next_boot_android)
-                val delayedBoot = BootOptions(imageIdList[0], "$nextBootTitle\n$tapToSwitch")
-                adapter.addBootOptions(delayedBoot)
-            } else {
-                val rebootTitle = getString(R.string.reboot_device_title)
-                val reboot = BootOptions(imageIdList[0], rebootTitle)
-                adapter.addBootOptions(reboot)
+                    val nextBootTitle = getString(R.string.next_boot_android)
+                    val delayedBoot = BootOptions(imageIdList[0], "$nextBootTitle\n$tapToSwitch")
+                    adapter.addBootOptions(delayedBoot)
+                } else {
+                    val rebootTitle = getString(R.string.reboot_device_title)
+                    val reboot = BootOptions(imageIdList[0], rebootTitle)
+                    adapter.addBootOptions(reboot)
+                }
             }
+        } else {
+            val rebootTitle = getString(R.string.reboot_device_title)
+            val reboot = BootOptions(imageIdList[0], rebootTitle)
+            adapter.addBootOptions(reboot)
         }
     }
 

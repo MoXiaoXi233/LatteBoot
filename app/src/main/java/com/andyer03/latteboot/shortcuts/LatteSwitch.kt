@@ -11,11 +11,15 @@ class LatteSwitch : AppCompatActivity() {
     @SuppressLint("SdCardPath")
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        LatteSwitchCom().execute()
-        if (!BootFile().check()) {
-            Toast.makeText(this, R.string.next_boot_android, Toast.LENGTH_SHORT).show()
-        } else if (BootFile().check()) {
-            Toast.makeText(this, R.string.next_boot_windows, Toast.LENGTH_SHORT).show()
+        if (Root().check()) {
+            LatteSwitchCom().execute()
+            if (!BootFile().check()) {
+                Toast.makeText(this, R.string.next_boot_android, Toast.LENGTH_SHORT).show()
+            } else if (BootFile().check()) {
+                Toast.makeText(this, R.string.next_boot_windows, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
+            }
         } else {
             Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
         }
