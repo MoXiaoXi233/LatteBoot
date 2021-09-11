@@ -57,7 +57,6 @@ open class MainActivity : AppCompatActivity() {
             R.drawable.ic_windows
         )
 
-        val rebootTitle = getString(R.string.reboot_device_title)
         val safemodeTitle = getString(R.string.reboot_safemode_title)
         val screenoffTitle = getString(R.string.reboot_screenoff_title)
         val recoveryTitle = getString(R.string.reboot_recovery_title)
@@ -75,7 +74,6 @@ open class MainActivity : AppCompatActivity() {
         rcView.layoutManager = GridLayoutManager(this@MainActivity, spanCount)
         rcView.adapter = adapter
 
-        val reboot = BootOptions(imageIdList[0], rebootTitle)
         val safemode = BootOptions(imageIdList[1], safemodeTitle)
         val screenoff = BootOptions(imageIdList[2], screenoffTitle)
         val recovery = BootOptions(imageIdList[3], recoveryTitle)
@@ -83,18 +81,21 @@ open class MainActivity : AppCompatActivity() {
         val dnx = BootOptions(imageIdList[4], dnxTitle)
         val shutdown = BootOptions(imageIdList[5], shutdownTitle)
 
-        adapter.addBootOptions(reboot)
         adapter.addBootOptions(screenoff)
+        adapter.addBootOptions(shutdown)
         adapter.addBootOptions(recovery)
         adapter.addBootOptions(bootloader)
         adapter.addBootOptions(dnx)
-        adapter.addBootOptions(shutdown)
-
         adapter.addBootOptions(safemode)
 
         if (winBoot) {
             val tapToSwitch = getString((R.string.tap_to_switch))
             if (BootFile().check()) {
+                val rebootTitle = getString(R.string.reboot_device_title)
+                val windows = getString(R.string.reboot_win_title)
+                val reboot = BootOptions(imageIdList[7], "$rebootTitle\n$windows")
+                adapter.addBootOptions(reboot)
+
                 val androidTitle = getString(R.string.reboot_and_title)
                 val android = BootOptions(imageIdList[6], androidTitle)
                 adapter.addBootOptions(android)
@@ -103,6 +104,11 @@ open class MainActivity : AppCompatActivity() {
                 val delayedBoot = BootOptions(imageIdList[7], "$nextBootTitle\n$tapToSwitch")
                 adapter.addBootOptions(delayedBoot)
             } else if (!BootFile().check()) {
+                val rebootTitle = getString(R.string.reboot_device_title)
+                val android = getString(R.string.reboot_and_title)
+                val reboot = BootOptions(imageIdList[6], "$rebootTitle\n$android")
+                adapter.addBootOptions(reboot)
+
                 val windowsTitle = getString(R.string.reboot_win_title)
                 val windows = BootOptions(imageIdList[7], windowsTitle)
                 adapter.addBootOptions(windows)
@@ -111,7 +117,9 @@ open class MainActivity : AppCompatActivity() {
                 val delayedBoot = BootOptions(imageIdList[6], "$nextBootTitle\n$tapToSwitch")
                 adapter.addBootOptions(delayedBoot)
             } else {
-                return
+                val rebootTitle = getString(R.string.reboot_device_title)
+                val reboot = BootOptions(imageIdList[0], rebootTitle)
+                adapter.addBootOptions(reboot)
             }
         }
     }

@@ -22,10 +22,10 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
             itemView.setOnClickListener {
                 when (adapterPosition) {
                     0 -> {
-                        System("reboot").boot()
+                        System("scn").boot()
                     }
                     1 -> {
-                        System("scn").boot()
+                        System("pwd").boot()
                     }
                     2 -> {
                         System("rec").boot()
@@ -37,10 +37,10 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                         System("dnx").boot()
                     }
                     5 -> {
-                        System("pwd").boot()
+                        System("sfm").boot()
                     }
                     6 -> {
-                        System("sfm").boot()
+                        System("reboot").boot()
                     }
                     7 -> {
                         if (BootFile().check()) {
