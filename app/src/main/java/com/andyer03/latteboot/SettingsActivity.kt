@@ -36,10 +36,8 @@ class SettingsActivity : AppCompatActivity() {
         val rebootSafemodeComponentName = ComponentName(applicationContext, RebootSafeMode::class.java)
         val rebootAndroidComponentName = ComponentName(applicationContext, RebootAndroid::class.java)
         val rebootWindowsComponentName = ComponentName(applicationContext, RebootWindows::class.java)
-        val delayedRebootWindows = ComponentName(applicationContext, LatteSwitch::class.java)
 
-        // Show or hide Windows icon from app drawer
-
+        // Show or hide shortcuts from app drawer
         when (preferenceScreen.getBoolean("reboot", false)) {
             true -> {
                 p.setComponentEnabledSetting(
@@ -179,22 +177,6 @@ class SettingsActivity : AppCompatActivity() {
             false -> {
                 p.setComponentEnabledSetting(
                     rebootWindowsComponentName,
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                    PackageManager.DONT_KILL_APP
-                )
-            }
-        }
-        when (preferenceScreen.getBoolean("delayedRebootWindows", false)) {
-            true -> {
-                p.setComponentEnabledSetting(
-                    delayedRebootWindows,
-                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                    PackageManager.DONT_KILL_APP
-                )
-            }
-            false -> {
-                p.setComponentEnabledSetting(
-                    delayedRebootWindows,
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                     PackageManager.DONT_KILL_APP
                 )

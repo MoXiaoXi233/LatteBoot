@@ -51,9 +51,6 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                             return@setOnClickListener
                         }
                     }
-                    8 -> {
-                        LatteSwitchCom().execute()
-                    }
                 }
             }
         }

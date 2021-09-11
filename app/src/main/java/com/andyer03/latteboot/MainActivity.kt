@@ -15,6 +15,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import com.andyer03.latteboot.*
 import com.andyer03.latteboot.commands.BootFile
+import com.andyer03.latteboot.commands.LatteSwitchCom
 import com.andyer03.latteboot.commands.Root
 import com.andyer03.latteboot.commands.System
 import com.andyer03.latteboot.other.Device
@@ -34,6 +35,7 @@ open class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
+            changeTitle()
             init()
         }
     }
@@ -95,7 +97,6 @@ open class MainActivity : AppCompatActivity() {
 
         if (Root().check()) {
             if (winBoot) {
-                val tapToSwitch = getString((R.string.tap_to_switch))
                 if (BootFile().check()) {
                     val rebootTitle = getString(R.string.reboot_device_title)
                     val windows = getString(R.string.reboot_win_title)
@@ -105,10 +106,6 @@ open class MainActivity : AppCompatActivity() {
                     val androidTitle = getString(R.string.reboot_and_title)
                     val android = BootOptions(imageIdList[6], androidTitle)
                     adapter.addBootOptions(android)
-
-                    val nextBootTitle = getString(R.string.next_boot_windows)
-                    val delayedBoot = BootOptions(imageIdList[0], "$nextBootTitle\n$tapToSwitch")
-                    adapter.addBootOptions(delayedBoot)
                 } else if (!BootFile().check()) {
                     val rebootTitle = getString(R.string.reboot_device_title)
                     val android = getString(R.string.reboot_and_title)
@@ -118,10 +115,6 @@ open class MainActivity : AppCompatActivity() {
                     val windowsTitle = getString(R.string.reboot_win_title)
                     val windows = BootOptions(imageIdList[7], windowsTitle)
                     adapter.addBootOptions(windows)
-
-                    val nextBootTitle = getString(R.string.next_boot_android)
-                    val delayedBoot = BootOptions(imageIdList[0], "$nextBootTitle\n$tapToSwitch")
-                    adapter.addBootOptions(delayedBoot)
                 } else {
                     val rebootTitle = getString(R.string.reboot_device_title)
                     val reboot = BootOptions(imageIdList[0], rebootTitle)
@@ -147,6 +140,28 @@ open class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.swap -> {
+                when {
+                    Root().check() -> {
+                        LatteSwitchCom().execute()
+                        when {
+                            !BootFile().check() -> {
+                                Toast.makeText(this, R.string.next_boot_android, Toast.LENGTH_SHORT).show()
+                            }
+                            BootFile().check() -> {
+                                Toast.makeText(this, R.string.next_boot_windows, Toast.LENGTH_SHORT).show()
+                            }
+                            else -> {
+                                Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                    else -> {
+                        Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                recreate()
+            }
             R.id.settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
@@ -166,6 +181,18 @@ open class MainActivity : AppCompatActivity() {
             DialogInterface.BUTTON_POSITIVE
         }
         builder.show()
+    }
+
+    private fun changeTitle() {
+        when {
+            Root().check() && BootFile().check() -> {
+                this.title = getString(R.string.next_boot_windows)
+
+            }
+            Root().check() && !BootFile().check() -> {
+                this.title = getString(R.string.next_boot_android)
+            }
+        }
     }
 
 }
