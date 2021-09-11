@@ -159,8 +159,8 @@
             android:name=".shortcuts.DelayedRebootWindows"
             android:enabled="false"
             android:exported="true"
-            android:icon="@drawable/ic_windows"
-            android:label="@string/reboot_windows_delayed"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/switch_os_delayed"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>

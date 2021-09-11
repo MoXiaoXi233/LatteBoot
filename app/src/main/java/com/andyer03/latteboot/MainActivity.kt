@@ -93,14 +93,14 @@ open class MainActivity : AppCompatActivity() {
         adapter.addBootOptions(safemode)
 
         if (winBoot) {
-
+            val tapToSwitch = getString((R.string.tap_to_switch))
             if (BootFile().check()) {
                 val androidTitle = getString(R.string.reboot_and_title)
                 val android = BootOptions(imageIdList[6], androidTitle)
                 adapter.addBootOptions(android)
 
                 val nextBootTitle = getString(R.string.next_boot_windows)
-                val delayedBoot = BootOptions(imageIdList[7], nextBootTitle)
+                val delayedBoot = BootOptions(imageIdList[7], "$nextBootTitle\n$tapToSwitch")
                 adapter.addBootOptions(delayedBoot)
             } else if (!BootFile().check()) {
                 val windowsTitle = getString(R.string.reboot_win_title)
@@ -108,7 +108,7 @@ open class MainActivity : AppCompatActivity() {
                 adapter.addBootOptions(windows)
 
                 val nextBootTitle = getString(R.string.next_boot_android)
-                val delayedBoot = BootOptions(imageIdList[6], nextBootTitle)
+                val delayedBoot = BootOptions(imageIdList[6], "$nextBootTitle\n$tapToSwitch")
                 adapter.addBootOptions(delayedBoot)
             } else {
                 return

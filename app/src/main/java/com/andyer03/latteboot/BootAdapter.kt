@@ -22,7 +22,7 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
             itemView.setOnClickListener {
                 when (adapterPosition) {
                     0 -> {
-                        System("and").boot()
+                        System("reboot").boot()
                     }
                     1 -> {
                         System("scn").boot()

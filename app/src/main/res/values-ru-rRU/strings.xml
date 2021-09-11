@@ -5,9 +5,9 @@
     <string name="reboot_device_title">Перезапуск</string>
     <string name="reboot_screenoff_title">Сон</string>
     <string name="reboot_safemode_title">Безопасный режим</string>
-    <string name="reboot_windows_delayed">Отложить запуск</string>
-    <string name="next_boot_android">Следующая загрузка в Android (Сменить)</string>
-    <string name="next_boot_windows">Следующая загрузка в Windows (Сменить)</string>
+    <string name="next_boot_android">Следующая загрузка в Android</string>
+    <string name="next_boot_windows">Следующая загрузка в Windows</string>
+    <string name="tap_to_switch">(Сменить?)</string>
     <string name="about_title">разработал AndyER03</string>
     <string name="unavailable_title">Недоступно</string>
     <string name="title_dialog_about">О приложении</string>

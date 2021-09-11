@@ -153,53 +153,37 @@ class SettingsActivity : AppCompatActivity() {
                 )
             }
         }
-        if (!BootFile().check()) {
-            when (preferenceScreen.getBoolean("android", false)) {
-                true -> {
-                    p.setComponentEnabledSetting(
-                        rebootAndroidComponentName,
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP
-                    )
-                }
-                false -> {
-                    p.setComponentEnabledSetting(
-                        rebootAndroidComponentName,
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP
-                    )
-                }
+        when (preferenceScreen.getBoolean("android", false)) {
+            true -> {
+                p.setComponentEnabledSetting(
+                    rebootAndroidComponentName,
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP
+                )
             }
-        } else {
-            p.setComponentEnabledSetting(
-                rebootAndroidComponentName,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-            )
+            false -> {
+                p.setComponentEnabledSetting(
+                    rebootAndroidComponentName,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP
+                )
+            }
         }
-        if (BootFile().check()) {
-            when (preferenceScreen.getBoolean("windows", false)) {
-                true -> {
-                    p.setComponentEnabledSetting(
-                        rebootWindowsComponentName,
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP
-                    )
-                }
-                false -> {
-                    p.setComponentEnabledSetting(
-                        rebootWindowsComponentName,
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP
-                    )
-                }
+        when (preferenceScreen.getBoolean("windows", false)) {
+            true -> {
+                p.setComponentEnabledSetting(
+                    rebootWindowsComponentName,
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP
+                )
             }
-        } else {
-            p.setComponentEnabledSetting(
-                rebootWindowsComponentName,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-            )
+            false -> {
+                p.setComponentEnabledSetting(
+                    rebootWindowsComponentName,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP
+                )
+            }
         }
         when (preferenceScreen.getBoolean("delayedRebootWindows", false)) {
             true -> {

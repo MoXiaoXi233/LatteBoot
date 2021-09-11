@@ -69,8 +69,8 @@
 
         <SwitchPreferenceCompat
             app:key="delayedRebootWindows"
-            app:title="@string/reboot_windows_delayed"
-            app:icon="@drawable/ic_windows"
+            app:title="@string/switch_os_delayed"
+            app:icon="@mipmap/ic_launcher"
             app:summaryOn="@string/icon_preference_summary_on"
             app:summaryOff="@string/icon_preference_summary_off" />
 
