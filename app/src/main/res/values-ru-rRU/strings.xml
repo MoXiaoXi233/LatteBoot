@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="mi_pad_2_toast">Только для MI Pad 2</string>
+    <string name="choose_option_title">Выберите режим:</string>
     <string name="reboot_shutdown_title">Выключить</string>
     <string name="reboot_device_title">Перезапуск</string>
     <string name="reboot_screenoff_title">Сон</string>
