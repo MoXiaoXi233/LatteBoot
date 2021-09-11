@@ -52,7 +52,7 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                         }
                     }
                     8 -> {
-                        DelayedRebootWindowsCom().execute()
+                        LatteSwitchCom().execute()
                     }
                 }
             }

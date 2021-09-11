@@ -156,10 +156,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".shortcuts.DelayedRebootWindows"
+            android:name=".shortcuts.LatteSwitch"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_restart"
             android:label="@string/switch_os_delayed"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.NoActionBar">

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.andyer03.latteboot.shortcuts.*
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import com.andyer03.latteboot.commands.BootFile
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -37,7 +36,7 @@ class SettingsActivity : AppCompatActivity() {
         val rebootSafemodeComponentName = ComponentName(applicationContext, RebootSafeMode::class.java)
         val rebootAndroidComponentName = ComponentName(applicationContext, RebootAndroid::class.java)
         val rebootWindowsComponentName = ComponentName(applicationContext, RebootWindows::class.java)
-        val delayedRebootWindows = ComponentName(applicationContext, DelayedRebootWindows::class.java)
+        val delayedRebootWindows = ComponentName(applicationContext, LatteSwitch::class.java)
 
         // Show or hide Windows icon from app drawer
 
