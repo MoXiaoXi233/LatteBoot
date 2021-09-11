@@ -18,6 +18,5 @@ class LatteSwitchCom {
         } else {
             return
         }
-        Runtime.getRuntime().exit(0)
     }
 }
