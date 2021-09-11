@@ -12,12 +12,14 @@ class RebootAndroid : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         if (Root().check()) {
-            RebootAndroidCom()
-            if (BootFile().check()) {
+            RebootAndroidCom().execute()
+            if (!BootFile().check()) {
+                System("and").boot()
+            } else {
                 Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
             }
         } else {
-            System("and").boot()
+            Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
         }
         finish()
         super.onCreate(savedInstanceState)

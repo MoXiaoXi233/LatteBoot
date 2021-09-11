@@ -12,8 +12,10 @@ class RebootWindows : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         if (Root().check()) {
-            RebootWindowsCom()
-            if (!BootFile().check()) {
+            RebootWindowsCom().execute()
+            if (BootFile().check()) {
+                System("win").boot()
+            } else {
                 Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
             }
         } else {
