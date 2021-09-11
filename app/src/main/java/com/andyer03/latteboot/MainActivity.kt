@@ -127,6 +127,10 @@ open class MainActivity : AppCompatActivity() {
                     val reboot = BootOptions(imageIdList[0], rebootTitle)
                     adapter.addBootOptions(reboot)
                 }
+            } else {
+                val rebootTitle = getString(R.string.reboot_device_title)
+                val reboot = BootOptions(imageIdList[0], rebootTitle)
+                adapter.addBootOptions(reboot)
             }
         } else {
             val rebootTitle = getString(R.string.reboot_device_title)
