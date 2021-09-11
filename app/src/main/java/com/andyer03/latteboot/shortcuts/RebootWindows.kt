@@ -13,9 +13,7 @@ class RebootWindows : AppCompatActivity() {
 
         if (Root().check()) {
             RebootWindowsCom().execute()
-            if (BootFile().check()) {
-                System("win").boot()
-            } else {
+            if (!BootFile().check()) {
                 Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
             }
         } else {
