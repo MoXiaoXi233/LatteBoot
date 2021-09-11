@@ -1,10 +1,9 @@
 package com.andyer03.latteboot.commands
 
 import android.annotation.SuppressLint
-import com.andyer03.latteboot.MainActivity
 import java.io.File
 
-class DelayedRebootWindowsCom: MainActivity() {
+class DelayedRebootWindowsCom {
 
     @SuppressLint("SdCardPath")
     fun execute() {
@@ -20,5 +19,4 @@ class DelayedRebootWindowsCom: MainActivity() {
             return
         }
     }
-
 }

@@ -38,7 +38,7 @@ open class MainActivity : AppCompatActivity() {
             } else if (BootFile().check()) {
                 this.title = getString(R.string.next_boot_windows)
             } else {
-                this.title = getString(R.string.next_boot_android)
+                return
             }
             init()
         }

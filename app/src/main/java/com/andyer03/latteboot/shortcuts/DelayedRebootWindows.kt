@@ -17,7 +17,7 @@ class DelayedRebootWindows : AppCompatActivity() {
         } else if (BootFile().check()) {
             Toast.makeText(this, R.string.next_boot_windows, Toast.LENGTH_SHORT).show()
         } else {
-            return
+            Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
         }
         finish()
         super.onCreate(savedInstanceState)

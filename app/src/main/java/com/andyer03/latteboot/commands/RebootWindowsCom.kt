@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.andyer03.latteboot.MainActivity
 import java.io.File
 
-class RebootWindowsCom: MainActivity() {
+class RebootWindowsCom {
 
     @SuppressLint("SdCardPath")
     fun execute() {
