@@ -11,8 +11,8 @@
     <string name="reboot_safemode_title">Safe mode</string>
     <string name="reboot_screenoff_title">Screen off</string>
     <string name="switch_os_delayed" translatable="false">LatteSwitch</string>
-    <string name="next_boot_android">The next boot in Android</string>
-    <string name="next_boot_windows">The next boot in Windows</string>
+    <string name="next_boot_android">Next time will booted in Android</string>
+    <string name="next_boot_windows">Next time will booted in Windows</string>
     <string name="tap_to_switch">(Switch?)</string>
     <string name="about_title">created by AndyER03</string>
     <string name="unavailable_title">Unavailable</string>
