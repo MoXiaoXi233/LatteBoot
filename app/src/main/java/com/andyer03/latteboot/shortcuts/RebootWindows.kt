@@ -9,7 +9,7 @@ class RebootWindows : AppCompatActivity() {
     @SuppressLint("SdCardPath")
     override fun onCreate(savedInstanceState: Bundle?) {
         RebootWindowsCom()
-        super.onCreate(savedInstanceState)
         finish()
+        super.onCreate(savedInstanceState)
     }
 }

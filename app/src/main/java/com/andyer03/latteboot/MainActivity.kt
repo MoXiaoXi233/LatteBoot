@@ -15,7 +15,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import com.andyer03.latteboot.*
 import com.andyer03.latteboot.commands.BootFile
-import com.andyer03.latteboot.commands.Com
 import com.andyer03.latteboot.commands.System
 import com.andyer03.latteboot.other.Device
 
@@ -35,11 +34,9 @@ open class MainActivity : AppCompatActivity() {
         }
         else {
             if (!BootFile().check()) {
-                System("win").boot()
-                this.title = getString(R.string.next_boot_windows)
-            } else if (BootFile().check()) {
-                System("and").boot()
                 this.title = getString(R.string.next_boot_android)
+            } else if (BootFile().check()) {
+                this.title = getString(R.string.next_boot_windows)
             } else {
                 this.title = getString(R.string.next_boot_android)
             }

@@ -5,57 +5,64 @@
         app:iconSpaceReserved="false" >
 
         <SwitchPreferenceCompat
-            app:key="reboot_icon"
+            app:key="reboot"
             app:title="@string/reboot_device_title"
             app:icon="@drawable/ic_restart"
             app:summaryOn="@string/icon_preference_summary_on"
             app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
-            app:key="screen_off_icon"
+            app:key="screen_off"
             app:title="@string/reboot_screenoff_title"
             app:icon="@drawable/ic_power"
             app:summaryOn="@string/icon_preference_summary_on"
             app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
-            app:key="recovery_icon"
+            app:key="recovery"
             app:title="@string/reboot_recovery_title"
             app:icon="@drawable/ic_recovery"
             app:summaryOn="@string/icon_preference_summary_on"
             app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
-            app:key="fastboot_icon"
+            app:key="fastboot"
             app:title="@string/reboot_bootloader_title"
             app:icon="@drawable/ic_bootloader"
             app:summaryOn="@string/icon_preference_summary_on"
             app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
-            app:key="dnx_icon"
+            app:key="dnx"
             app:title="@string/reboot_dnx_title"
             app:icon="@drawable/ic_bootloader"
             app:summaryOn="@string/icon_preference_summary_on"
             app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
-            app:key="power_down_icon"
+            app:key="power_down"
             app:title="@string/reboot_shutdown_title"
             app:icon="@drawable/ic_power"
             app:summaryOn="@string/icon_preference_summary_on"
             app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
-            app:key="safe_mode_icon"
+            app:key="safe_mode"
             app:title="@string/reboot_safemode_title"
             app:icon="@drawable/ic_shield"
             app:summaryOn="@string/icon_preference_summary_on"
             app:summaryOff="@string/icon_preference_summary_off" />
 
         <SwitchPreferenceCompat
-            app:key="windows_icon"
+            app:key="windows"
             app:title="@string/reboot_win_title"
+            app:icon="@drawable/ic_windows"
+            app:summaryOn="@string/icon_preference_summary_on"
+            app:summaryOff="@string/icon_preference_summary_off" />
+
+        <SwitchPreferenceCompat
+            app:key="delayedRebootWindows"
+            app:title="@string/reboot_windows_delayed"
             app:icon="@drawable/ic_windows"
             app:summaryOn="@string/icon_preference_summary_on"
             app:summaryOff="@string/icon_preference_summary_off" />

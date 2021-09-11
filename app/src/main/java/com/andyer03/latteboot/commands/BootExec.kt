@@ -1,8 +1,5 @@
 package com.andyer03.latteboot.commands
 
-import android.content.Intent
-import androidx.core.content.ContextCompat
-import com.andyer03.latteboot.SettingsActivity
 import com.andyer03.latteboot.commands.Com as C
 
 class BootExec {

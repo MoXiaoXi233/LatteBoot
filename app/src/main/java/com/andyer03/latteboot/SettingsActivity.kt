@@ -35,10 +35,11 @@ class SettingsActivity : AppCompatActivity() {
         val powerDownComponentName = ComponentName(applicationContext, ShutDown::class.java)
         val rebootSafemodeComponentName = ComponentName(applicationContext, RebootSafeMode::class.java)
         val rebootWindowsComponentName = ComponentName(applicationContext, RebootWindows::class.java)
+        val delayedRebootWindows = ComponentName(applicationContext, DelayedRebootWindows::class.java)
 
         // Show or hide Windows icon from app drawer
 
-        when (preferenceScreen.getBoolean("reboot_icon", false)) {
+        when (preferenceScreen.getBoolean("reboot", false)) {
             true -> {
                 p.setComponentEnabledSetting(
                     rebootDeviceComponentName,
@@ -54,7 +55,7 @@ class SettingsActivity : AppCompatActivity() {
                 )
             }
         }
-        when (preferenceScreen.getBoolean("screen_off_icon", false)) {
+        when (preferenceScreen.getBoolean("screen_off", false)) {
             true -> {
                 p.setComponentEnabledSetting(
                     screenOffComponentName,
@@ -70,7 +71,7 @@ class SettingsActivity : AppCompatActivity() {
                 )
             }
         }
-        when (preferenceScreen.getBoolean("recovery_icon", false)) {
+        when (preferenceScreen.getBoolean("recovery", false)) {
             true -> {
                 p.setComponentEnabledSetting(
                     rebootRecoveryComponentName,
@@ -86,7 +87,7 @@ class SettingsActivity : AppCompatActivity() {
                 )
             }
         }
-        when (preferenceScreen.getBoolean("fastboot_icon", false)) {
+        when (preferenceScreen.getBoolean("fastboot", false)) {
             true -> {
                 p.setComponentEnabledSetting(
                     rebootFastbootComponentName,
@@ -102,7 +103,7 @@ class SettingsActivity : AppCompatActivity() {
                 )
             }
         }
-        when (preferenceScreen.getBoolean("dnx_icon", false)) {
+        when (preferenceScreen.getBoolean("dnx", false)) {
             true -> {
                 p.setComponentEnabledSetting(
                     rebootDNXComponentName,
@@ -118,7 +119,7 @@ class SettingsActivity : AppCompatActivity() {
                 )
             }
         }
-        when (preferenceScreen.getBoolean("power_down_icon", false)) {
+        when (preferenceScreen.getBoolean("power_down", false)) {
             true -> {
                 p.setComponentEnabledSetting(
                     powerDownComponentName,
@@ -134,7 +135,7 @@ class SettingsActivity : AppCompatActivity() {
                 )
             }
         }
-        when (preferenceScreen.getBoolean("safe_mode_icon", false)) {
+        when (preferenceScreen.getBoolean("safe_mode", false)) {
             true -> {
                 p.setComponentEnabledSetting(
                     rebootSafemodeComponentName,
@@ -150,7 +151,7 @@ class SettingsActivity : AppCompatActivity() {
                 )
             }
         }
-        when (preferenceScreen.getBoolean("windows_icon", false)) {
+        when (preferenceScreen.getBoolean("windows", false)) {
             true -> {
                 p.setComponentEnabledSetting(
                     rebootWindowsComponentName,
@@ -161,6 +162,22 @@ class SettingsActivity : AppCompatActivity() {
             false -> {
                 p.setComponentEnabledSetting(
                     rebootWindowsComponentName,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP
+                )
+            }
+        }
+        when (preferenceScreen.getBoolean("delayedRebootWindows", false)) {
+            true -> {
+                p.setComponentEnabledSetting(
+                    delayedRebootWindows,
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP
+                )
+            }
+            false -> {
+                p.setComponentEnabledSetting(
+                    delayedRebootWindows,
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                     PackageManager.DONT_KILL_APP
                 )
