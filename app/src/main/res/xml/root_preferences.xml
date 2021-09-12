@@ -7,47 +7,65 @@
         <SwitchPreferenceCompat
             app:key="reboot"
             app:title="@string/reboot_device_title"
-            app:icon="@drawable/ic_restart" />
+            app:icon="@drawable/ic_restart"
+            app:summaryOn="@string/launcher_icon_summary_enabled"
+            app:summaryOff="@string/launcher_icon_summary_disabled" />
 
         <SwitchPreferenceCompat
             app:key="screen_off"
-            app:title="@string/reboot_screenoff_title"
-            app:icon="@drawable/ic_power" />
+            app:title="@string/reboot_screen_off_title"
+            app:icon="@drawable/ic_power"
+            app:summaryOn="@string/launcher_icon_summary_enabled"
+            app:summaryOff="@string/launcher_icon_summary_disabled" />
 
         <SwitchPreferenceCompat
             app:key="recovery"
             app:title="@string/reboot_recovery_title"
-            app:icon="@drawable/ic_recovery" />
+            app:icon="@drawable/ic_recovery"
+            app:summaryOn="@string/launcher_icon_summary_enabled"
+            app:summaryOff="@string/launcher_icon_summary_disabled" />
 
         <SwitchPreferenceCompat
             app:key="fastboot"
             app:title="@string/reboot_bootloader_title"
-            app:icon="@drawable/ic_bootloader" />
+            app:icon="@drawable/ic_bootloader"
+            app:summaryOn="@string/launcher_icon_summary_enabled"
+            app:summaryOff="@string/launcher_icon_summary_disabled" />
 
         <SwitchPreferenceCompat
             app:key="dnx"
             app:title="@string/reboot_dnx_title"
-            app:icon="@drawable/ic_bootloader" />
+            app:icon="@drawable/ic_bootloader"
+            app:summaryOn="@string/launcher_icon_summary_enabled"
+            app:summaryOff="@string/launcher_icon_summary_disabled" />
 
         <SwitchPreferenceCompat
             app:key="power_down"
             app:title="@string/reboot_shutdown_title"
-            app:icon="@drawable/ic_power" />
+            app:icon="@drawable/ic_power"
+            app:summaryOn="@string/launcher_icon_summary_enabled"
+            app:summaryOff="@string/launcher_icon_summary_disabled" />
 
         <SwitchPreferenceCompat
             app:key="safe_mode"
-            app:title="@string/reboot_safemode_title"
-            app:icon="@drawable/ic_shield" />
+            app:title="@string/reboot_safe_mode_title"
+            app:icon="@drawable/ic_shield"
+            app:summaryOn="@string/launcher_icon_summary_enabled"
+            app:summaryOff="@string/launcher_icon_summary_disabled" />
 
         <SwitchPreferenceCompat
             app:key="android"
             app:title="@string/reboot_and_title"
-            app:icon="@drawable/ic_android" />
+            app:icon="@drawable/ic_android"
+            app:summaryOn="@string/launcher_icon_summary_enabled"
+            app:summaryOff="@string/launcher_icon_summary_disabled" />
 
         <SwitchPreferenceCompat
             app:key="windows"
             app:title="@string/reboot_win_title"
-            app:icon="@drawable/ic_windows" />
+            app:icon="@drawable/ic_windows"
+            app:summaryOn="@string/launcher_icon_summary_enabled"
+            app:summaryOff="@string/launcher_icon_summary_disabled" />
 
     </PreferenceCategory>
 

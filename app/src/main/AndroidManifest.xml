@@ -48,7 +48,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@drawable/ic_power"
-            android:label="@string/reboot_screenoff_title"
+            android:label="@string/reboot_screen_off_title"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -118,7 +118,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@drawable/ic_shield"
-            android:label="@string/reboot_safemode_title"
+            android:label="@string/reboot_safe_mode_title"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>

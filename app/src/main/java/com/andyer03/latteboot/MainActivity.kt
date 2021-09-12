@@ -13,6 +13,7 @@ import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import com.andyer03.latteboot.*
 import com.andyer03.latteboot.commands.BootFile
 import com.andyer03.latteboot.commands.LatteSwitchCom
@@ -64,8 +65,8 @@ open class MainActivity : AppCompatActivity() {
             R.drawable.ic_windows
         )
 
-        val safemodeTitle = getString(R.string.reboot_safemode_title)
-        val screenoffTitle = getString(R.string.reboot_screenoff_title)
+        val safemodeTitle = getString(R.string.reboot_safe_mode_title)
+        val screenoffTitle = getString(R.string.reboot_screen_off_title)
         val recoveryTitle = getString(R.string.reboot_recovery_title)
         val bootloaderTitle = getString(R.string.reboot_bootloader_title)
         val dnxTitle = getString(R.string.reboot_dnx_title)
@@ -97,7 +98,11 @@ open class MainActivity : AppCompatActivity() {
 
         if (Root().check()) {
             if (winBoot) {
+                val window = this@MainActivity.window
+                val activity = this@MainActivity
                 if (BootFile().check()) {
+                    window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
+
                     val rebootTitle = getString(R.string.reboot_device_title)
                     val windows = getString(R.string.reboot_win_title)
                     val reboot = BootOptions(imageIdList[7], "$rebootTitle\n$windows")
@@ -107,6 +112,8 @@ open class MainActivity : AppCompatActivity() {
                     val android = BootOptions(imageIdList[6], androidTitle)
                     adapter.addBootOptions(android)
                 } else if (!BootFile().check()) {
+                    window.statusBarColor = ContextCompat.getColor(activity, R.color.green)
+
                     val rebootTitle = getString(R.string.reboot_device_title)
                     val android = getString(R.string.reboot_and_title)
                     val reboot = BootOptions(imageIdList[6], "$rebootTitle\n$android")
@@ -116,6 +123,8 @@ open class MainActivity : AppCompatActivity() {
                     val windows = BootOptions(imageIdList[7], windowsTitle)
                     adapter.addBootOptions(windows)
                 } else {
+                    window.statusBarColor = ContextCompat.getColor(activity, R.color.orange)
+
                     val rebootTitle = getString(R.string.reboot_device_title)
                     val reboot = BootOptions(imageIdList[0], rebootTitle)
                     adapter.addBootOptions(reboot)
