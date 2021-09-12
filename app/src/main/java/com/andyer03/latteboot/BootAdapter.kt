@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.andyer03.latteboot.commands.System
+import com.andyer03.latteboot.commands.*
 import com.andyer03.latteboot.databinding.BootItemBinding
+
 
 class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
     private val bootList = ArrayList<BootOptions>()
@@ -21,10 +22,10 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
             itemView.setOnClickListener {
                 when (adapterPosition) {
                     0 -> {
-                        System("and").boot()
+                        System("scn").boot()
                     }
                     1 -> {
-                        System("scn").boot()
+                        System("pwd").boot()
                     }
                     2 -> {
                         System("rec").boot()
@@ -36,14 +37,19 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                         System("dnx").boot()
                     }
                     5 -> {
-                        System("pwd").boot()
-                    }
-                    6 -> {
                         System("sfm").boot()
                     }
+                    6 -> {
+                        System("reboot").boot()
+                    }
                     7 -> {
-                        System("mountefi").boot()
-                        System("win").boot()
+                        if (BootFile().check()) {
+                            RebootWindowsCom().execute()
+                        } else if (!BootFile().check()) {
+                            RebootAndroidCom().execute()
+                        } else {
+                            return@setOnClickListener
+                        }
                     }
                 }
             }

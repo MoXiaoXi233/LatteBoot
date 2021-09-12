@@ -1,22 +1,25 @@
 package com.andyer03.latteboot.shortcuts
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.andyer03.latteboot.R
-import com.andyer03.latteboot.commands.Root
-import com.andyer03.latteboot.commands.System
+import com.andyer03.latteboot.commands.*
 
-class RebootSafeMode : AppCompatActivity() {
+class RebootAndroid : AppCompatActivity() {
+    @SuppressLint("SdCardPath")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         if (Root().check()) {
-            System("sfm").boot()
+            RebootAndroidCom().execute()
+            if (BootFile().check()) {
+                Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
+            }
         } else {
             Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
         }
-        super.onCreate(savedInstanceState)
         finish()
-
+        super.onCreate(savedInstanceState)
     }
 }

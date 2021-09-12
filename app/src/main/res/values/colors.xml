@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="orange_medium">#FFFF8800</color>
-    <color name="orange_dark">#FFCC6600</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">@android:color/black</color>
+    <color name="red">@android:color/holo_red_dark</color>
+    <color name="blue">@android:color/holo_blue_dark</color>
+    <color name="green">@android:color/holo_green_dark</color>
+    <color name="orange_dark">#FC60</color>
+    <color name="orange">@android:color/holo_orange_dark</color>
+    <color name="white">@android:color/white</color>
 </resources>
