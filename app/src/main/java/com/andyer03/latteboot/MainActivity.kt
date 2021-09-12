@@ -207,41 +207,32 @@ open class MainActivity : AppCompatActivity() {
                 true -> {
                     changeTitle()
                     val editor = sharedPreferences.edit()
-                    editor.putBoolean("title_pref", true)
+                    editor.putBoolean("window_title_pref", true)
                     editor.apply()
                 }
                 false -> {
                     this.title = getString(R.string.app_name)
                     val editor = sharedPreferences.edit()
-                    editor.putBoolean("title_pref", false)
+                    editor.putBoolean("window_title_pref", false)
                     editor.apply()
                 }
             }
 
             // Changing status bar color depending on bootloader
-            when (BootFile().check() && settingsPreferences.getBoolean("status_bar", false)) {
-                true -> {
+            when {
+                BootFile().check() && settingsPreferences.getBoolean("status_bar", false) -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
                     val editor = sharedPreferences.edit()
                     editor.putBoolean("status_bar_pref", true)
                     editor.apply()
                 }
-                false -> {
-                    window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("status_bar_pref", false)
-                    editor.apply()
-                }
-            }
-
-            when (!BootFile().check() && settingsPreferences.getBoolean("status_bar", false)) {
-                true -> {
+                !BootFile().check() && settingsPreferences.getBoolean("status_bar", false) -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.green)
                     val editor = sharedPreferences.edit()
                     editor.putBoolean("status_bar_pref", true)
                     editor.apply()
                 }
-                false -> {
+                else -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
                     val editor = sharedPreferences.edit()
                     editor.putBoolean("status_bar_pref", false)
@@ -415,7 +406,7 @@ open class MainActivity : AppCompatActivity() {
         val sp = getSharedPreferences("window", Context.MODE_PRIVATE)
 
         // Changing title depending on bootloader
-        when (sp.getBoolean("title_pref", false)) {
+        when (sp.getBoolean("window_title_pref", false)) {
             true -> {
                 changeTitle()
             }
@@ -425,19 +416,14 @@ open class MainActivity : AppCompatActivity() {
         }
 
         // Changing status bar color depending on bootloader
-        when (BootFile().check() && sp.getBoolean("status_bar_pref", false)) {
-            true -> {
+        when {
+            BootFile().check() && sp.getBoolean("status_bar_pref", false) -> {
                 window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
             }
-            false -> {
-                window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
+            !BootFile().check() && sp.getBoolean("status_bar_pref", false) -> {
+                window.statusBarColor = ContextCompat.getColor(activity, R.color.green)
             }
-        }
-        when (!BootFile().check() && sp.getBoolean("status_bar_pref", false)) {
-            true -> {
-                window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
-            }
-            false -> {
+            else -> {
                 window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
             }
         }
