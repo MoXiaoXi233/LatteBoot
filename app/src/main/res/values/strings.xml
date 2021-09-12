@@ -21,12 +21,17 @@
 
     <string name="title_activity_settings">Settings</string>
 
-    <string name="launcher_icons_preferences_title">Home screen shortcuts</string>
-    <string name="launcher_icon_enabled_summary">Shortcut enabled</string>
-    <string name="launcher_icon_disabled_summary">Shortcut disabled</string>
+    <string name="window_title_preferences_title">Window title</string>
+    <string name="change_window_title_preference">Change window title depending on bootloader</string>
+    <string name="change_window_title_enabled_summary">Title changing enabled</string>
+    <string name="change_window_title_disabled_summary">Title changing disabled</string>
 
     <string name="status_bar_preferences_title">Status bar</string>
     <string name="color_status_bar_preference">Color status bar depending on bootloader</string>
     <string name="color_status_bar_enabled_summary">Coloring enabled</string>
     <string name="color_status_bar_disabled_summary">Coloring disabled</string>
+
+    <string name="launcher_icons_preferences_title">Home screen shortcuts</string>
+    <string name="launcher_icon_enabled_summary">Shortcut enabled</string>
+    <string name="launcher_icon_disabled_summary">Shortcut disabled</string>
 </resources>

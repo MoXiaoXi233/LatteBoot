@@ -16,12 +16,17 @@
     
     <string name="title_activity_settings">Настройки</string>
 
-    <string name="launcher_icons_preferences_title">Ярлыки главного экрана</string>
-    <string name="launcher_icon_enabled_summary">Ярлык включен</string>
-    <string name="launcher_icon_disabled_summary">Ярлык выключен</string>
+    <string name="window_title_preferences_title">Заголовок</string>
+    <string name="change_window_title_preference">Менять заголовок в зависимости от загрузчика</string>
+    <string name="change_window_title_enabled_summary">Смена названия включена</string>
+    <string name="change_window_title_disabled_summary">Смена названия выключена</string>
 
     <string name="status_bar_preferences_title">Строка состояния</string>
     <string name="color_status_bar_preference">Окрашивать строку состояния в зависимости от загрузчика</string>
     <string name="color_status_bar_enabled_summary">Окрашивание включено</string>
     <string name="color_status_bar_disabled_summary">Окрашивание выключено</string>
+
+    <string name="launcher_icons_preferences_title">Ярлыки главного экрана</string>
+    <string name="launcher_icon_enabled_summary">Ярлык включен</string>
+    <string name="launcher_icon_disabled_summary">Ярлык отключен</string>
 </resources>

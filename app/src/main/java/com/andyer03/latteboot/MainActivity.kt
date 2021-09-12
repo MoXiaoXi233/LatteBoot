@@ -1,6 +1,7 @@
 package com.andyer03.latteboot
 
 import android.annotation.SuppressLint
+import android.content.ComponentName
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
@@ -22,6 +23,8 @@ import com.andyer03.latteboot.commands.LatteSwitchCom
 import com.andyer03.latteboot.commands.Root
 import com.andyer03.latteboot.commands.System
 import com.andyer03.latteboot.other.Device
+import com.andyer03.latteboot.shortcuts.*
+
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -38,9 +41,13 @@ open class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
-            changeTitle()
             init()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        regSettingsChangeListener()
     }
 
     @SuppressLint("SdCardPath")
@@ -100,20 +107,7 @@ open class MainActivity : AppCompatActivity() {
 
         if (Root().check()) {
             if (winBoot) {
-                val window = this@MainActivity.window
-                val activity = this@MainActivity
-                val preferenceScreen = PreferenceManager.getDefaultSharedPreferences(SettingsActivity())
-
                 if (BootFile().check()) {
-                    when (preferenceScreen.getBoolean("reboot", false)) {
-                        true -> {
-                            window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
-                        }
-                        false -> {
-                            window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
-                        }
-                    }
-
                     val rebootTitle = getString(R.string.reboot_device_title)
                     val windows = getString(R.string.reboot_win_title)
                     val reboot = BootOptions(imageIdList[7], "$rebootTitle\n$windows")
@@ -123,15 +117,6 @@ open class MainActivity : AppCompatActivity() {
                     val android = BootOptions(imageIdList[6], androidTitle)
                     adapter.addBootOptions(android)
                 } else if (!BootFile().check()) {
-                    when (preferenceScreen.getBoolean("reboot", false)) {
-                        true -> {
-                            window.statusBarColor = ContextCompat.getColor(activity, R.color.green)
-                        }
-                        false -> {
-                            window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
-                        }
-                    }
-
                     val rebootTitle = getString(R.string.reboot_device_title)
                     val android = getString(R.string.reboot_and_title)
                     val reboot = BootOptions(imageIdList[6], "$rebootTitle\n$android")
@@ -141,8 +126,6 @@ open class MainActivity : AppCompatActivity() {
                     val windows = BootOptions(imageIdList[7], windowsTitle)
                     adapter.addBootOptions(windows)
                 } else {
-                    window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
-
                     val rebootTitle = getString(R.string.reboot_device_title)
                     val reboot = BootOptions(imageIdList[0], rebootTitle)
                     adapter.addBootOptions(reboot)
@@ -198,6 +181,200 @@ open class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    open fun regSettingsChangeListener() {
+        val window = this@MainActivity.window
+        val activity = this@MainActivity
+        val sp = PreferenceManager.getDefaultSharedPreferences(this)
+
+        val p = packageManager
+        val rebootDeviceComponentName = ComponentName(applicationContext, RebootDevice::class.java)
+        val screenOffComponentName = ComponentName(applicationContext, ScreenOff::class.java)
+        val rebootRecoveryComponentName = ComponentName(applicationContext, RebootRecovery::class.java)
+        val rebootFastbootComponentName = ComponentName(applicationContext, RebootFastboot::class.java)
+        val rebootDNXComponentName = ComponentName(applicationContext, RebootDNX::class.java)
+        val powerDownComponentName = ComponentName(applicationContext, ShutDown::class.java)
+        val rebootSafemodeComponentName = ComponentName(applicationContext, RebootSafeMode::class.java)
+        val rebootAndroidComponentName = ComponentName(applicationContext, RebootAndroid::class.java)
+        val rebootWindowsComponentName = ComponentName(applicationContext, RebootWindows::class.java)
+
+        sp.registerOnSharedPreferenceChangeListener { _, _ ->
+
+            // Changing title depending on bootloader
+            when (sp.getBoolean("window_title", false)) {
+                true -> {
+                    changeTitle()
+                }
+                false -> {
+                    this.title = getString(R.string.app_name)
+                }
+            }
+
+            // Changing status bar color depending on bootloader
+            when (BootFile().check() && sp.getBoolean("status_bar", false)) {
+                true -> {
+                    window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
+                }
+                false -> {
+                    window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
+                }
+            }
+            when (!BootFile().check() && sp.getBoolean("status_bar", false)) {
+                true -> {
+                    window.statusBarColor = ContextCompat.getColor(activity, R.color.green)
+                }
+                false -> {
+                    window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
+                }
+            }
+
+            // Show or hide shortcuts from app drawer
+            when (sp.getBoolean("reboot", false)) {
+                true -> {
+                    p.setComponentEnabledSetting(
+                        rebootDeviceComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+                false -> {
+                    p.setComponentEnabledSetting(
+                        rebootDeviceComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+            }
+            when (sp.getBoolean("screen_off", false)) {
+                true -> {
+                    p.setComponentEnabledSetting(
+                        screenOffComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+                false -> {
+                    p.setComponentEnabledSetting(
+                        screenOffComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+            }
+            when (sp.getBoolean("recovery", false)) {
+                true -> {
+                    p.setComponentEnabledSetting(
+                        rebootRecoveryComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+                false -> {
+                    p.setComponentEnabledSetting(
+                        rebootRecoveryComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+            }
+            when (sp.getBoolean("fastboot", false)) {
+                true -> {
+                    p.setComponentEnabledSetting(
+                        rebootFastbootComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+                false -> {
+                    p.setComponentEnabledSetting(
+                        rebootFastbootComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+            }
+            when (sp.getBoolean("dnx", false)) {
+                true -> {
+                    p.setComponentEnabledSetting(
+                        rebootDNXComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+                false -> {
+                    p.setComponentEnabledSetting(
+                        rebootDNXComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+            }
+            when (sp.getBoolean("power_down", false)) {
+                true -> {
+                    p.setComponentEnabledSetting(
+                        powerDownComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+                false -> {
+                    p.setComponentEnabledSetting(
+                        powerDownComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+            }
+            when (sp.getBoolean("safe_mode", false)) {
+                true -> {
+                    p.setComponentEnabledSetting(
+                        rebootSafemodeComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+                false -> {
+                    p.setComponentEnabledSetting(
+                        rebootSafemodeComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+            }
+            when (sp.getBoolean("android", false)) {
+                true -> {
+                    p.setComponentEnabledSetting(
+                        rebootAndroidComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+                false -> {
+                    p.setComponentEnabledSetting(
+                        rebootAndroidComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+            }
+            when (sp.getBoolean("windows", false)) {
+                true -> {
+                    p.setComponentEnabledSetting(
+                        rebootWindowsComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+                false -> {
+                    p.setComponentEnabledSetting(
+                        rebootWindowsComponentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+            }
+        }
     }
 
     private fun aboutDialog() {
