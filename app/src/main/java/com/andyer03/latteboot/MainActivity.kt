@@ -2,6 +2,7 @@ package com.andyer03.latteboot
 
 import android.annotation.SuppressLint
 import android.content.ComponentName
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
@@ -25,7 +26,6 @@ import com.andyer03.latteboot.commands.System
 import com.andyer03.latteboot.other.Device
 import com.andyer03.latteboot.shortcuts.*
 
-
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val adapter = BootAdapter()
@@ -41,6 +41,7 @@ open class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
+            loadPreferences()
             init()
         }
     }
@@ -186,51 +187,70 @@ open class MainActivity : AppCompatActivity() {
     open fun regSettingsChangeListener() {
         val window = this@MainActivity.window
         val activity = this@MainActivity
-        val sp = PreferenceManager.getDefaultSharedPreferences(this)
+        val settingsPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val sharedPreferences = getSharedPreferences("window", Context.MODE_PRIVATE)
 
-        val p = packageManager
-        val rebootDeviceComponentName = ComponentName(applicationContext, RebootDevice::class.java)
-        val screenOffComponentName = ComponentName(applicationContext, ScreenOff::class.java)
-        val rebootRecoveryComponentName = ComponentName(applicationContext, RebootRecovery::class.java)
-        val rebootFastbootComponentName = ComponentName(applicationContext, RebootFastboot::class.java)
-        val rebootDNXComponentName = ComponentName(applicationContext, RebootDNX::class.java)
-        val powerDownComponentName = ComponentName(applicationContext, ShutDown::class.java)
-        val rebootSafemodeComponentName = ComponentName(applicationContext, RebootSafeMode::class.java)
-        val rebootAndroidComponentName = ComponentName(applicationContext, RebootAndroid::class.java)
-        val rebootWindowsComponentName = ComponentName(applicationContext, RebootWindows::class.java)
-
-        sp.registerOnSharedPreferenceChangeListener { _, _ ->
+        settingsPreferences.registerOnSharedPreferenceChangeListener { _, _ ->
+            val p = packageManager
+            val rebootDeviceComponentName = ComponentName(applicationContext, RebootDevice::class.java)
+            val screenOffComponentName = ComponentName(applicationContext, ScreenOff::class.java)
+            val rebootRecoveryComponentName = ComponentName(applicationContext, RebootRecovery::class.java)
+            val rebootFastbootComponentName = ComponentName(applicationContext, RebootFastboot::class.java)
+            val rebootDNXComponentName = ComponentName(applicationContext, RebootDNX::class.java)
+            val powerDownComponentName = ComponentName(applicationContext, ShutDown::class.java)
+            val rebootSafemodeComponentName = ComponentName(applicationContext, RebootSafeMode::class.java)
+            val rebootAndroidComponentName = ComponentName(applicationContext, RebootAndroid::class.java)
+            val rebootWindowsComponentName = ComponentName(applicationContext, RebootWindows::class.java)
 
             // Changing title depending on bootloader
-            when (sp.getBoolean("window_title", false)) {
+            when (settingsPreferences.getBoolean("window_title", false)) {
                 true -> {
                     changeTitle()
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean("title_pref", true)
+                    editor.apply()
                 }
                 false -> {
                     this.title = getString(R.string.app_name)
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean("title_pref", false)
+                    editor.apply()
                 }
             }
 
             // Changing status bar color depending on bootloader
-            when (BootFile().check() && sp.getBoolean("status_bar", false)) {
+            when (BootFile().check() && settingsPreferences.getBoolean("status_bar", false)) {
                 true -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean("status_bar_pref", true)
+                    editor.apply()
                 }
                 false -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean("status_bar_pref", false)
+                    editor.apply()
                 }
             }
-            when (!BootFile().check() && sp.getBoolean("status_bar", false)) {
+
+            when (!BootFile().check() && settingsPreferences.getBoolean("status_bar", false)) {
                 true -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.green)
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean("status_bar_pref", true)
+                    editor.apply()
                 }
                 false -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean("status_bar_pref", false)
+                    editor.apply()
                 }
             }
 
             // Show or hide shortcuts from app drawer
-            when (sp.getBoolean("reboot", false)) {
+            when (settingsPreferences.getBoolean("reboot", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         rebootDeviceComponentName,
@@ -246,7 +266,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("screen_off", false)) {
+            when (settingsPreferences.getBoolean("screen_off", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         screenOffComponentName,
@@ -262,7 +282,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("recovery", false)) {
+            when (settingsPreferences.getBoolean("recovery", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         rebootRecoveryComponentName,
@@ -278,7 +298,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("fastboot", false)) {
+            when (settingsPreferences.getBoolean("fastboot", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         rebootFastbootComponentName,
@@ -294,7 +314,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("dnx", false)) {
+            when (settingsPreferences.getBoolean("dnx", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         rebootDNXComponentName,
@@ -310,7 +330,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("power_down", false)) {
+            when (settingsPreferences.getBoolean("power_down", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         powerDownComponentName,
@@ -326,7 +346,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("safe_mode", false)) {
+            when (settingsPreferences.getBoolean("safe_mode", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         rebootSafemodeComponentName,
@@ -342,7 +362,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("android", false)) {
+            when (settingsPreferences.getBoolean("android", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         rebootAndroidComponentName,
@@ -358,7 +378,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("windows", false)) {
+            when (settingsPreferences.getBoolean("windows", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         rebootWindowsComponentName,
@@ -375,16 +395,6 @@ open class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun aboutDialog() {
-        val builder = AlertDialog.Builder(this)
-            .setTitle(R.string.app_name)
-            .setMessage(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " " + getString(R.string.about_title))
-        builder.setPositiveButton(R.string.exit_button) { _: DialogInterface?, _: Int ->
-            DialogInterface.BUTTON_POSITIVE
-        }
-        builder.show()
     }
 
     private fun changeTitle() {
@@ -397,6 +407,50 @@ open class MainActivity : AppCompatActivity() {
                 this.title = getString(R.string.next_boot_android)
             }
         }
+    }
+
+    private fun loadPreferences() {
+        val window = this@MainActivity.window
+        val activity = this@MainActivity
+        val sp = getSharedPreferences("window", Context.MODE_PRIVATE)
+
+        // Changing title depending on bootloader
+        when (sp.getBoolean("title_pref", false)) {
+            true -> {
+                changeTitle()
+            }
+            false -> {
+                this.title = getString(R.string.app_name)
+            }
+        }
+
+        // Changing status bar color depending on bootloader
+        when (BootFile().check() && sp.getBoolean("status_bar_pref", false)) {
+            true -> {
+                window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
+            }
+            false -> {
+                window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
+            }
+        }
+        when (!BootFile().check() && sp.getBoolean("status_bar_pref", false)) {
+            true -> {
+                window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
+            }
+            false -> {
+                window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
+            }
+        }
+    }
+
+    private fun aboutDialog() {
+        val builder = AlertDialog.Builder(this)
+            .setTitle(R.string.app_name)
+            .setMessage(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " " + getString(R.string.about_title))
+        builder.setPositiveButton(R.string.exit_button) { _: DialogInterface?, _: Int ->
+            DialogInterface.BUTTON_POSITIVE
+        }
+        builder.show()
     }
 
 }
