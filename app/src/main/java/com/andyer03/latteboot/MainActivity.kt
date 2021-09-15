@@ -13,8 +13,11 @@ import java.io.File
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
@@ -41,8 +44,45 @@ open class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
+            // Loading preferences
             loadPreferences()
+
+            // Load the main code
             init()
+
+            // Checking for temp var for showing toast after swap bootloader
+            val sp = getSharedPreferences("bootloader", Context.MODE_PRIVATE)
+            val editor = sp.edit()
+
+            // Setting custom toast
+            val layoutinflater = layoutInflater
+            val toastinflater = layoutinflater.inflate(R.layout.toast,findViewById(R.id.toast))
+            val toast = Toast.makeText(this, R.string.reboot_device_title, Toast.LENGTH_LONG)
+            toast.setGravity(Gravity.CENTER,0,0)
+            toast.view = toastinflater
+            toast.view?.setBackgroundResource(R.drawable.toast_background)
+            val view = toast.view
+            val title = view?.findViewById<TextView>(R.id.title)
+            val image = view?.findViewById<ImageView>(R.id.image)
+
+            when {
+                sp.getBoolean("windows", false) && !sp.getBoolean("android", false) -> {
+                    title?.text = getString(R.string.reboot_win_title)
+                    image?.setBackgroundResource(R.drawable.ic_windows)
+                    toast.show()
+
+                }
+                !sp.getBoolean("windows", false) && sp.getBoolean("android", false) -> {
+                    title?.text = getString(R.string.reboot_and_title)
+                    image?.setBackgroundResource(R.drawable.ic_android)
+                    toast.show()
+                }
+            }
+
+            // Remove temp var
+            editor.putBoolean("windows", false)
+            editor.putBoolean("android", false)
+            editor.apply()
         }
     }
 
@@ -152,17 +192,28 @@ open class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.swap -> {
+                val sp = getSharedPreferences("bootloader", Context.MODE_PRIVATE)
+                val editor = sp.edit()
+
                 when {
                     Root().check() -> {
                         LatteSwitchCom().execute()
                         when {
                             !BootFile().check() -> {
-                                Toast.makeText(this, R.string.next_boot_android, Toast.LENGTH_SHORT).show()
+                                editor.putBoolean("windows", false)
+                                editor.putBoolean("android", true)
+                                editor.apply()
                             }
                             BootFile().check() -> {
-                                Toast.makeText(this, R.string.next_boot_windows, Toast.LENGTH_SHORT).show()
+                                editor.putBoolean("windows", true)
+                                editor.putBoolean("android", false)
+                                editor.apply()
                             }
                             else -> {
+                                editor.putBoolean("windows", false)
+                                editor.putBoolean("android", false)
+                                editor.apply()
+
                                 Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
                             }
                         }
