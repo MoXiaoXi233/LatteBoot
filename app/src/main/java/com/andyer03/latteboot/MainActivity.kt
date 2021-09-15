@@ -168,29 +168,7 @@ open class MainActivity : AppCompatActivity() {
                         adapter.clear() // Clear adapter
                         init() // Recreating adapter
                         loadPreferences() // Loading preferences
-
-                        // Setting custom toast
-                        val toast = Toast.makeText(this, R.string.reboot_device_title, Toast.LENGTH_LONG)
-                        toast.view = layoutInflater.inflate(R.layout.toast,findViewById(R.id.toast))
-                        toast.setGravity(Gravity.CENTER,0,0)
-
-                        val view = toast.view
-                        view?.setBackgroundResource(R.drawable.toast_background)
-                        val title = view?.findViewById<TextView>(R.id.title)
-                        val image = view?.findViewById<ImageView>(R.id.image)
-
-                        when {
-                            BootFile().check() -> {
-                                title?.text = getString(R.string.reboot_win_title)
-                                image?.setBackgroundResource(R.drawable.ic_windows)
-                                toast.show()
-                            }
-                            !BootFile().check() -> {
-                                title?.text = getString(R.string.reboot_and_title)
-                                image?.setBackgroundResource(R.drawable.ic_android)
-                                toast.show()
-                            }
-                        }
+                        swapToast() // Show toast after swap
                     }
                     else -> {
                         Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
@@ -234,13 +212,13 @@ open class MainActivity : AppCompatActivity() {
                 true -> {
                     changeTitle()
                     val editor = sharedPreferences.edit()
-                    editor.putBoolean("window_title_pref", true)
+                    editor.putBoolean("window_title", true)
                     editor.apply()
                 }
                 false -> {
                     this.title = getString(R.string.app_name)
                     val editor = sharedPreferences.edit()
-                    editor.putBoolean("window_title_pref", false)
+                    editor.putBoolean("window_title", false)
                     editor.apply()
                 }
             }
@@ -250,19 +228,33 @@ open class MainActivity : AppCompatActivity() {
                 BootFile().check() && settingsPreferences.getBoolean("status_bar", false) -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
                     val editor = sharedPreferences.edit()
-                    editor.putBoolean("status_bar_pref", true)
+                    editor.putBoolean("status_bar", true)
                     editor.apply()
                 }
                 !BootFile().check() && settingsPreferences.getBoolean("status_bar", false) -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.green)
                     val editor = sharedPreferences.edit()
-                    editor.putBoolean("status_bar_pref", true)
+                    editor.putBoolean("status_bar", true)
                     editor.apply()
                 }
                 else -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
                     val editor = sharedPreferences.edit()
-                    editor.putBoolean("status_bar_pref", false)
+                    editor.putBoolean("status_bar", false)
+                    editor.apply()
+                }
+            }
+
+            // Show toast after swapping boot files
+            when (settingsPreferences.getBoolean("toast", false)) {
+                true -> {
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean("toast", true)
+                    editor.apply()
+                }
+                false -> {
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean("toast", false)
                     editor.apply()
                 }
             }
@@ -435,7 +427,7 @@ open class MainActivity : AppCompatActivity() {
         val sp = getSharedPreferences("window", Context.MODE_PRIVATE)
 
         // Changing title depending on bootloader
-        when (sp.getBoolean("window_title_pref", false)) {
+        when (sp.getBoolean("window_title", false)) {
             true -> {
                 changeTitle()
             }
@@ -446,14 +438,44 @@ open class MainActivity : AppCompatActivity() {
 
         // Changing status bar color depending on bootloader
         when {
-            BootFile().check() && sp.getBoolean("status_bar_pref", false) -> {
+            BootFile().check() && sp.getBoolean("status_bar", false) -> {
                 window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
             }
-            !BootFile().check() && sp.getBoolean("status_bar_pref", false) -> {
+            !BootFile().check() && sp.getBoolean("status_bar", false) -> {
                 window.statusBarColor = ContextCompat.getColor(activity, R.color.green)
             }
             else -> {
                 window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
+            }
+        }
+    }
+    
+    // Show toast after swapping boot files
+    private fun swapToast() {
+        val sp = getSharedPreferences("window", Context.MODE_PRIVATE)
+        when (sp.getBoolean("toast", false)) {
+            true -> {
+                val toast = Toast.makeText(this, R.string.reboot_device_title, Toast.LENGTH_LONG)
+                toast.view = layoutInflater.inflate(R.layout.toast,findViewById(R.id.toast))
+                toast.setGravity(Gravity.CENTER,0,0)
+
+                val view = toast.view
+                view?.setBackgroundResource(R.drawable.toast_background)
+                val title = view?.findViewById<TextView>(R.id.title)
+                val image = view?.findViewById<ImageView>(R.id.image)
+
+                when {
+                    BootFile().check() -> {
+                        title?.text = getString(R.string.reboot_win_title)
+                        image?.setBackgroundResource(R.drawable.ic_windows)
+                        toast.show()
+                    }
+                    !BootFile().check() -> {
+                        title?.text = getString(R.string.reboot_and_title)
+                        image?.setBackgroundResource(R.drawable.ic_android)
+                        toast.show()
+                    }
+                }
             }
         }
     }

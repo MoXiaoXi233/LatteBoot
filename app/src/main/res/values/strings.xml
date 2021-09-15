@@ -28,6 +28,9 @@
     <string name="change_window_title_preference">Change window title depending on bootloader</string>
     <string name="change_window_title_enabled_summary">Title changing enabled</string>
     <string name="change_window_title_disabled_summary">Title changing disabled</string>
+    <string name="show_toast_preference">Show toast after swapping boot files</string>
+    <string name="show_toast_enabled_summary">Toast enabled</string>
+    <string name="show_toast_disabled_summary">Toast disabled</string>
 
     <string name="launcher_icons_preferences_title">Home screen</string>
     <string name="launcher_icon_enabled_summary">Shortcut enabled</string>

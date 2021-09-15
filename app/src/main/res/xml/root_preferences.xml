@@ -18,6 +18,13 @@
             app:summaryOn="@string/change_window_title_enabled_summary"
             app:title="@string/change_window_title_preference" />
 
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_toast"
+            app:key="toast"
+            app:summaryOff="@string/show_toast_disabled_summary"
+            app:summaryOn="@string/show_toast_enabled_summary"
+            app:title="@string/show_toast_preference" />
+
 
     </PreferenceCategory>
 
