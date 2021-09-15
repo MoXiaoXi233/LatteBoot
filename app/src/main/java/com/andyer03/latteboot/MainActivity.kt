@@ -49,40 +49,6 @@ open class MainActivity : AppCompatActivity() {
 
             // Load the main code
             init()
-
-            // Checking for temp var for showing toast after swap bootloader
-            val sp = getSharedPreferences("bootloader", Context.MODE_PRIVATE)
-            val editor = sp.edit()
-
-            // Setting custom toast
-            val layoutinflater = layoutInflater
-            val toastinflater = layoutinflater.inflate(R.layout.toast,findViewById(R.id.toast))
-            val toast = Toast.makeText(this, R.string.reboot_device_title, Toast.LENGTH_LONG)
-            toast.setGravity(Gravity.CENTER,0,0)
-            toast.view = toastinflater
-            toast.view?.setBackgroundResource(R.drawable.toast_background)
-            val view = toast.view
-            val title = view?.findViewById<TextView>(R.id.title)
-            val image = view?.findViewById<ImageView>(R.id.image)
-
-            when {
-                sp.getBoolean("windows", false) && !sp.getBoolean("android", false) -> {
-                    title?.text = getString(R.string.reboot_win_title)
-                    image?.setBackgroundResource(R.drawable.ic_windows)
-                    toast.show()
-
-                }
-                !sp.getBoolean("windows", false) && sp.getBoolean("android", false) -> {
-                    title?.text = getString(R.string.reboot_and_title)
-                    image?.setBackgroundResource(R.drawable.ic_android)
-                    toast.show()
-                }
-            }
-
-            // Remove temp var
-            editor.putBoolean("windows", false)
-            editor.putBoolean("android", false)
-            editor.apply()
         }
     }
 
@@ -104,24 +70,6 @@ open class MainActivity : AppCompatActivity() {
             }
         }
 
-        val imageIdList = listOf (
-            R.drawable.ic_restart,
-            R.drawable.ic_shield,
-            R.drawable.ic_power,
-            R.drawable.ic_recovery,
-            R.drawable.ic_bootloader,
-            R.drawable.ic_power,
-            R.drawable.ic_android,
-            R.drawable.ic_windows
-        )
-
-        val safemodeTitle = getString(R.string.reboot_safe_mode_title)
-        val screenoffTitle = getString(R.string.reboot_screen_off_title)
-        val recoveryTitle = getString(R.string.reboot_recovery_title)
-        val bootloaderTitle = getString(R.string.reboot_bootloader_title)
-        val dnxTitle = getString(R.string.reboot_dnx_title)
-        val shutdownTitle = getString(R.string.reboot_shutdown_title)
-
         val orientation = resources.configuration.orientation
         val spanCount: Int = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             3
@@ -132,54 +80,75 @@ open class MainActivity : AppCompatActivity() {
         rcView.layoutManager = GridLayoutManager(this@MainActivity, spanCount)
         rcView.adapter = adapter
 
-        val safemode = BootOptions(imageIdList[1], safemodeTitle)
-        val screenoff = BootOptions(imageIdList[2], screenoffTitle)
-        val recovery = BootOptions(imageIdList[3], recoveryTitle)
-        val bootloader = BootOptions(imageIdList[4], bootloaderTitle)
-        val dnx = BootOptions(imageIdList[4], dnxTitle)
-        val shutdown = BootOptions(imageIdList[5], shutdownTitle)
+        // Define icons
+        val optionsImage = listOf (
+            R.drawable.ic_reboot, // Reboot
+            R.drawable.ic_safe_mode, // Safe mode
+            R.drawable.ic_power, // Power
+            R.drawable.ic_recovery, // Recovery
+            R.drawable.ic_bootloader, // Bootloader
+            R.drawable.ic_android, // Android
+            R.drawable.ic_windows // Windows
+        )
 
-        adapter.addBootOptions(screenoff)
-        adapter.addBootOptions(shutdown)
-        adapter.addBootOptions(recovery)
-        adapter.addBootOptions(bootloader)
-        adapter.addBootOptions(dnx)
-        adapter.addBootOptions(safemode)
+        // Define strings
+        val optionsTitles = arrayOf (
+            getString(R.string.reboot_screen_off_title), // Screen off
+            getString(R.string.reboot_shutdown_title), // Shutdown
+            getString(R.string.reboot_recovery_title), // Recovery
+            getString(R.string.reboot_bootloader_title), // Bootloader
+            getString(R.string.reboot_dnx_title), // DNX
+            getString(R.string.reboot_safe_mode_title), // Safe mode
+            getString(R.string.reboot_device_title), // Reboot
+            getString(R.string.reboot_win_title), // Windows
+            getString(R.string.reboot_and_title) // Android
+        )
 
-        if (Root().check()) {
-            if (winBoot) {
-                if (BootFile().check()) {
-                    val rebootTitle = getString(R.string.reboot_device_title)
-                    val windows = getString(R.string.reboot_win_title)
-                    val reboot = BootOptions(imageIdList[7], "$rebootTitle\n$windows")
-                    adapter.addBootOptions(reboot)
+        // Define icons + strings together
+        val bootOptions = arrayOf (
+            BootOptions(optionsImage[2], optionsTitles[0]), // 0 Screen off
+            BootOptions(optionsImage[2], optionsTitles[1]), // 1 Shutdown
+            BootOptions(optionsImage[3], optionsTitles[2]), // 2 Recovery
+            BootOptions(optionsImage[4], optionsTitles[3]), // 3 Bootloader
+            BootOptions(optionsImage[4], optionsTitles[4]), // 4 DNX
+            BootOptions(optionsImage[1], optionsTitles[5]), // 5 Safe mode
+            BootOptions(optionsImage[0], optionsTitles[6]), // 6 Simple reboot
+            BootOptions(optionsImage[6], optionsTitles[7]), // 7 Windows
+            BootOptions(optionsImage[5], optionsTitles[8]), // 8 Android
+            BootOptions(optionsImage[6], optionsTitles[6]+"\n"+optionsTitles[7]), // 9 Reboot Windows
+            BootOptions(optionsImage[5], optionsTitles[6]+"\n"+optionsTitles[8]) // 10 Reboot Android
+        )
 
-                    val androidTitle = getString(R.string.reboot_and_title)
-                    val android = BootOptions(imageIdList[6], androidTitle)
-                    adapter.addBootOptions(android)
-                } else if (!BootFile().check()) {
-                    val rebootTitle = getString(R.string.reboot_device_title)
-                    val android = getString(R.string.reboot_and_title)
-                    val reboot = BootOptions(imageIdList[6], "$rebootTitle\n$android")
-                    adapter.addBootOptions(reboot)
+        // Filling adapter
+        adapter.addBootOptions(bootOptions[0]) // Screen off
+        adapter.addBootOptions(bootOptions[1]) // Shutdown
+        adapter.addBootOptions(bootOptions[2]) // Recovery
+        adapter.addBootOptions(bootOptions[3]) // Bootloader
+        adapter.addBootOptions(bootOptions[4]) // DNX
+        adapter.addBootOptions(bootOptions[5]) // Safe mode
 
-                    val windowsTitle = getString(R.string.reboot_win_title)
-                    val windows = BootOptions(imageIdList[7], windowsTitle)
-                    adapter.addBootOptions(windows)
-                } else {
-                    val rebootTitle = getString(R.string.reboot_device_title)
-                    val reboot = BootOptions(imageIdList[0], rebootTitle)
-                    adapter.addBootOptions(reboot)
+        when {
+            Root().check() -> {
+                when {
+                    winBoot -> {
+                        if (BootFile().check()) {
+                            adapter.addBootOptions(bootOptions[9]) // Reboot Windows
+                            adapter.addBootOptions(bootOptions[8]) // Android
+                        } else if (!BootFile().check()) {
+                            adapter.addBootOptions(bootOptions[10]) // Reboot Android
+                            adapter.addBootOptions(bootOptions[7]) // Windows
+                        } else {
+                            adapter.addBootOptions(bootOptions[6]) // Simple reboot
+                        }
+                    }
+                    else -> {
+                        adapter.addBootOptions(bootOptions[6]) // Simple reboot
+                    }
                 }
-            } else {
-                val rebootTitle = getString(R.string.reboot_device_title)
-                val reboot = BootOptions(imageIdList[0], rebootTitle)
-                adapter.addBootOptions(reboot)
             }
-        } else {
-            val rebootTitle = getString(R.string.reboot_device_title)
-            val reboot = BootOptions(imageIdList[0], rebootTitle)
-            adapter.addBootOptions(reboot)
+            else -> {
+                adapter.addBootOptions(bootOptions[6]) // Simple reboot
+            }
         }
     }
 
@@ -189,32 +158,37 @@ open class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.swap -> {
-                val sp = getSharedPreferences("bootloader", Context.MODE_PRIVATE)
-                val editor = sp.edit()
-
                 when {
                     Root().check() -> {
                         LatteSwitchCom().execute()
-                        when {
-                            !BootFile().check() -> {
-                                editor.putBoolean("windows", false)
-                                editor.putBoolean("android", true)
-                                editor.apply()
-                            }
-                            BootFile().check() -> {
-                                editor.putBoolean("windows", true)
-                                editor.putBoolean("android", false)
-                                editor.apply()
-                            }
-                            else -> {
-                                editor.putBoolean("windows", false)
-                                editor.putBoolean("android", false)
-                                editor.apply()
+                        adapter.clear()
+                        init()
+                        loadPreferences()
 
-                                Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
+                        // Setting custom toast
+                        val toast = Toast.makeText(this, R.string.reboot_device_title, Toast.LENGTH_LONG)
+                        toast.view = layoutInflater.inflate(R.layout.toast,findViewById(R.id.toast))
+                        toast.setGravity(Gravity.CENTER,0,0)
+
+                        val view = toast.view
+                        view?.setBackgroundResource(R.drawable.toast_background)
+                        val title = view?.findViewById<TextView>(R.id.title)
+                        val image = view?.findViewById<ImageView>(R.id.image)
+
+                        when {
+                            BootFile().check() -> {
+                                title?.text = getString(R.string.reboot_win_title)
+                                image?.setBackgroundResource(R.drawable.ic_windows)
+                                toast.show()
+                            }
+                            !BootFile().check() -> {
+                                title?.text = getString(R.string.reboot_and_title)
+                                image?.setBackgroundResource(R.drawable.ic_android)
+                                toast.show()
                             }
                         }
                     }
@@ -222,7 +196,6 @@ open class MainActivity : AppCompatActivity() {
                         Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
                     }
                 }
-                recreate()
             }
             R.id.settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)

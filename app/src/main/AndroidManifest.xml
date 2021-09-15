@@ -33,7 +33,7 @@
             android:name=".shortcuts.RebootDevice"
             android:enabled="false"
             android:exported="true"
-            android:icon="@drawable/ic_restart"
+            android:icon="@drawable/ic_reboot"
             android:label="@string/reboot_device_title"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -117,7 +117,7 @@
             android:name=".shortcuts.RebootSafeMode"
             android:enabled="false"
             android:exported="true"
-            android:icon="@drawable/ic_shield"
+            android:icon="@drawable/ic_safe_mode"
             android:label="@string/reboot_safe_mode_title"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.NoActionBar">

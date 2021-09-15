@@ -26,7 +26,7 @@
         app:iconSpaceReserved="false" >
 
         <SwitchPreferenceCompat
-            app:icon="@drawable/ic_restart"
+            app:icon="@drawable/ic_reboot"
             app:key="reboot"
             app:summaryOff="@string/launcher_icon_disabled_summary"
             app:summaryOn="@string/launcher_icon_enabled_summary"
@@ -68,7 +68,7 @@
             app:title="@string/reboot_shutdown_title" />
 
         <SwitchPreferenceCompat
-            app:icon="@drawable/ic_shield"
+            app:icon="@drawable/ic_safe_mode"
             app:key="safe_mode"
             app:summaryOff="@string/launcher_icon_disabled_summary"
             app:summaryOn="@string/launcher_icon_enabled_summary"
