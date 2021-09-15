@@ -64,7 +64,7 @@ open class MainActivity : AppCompatActivity() {
 
         if (Root().check()) {
             if (!winBoot) {
-                System("mountefi").boot()
+                System("mountEFI").boot()
                 Runtime.getRuntime()
                     .exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi.win /sdcard/.latteboot")
             }
@@ -164,10 +164,10 @@ open class MainActivity : AppCompatActivity() {
             R.id.swap -> {
                 when {
                     Root().check() -> {
-                        LatteSwitchCom().execute()
-                        adapter.clear()
-                        init()
-                        loadPreferences()
+                        LatteSwitchCom().execute() // Swap boot files
+                        adapter.clear() // Clear adapter
+                        init() // Recreating adapter
+                        loadPreferences() // Loading preferences
 
                         // Setting custom toast
                         val toast = Toast.makeText(this, R.string.reboot_device_title, Toast.LENGTH_LONG)
@@ -216,15 +216,18 @@ open class MainActivity : AppCompatActivity() {
 
         settingsPreferences.registerOnSharedPreferenceChangeListener { _, _ ->
             val p = packageManager
-            val rebootDeviceComponentName = ComponentName(applicationContext, RebootDevice::class.java)
-            val screenOffComponentName = ComponentName(applicationContext, ScreenOff::class.java)
-            val rebootRecoveryComponentName = ComponentName(applicationContext, RebootRecovery::class.java)
-            val rebootFastbootComponentName = ComponentName(applicationContext, RebootFastboot::class.java)
-            val rebootDNXComponentName = ComponentName(applicationContext, RebootDNX::class.java)
-            val powerDownComponentName = ComponentName(applicationContext, ShutDown::class.java)
-            val rebootSafemodeComponentName = ComponentName(applicationContext, RebootSafeMode::class.java)
-            val rebootAndroidComponentName = ComponentName(applicationContext, RebootAndroid::class.java)
-            val rebootWindowsComponentName = ComponentName(applicationContext, RebootWindows::class.java)
+
+            val preferences = arrayOf (
+                ComponentName(applicationContext, RebootDevice::class.java),    // 0 Reboot
+                ComponentName(applicationContext, ScreenOff::class.java),       // 1 Screen off
+                ComponentName(applicationContext, RebootRecovery::class.java),  // 2 Recovery
+                ComponentName(applicationContext, RebootFastboot::class.java),  // 3 Fastboot
+                ComponentName(applicationContext, RebootDNX::class.java),       // 4 DNX
+                ComponentName(applicationContext, ShutDown::class.java),        // 5 Shutdown
+                ComponentName(applicationContext, RebootSafeMode::class.java),  // 6 Safe mode
+                ComponentName(applicationContext, RebootWindows::class.java),   // 7 Windows
+                ComponentName(applicationContext, RebootAndroid::class.java)    // 8 Android
+            )
 
             // Changing title depending on bootloader
             when (settingsPreferences.getBoolean("window_title", false)) {
@@ -268,14 +271,14 @@ open class MainActivity : AppCompatActivity() {
             when (settingsPreferences.getBoolean("reboot", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
-                        rebootDeviceComponentName,
+                        preferences[0],
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP
                     )
                 }
                 false -> {
                     p.setComponentEnabledSetting(
-                        rebootDeviceComponentName,
+                        preferences[0],
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP
                     )
@@ -284,14 +287,14 @@ open class MainActivity : AppCompatActivity() {
             when (settingsPreferences.getBoolean("screen_off", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
-                        screenOffComponentName,
+                        preferences[1],
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP
                     )
                 }
                 false -> {
                     p.setComponentEnabledSetting(
-                        screenOffComponentName,
+                        preferences[1],
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP
                     )
@@ -300,14 +303,14 @@ open class MainActivity : AppCompatActivity() {
             when (settingsPreferences.getBoolean("recovery", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
-                        rebootRecoveryComponentName,
+                        preferences[2],
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP
                     )
                 }
                 false -> {
                     p.setComponentEnabledSetting(
-                        rebootRecoveryComponentName,
+                        preferences[2],
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP
                     )
@@ -316,14 +319,14 @@ open class MainActivity : AppCompatActivity() {
             when (settingsPreferences.getBoolean("fastboot", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
-                        rebootFastbootComponentName,
+                        preferences[3],
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP
                     )
                 }
                 false -> {
                     p.setComponentEnabledSetting(
-                        rebootFastbootComponentName,
+                        preferences[3],
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP
                     )
@@ -332,14 +335,14 @@ open class MainActivity : AppCompatActivity() {
             when (settingsPreferences.getBoolean("dnx", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
-                        rebootDNXComponentName,
+                        preferences[4],
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP
                     )
                 }
                 false -> {
                     p.setComponentEnabledSetting(
-                        rebootDNXComponentName,
+                        preferences[4],
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP
                     )
@@ -348,14 +351,14 @@ open class MainActivity : AppCompatActivity() {
             when (settingsPreferences.getBoolean("power_down", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
-                        powerDownComponentName,
+                        preferences[5],
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP
                     )
                 }
                 false -> {
                     p.setComponentEnabledSetting(
-                        powerDownComponentName,
+                        preferences[5],
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP
                     )
@@ -364,30 +367,14 @@ open class MainActivity : AppCompatActivity() {
             when (settingsPreferences.getBoolean("safe_mode", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
-                        rebootSafemodeComponentName,
+                        preferences[6],
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP
                     )
                 }
                 false -> {
                     p.setComponentEnabledSetting(
-                        rebootSafemodeComponentName,
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP
-                    )
-                }
-            }
-            when (settingsPreferences.getBoolean("android", false)) {
-                true -> {
-                    p.setComponentEnabledSetting(
-                        rebootAndroidComponentName,
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP
-                    )
-                }
-                false -> {
-                    p.setComponentEnabledSetting(
-                        rebootAndroidComponentName,
+                        preferences[6],
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP
                     )
@@ -396,14 +383,30 @@ open class MainActivity : AppCompatActivity() {
             when (settingsPreferences.getBoolean("windows", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
-                        rebootWindowsComponentName,
+                        preferences[7],
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP
                     )
                 }
                 false -> {
                     p.setComponentEnabledSetting(
-                        rebootWindowsComponentName,
+                        preferences[7],
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+            }
+            when (settingsPreferences.getBoolean("android", false)) {
+                true -> {
+                    p.setComponentEnabledSetting(
+                        preferences[8],
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                    )
+                }
+                false -> {
+                    p.setComponentEnabledSetting(
+                        preferences[8],
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP
                     )
@@ -412,6 +415,7 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Changing title
     private fun changeTitle() {
         when {
             Root().check() && BootFile().check() -> {
@@ -424,6 +428,7 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Loading preferences
     private fun loadPreferences() {
         val window = this@MainActivity.window
         val activity = this@MainActivity
@@ -453,6 +458,7 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
+    // About dialog
     private fun aboutDialog() {
         val builder = AlertDialog.Builder(this)
             .setTitle(R.string.app_name)
@@ -462,5 +468,4 @@ open class MainActivity : AppCompatActivity() {
         }
         builder.show()
     }
-
 }

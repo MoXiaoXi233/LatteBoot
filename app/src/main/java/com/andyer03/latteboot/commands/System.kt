@@ -10,7 +10,7 @@ class System (private val OS: String) : MainActivity() {
                 BootExec().reboot()
             }
             "scn" -> {
-                BootExec().screenoff()
+                BootExec().screenOff()
             }
             "rec" -> {
                 BootExec().recovery()
@@ -24,11 +24,11 @@ class System (private val OS: String) : MainActivity() {
             "pwd" -> {
                 BootExec().shutdown()
             }
-            "mountefi" -> {
-                BootExec().mountefi()
+            "mountEFI" -> {
+                BootExec().mountEFI()
             }
             "sfm" -> {
-                BootExec().safemode()
+                BootExec().safeMode()
             }
             "win" -> {
                 BootExec().windows()
