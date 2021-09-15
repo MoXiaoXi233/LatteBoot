@@ -23,6 +23,9 @@
     <string name="color_status_bar_preference">Окрашивать строку состояния в зависимости от загрузчика</string>
     <string name="color_status_bar_enabled_summary">Окрашивание включено</string>
     <string name="color_status_bar_disabled_summary">Окрашивание выключено</string>
+    <string name="show_toast_preference">Показывать сообщение о смене загрузочных файлов</string>
+    <string name="show_toast_enabled_summary">Сообщение включено</string>
+    <string name="show_toast_disabled_summary">Сообщение выключено</string>
 
     <string name="launcher_icons_preferences_title">Главный экран</string>
     <string name="launcher_icon_enabled_summary">Ярлык включен</string>

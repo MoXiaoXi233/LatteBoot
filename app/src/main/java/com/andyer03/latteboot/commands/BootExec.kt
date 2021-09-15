@@ -6,7 +6,7 @@ class BootExec {
     fun reboot() {
         Runtime.getRuntime().exec(C().reboot)
     }
-    fun mountefi() {
+    fun mountEFI() {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().remount)).waitFor()
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().cifs)).waitFor()
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().efi)).waitFor()
@@ -14,11 +14,11 @@ class BootExec {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().mount)).waitFor()
     }
     fun windows() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().nomiui)).waitFor()
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().noMIUI)).waitFor()
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().win)).waitFor()
     }
     fun android() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().nowin)).waitFor()
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().noWIN)).waitFor()
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().miui)).waitFor()
     }
     fun recovery() {
@@ -33,18 +33,18 @@ class BootExec {
     fun shutdown() {
         Runtime.getRuntime().exec(arrayOf(C().reboot, C().shutdown))
     }
-    fun safemode() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().safemode)).waitFor()
+    fun safeMode() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().safeMode)).waitFor()
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().reboot))
     }
-    fun screenoff() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().screenoff))
+    fun screenOff() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().screenOff))
     }
 
-    fun copytempboot() {
+    fun copyTempBoot() {
         Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi /sdcard/bf").waitFor()
     }
-    fun deltempboot() {
+    fun delTempBoot() {
         Runtime.getRuntime().exec("rm /storage/emulated/0/bf").waitFor()
     }
 }

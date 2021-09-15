@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andyer03.latteboot.commands.*
 import com.andyer03.latteboot.databinding.BootItemBinding
 
-
 class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
     private val bootList = ArrayList<BootOptions>()
 
@@ -71,5 +70,9 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
 
     fun addBootOptions(bootOptions: BootOptions) {
         bootList.add(bootOptions)
+    }
+
+    fun clear() {
+        bootList.clear()
     }
 }
