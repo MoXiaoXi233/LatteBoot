@@ -22,12 +22,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import com.andyer03.latteboot.*
-import com.andyer03.latteboot.commands.BootFile
-import com.andyer03.latteboot.commands.LatteSwitchCom
-import com.andyer03.latteboot.commands.Root
-import com.andyer03.latteboot.commands.System
+import com.andyer03.latteboot.commands.*
 import com.andyer03.latteboot.other.Device
 import com.andyer03.latteboot.shortcuts.*
+import java.util.*
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -216,7 +214,7 @@ open class MainActivity : AppCompatActivity() {
                     editor.apply()
                 }
                 false -> {
-                    this.title = getString(R.string.app_name)
+                    title = getString(R.string.app_name)
                     val editor = sharedPreferences.edit()
                     editor.putBoolean("window_title", false)
                     editor.apply()
@@ -411,11 +409,11 @@ open class MainActivity : AppCompatActivity() {
     private fun changeTitle() {
         when {
             Root().check() && BootFile().check() -> {
-                this.title = getString(R.string.next_boot_windows)
+                title = getString(R.string.next_boot_windows)
 
             }
             Root().check() && !BootFile().check() -> {
-                this.title = getString(R.string.next_boot_android)
+                title = getString(R.string.next_boot_android)
             }
         }
     }
@@ -432,7 +430,7 @@ open class MainActivity : AppCompatActivity() {
                 changeTitle()
             }
             false -> {
-                this.title = getString(R.string.app_name)
+                title = getString(R.string.app_name)
             }
         }
 

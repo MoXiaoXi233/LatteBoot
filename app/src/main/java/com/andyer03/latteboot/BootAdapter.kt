@@ -73,7 +73,6 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
     }
 
     fun clear() {
-        // TODO Auto-generated method stub
         bootList.clear()
     }
 }
