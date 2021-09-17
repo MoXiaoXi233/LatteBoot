@@ -22,6 +22,7 @@
     <string name="title_activity_settings">Settings</string>
 
     <string name="appearance_preferences_title">Appearance</string>
+    <string name="theme_title_preference">App theme</string>
     <string name="color_status_bar_preference">Change status bar color depending on bootloader</string>
     <string name="color_status_bar_enabled_summary">Coloring enabled</string>
     <string name="color_status_bar_disabled_summary">Coloring disabled</string>
@@ -35,4 +36,9 @@
     <string name="launcher_icons_preferences_title">Home screen</string>
     <string name="launcher_icon_enabled_summary">Shortcut enabled</string>
     <string name="launcher_icon_disabled_summary">Shortcut disabled</string>
+
+    <string-array name="backgrounds">
+        <item>Orange</item>
+        <item>Purple</item>
+    </string-array>
 </resources>

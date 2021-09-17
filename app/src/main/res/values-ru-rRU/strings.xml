@@ -17,6 +17,7 @@
     <string name="title_activity_settings">Настройки</string>
 
     <string name="appearance_preferences_title">Внешний вид</string>
+    <string name="theme_title_preference">Тема приложения</string>
     <string name="change_window_title_preference">Менять заголовок в зависимости от загрузчика</string>
     <string name="change_window_title_enabled_summary">Смена названия включена</string>
     <string name="change_window_title_disabled_summary">Смена названия выключена</string>
@@ -30,4 +31,9 @@
     <string name="launcher_icons_preferences_title">Главный экран</string>
     <string name="launcher_icon_enabled_summary">Ярлык включен</string>
     <string name="launcher_icon_disabled_summary">Ярлык отключен</string>
+
+    <string-array name="backgrounds">
+        <item>Оранжевая</item>
+        <item>Фиолетовая</item>
+    </string-array>
 </resources>

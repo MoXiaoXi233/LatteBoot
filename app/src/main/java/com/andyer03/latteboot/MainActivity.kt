@@ -16,10 +16,12 @@ import android.content.pm.PackageManager
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
 import com.andyer03.latteboot.*
 import com.andyer03.latteboot.commands.*
@@ -187,10 +189,12 @@ open class MainActivity : AppCompatActivity() {
     open fun regSettingsChangeListener() {
         val window = this@MainActivity.window
         val activity = this@MainActivity
-        val settingsPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val sp = PreferenceManager.getDefaultSharedPreferences(this)
         val sharedPreferences = getSharedPreferences("window", Context.MODE_PRIVATE)
+        val background = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.defaultLayout)
+        val backgrounds = resources.getStringArray(R.array.backgrounds)
 
-        settingsPreferences.registerOnSharedPreferenceChangeListener { _, _ ->
+        sp.registerOnSharedPreferenceChangeListener { _, _ ->
             val p = packageManager
 
             val preferences = arrayOf (
@@ -205,8 +209,24 @@ open class MainActivity : AppCompatActivity() {
                 ComponentName(applicationContext, RebootAndroid::class.java)    // 8 Android
             )
 
+            // Changing app theme
+            when (sp.getString("theme", backgrounds[0])) {
+                backgrounds[0] -> {
+                    background.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_1, null)
+                    val editor = sharedPreferences.edit()
+                    editor.putInt("theme", 0)
+                    editor.apply()
+                }
+                backgrounds[1] -> {
+                    background.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_2, null)
+                    val editor = sharedPreferences.edit()
+                    editor.putInt("theme", 1)
+                    editor.apply()
+                }
+            }
+
             // Changing title depending on bootloader
-            when (settingsPreferences.getBoolean("window_title", false)) {
+            when (sp.getBoolean("window_title", false)) {
                 true -> {
                     changeTitle()
                     val editor = sharedPreferences.edit()
@@ -223,13 +243,13 @@ open class MainActivity : AppCompatActivity() {
 
             // Changing status bar color depending on bootloader
             when {
-                BootFile().check() && settingsPreferences.getBoolean("status_bar", false) -> {
+                BootFile().check() && sp.getBoolean("status_bar", false) -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
                     val editor = sharedPreferences.edit()
                     editor.putBoolean("status_bar", true)
                     editor.apply()
                 }
-                !BootFile().check() && settingsPreferences.getBoolean("status_bar", false) -> {
+                !BootFile().check() && sp.getBoolean("status_bar", false) -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.green)
                     val editor = sharedPreferences.edit()
                     editor.putBoolean("status_bar", true)
@@ -244,7 +264,7 @@ open class MainActivity : AppCompatActivity() {
             }
 
             // Show toast after swapping boot files
-            when (settingsPreferences.getBoolean("toast", false)) {
+            when (sp.getBoolean("toast", false)) {
                 true -> {
                     val editor = sharedPreferences.edit()
                     editor.putBoolean("toast", true)
@@ -258,7 +278,7 @@ open class MainActivity : AppCompatActivity() {
             }
 
             // Show or hide shortcuts from app drawer
-            when (settingsPreferences.getBoolean("reboot", false)) {
+            when (sp.getBoolean("reboot", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[0],
@@ -274,7 +294,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (settingsPreferences.getBoolean("screen_off", false)) {
+            when (sp.getBoolean("screen_off", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[1],
@@ -290,7 +310,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (settingsPreferences.getBoolean("recovery", false)) {
+            when (sp.getBoolean("recovery", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[2],
@@ -306,7 +326,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (settingsPreferences.getBoolean("fastboot", false)) {
+            when (sp.getBoolean("fastboot", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[3],
@@ -322,7 +342,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (settingsPreferences.getBoolean("dnx", false)) {
+            when (sp.getBoolean("dnx", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[4],
@@ -338,7 +358,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (settingsPreferences.getBoolean("power_down", false)) {
+            when (sp.getBoolean("power_down", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[5],
@@ -354,7 +374,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (settingsPreferences.getBoolean("safe_mode", false)) {
+            when (sp.getBoolean("safe_mode", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[6],
@@ -370,7 +390,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (settingsPreferences.getBoolean("windows", false)) {
+            when (sp.getBoolean("windows", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[7],
@@ -386,7 +406,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (settingsPreferences.getBoolean("android", false)) {
+            when (sp.getBoolean("android", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[8],
@@ -423,6 +443,18 @@ open class MainActivity : AppCompatActivity() {
         val window = this@MainActivity.window
         val activity = this@MainActivity
         val sp = getSharedPreferences("window", Context.MODE_PRIVATE)
+        val background = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.defaultLayout)
+        val backgrounds = resources.getStringArray(R.array.backgrounds)
+
+        // Changing app theme
+        when (sp.getInt("theme", 0)) {
+            0 -> {
+                background.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_1, null)
+            }
+            1 -> {
+                background.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_2, null)
+            }
+        }
 
         // Changing title depending on bootloader
         when (sp.getBoolean("window_title", false)) {

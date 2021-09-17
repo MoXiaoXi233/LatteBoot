@@ -4,8 +4,16 @@
         app:iconSpaceReserved="false"
         app:title="@string/appearance_preferences_title">
 
+        <ListPreference
+            app:defaultValue="Orange"
+            app:entries="@array/backgrounds"
+            app:entryValues="@array/backgrounds"
+            app:icon="@drawable/ic_brush"
+            app:key="theme"
+            app:title="@string/theme_title_preference" />
+
         <SwitchPreferenceCompat
-            app:icon="@drawable/ic_palette"
+            app:icon="@drawable/ic_brush"
             app:key="status_bar"
             app:summaryOff="@string/color_status_bar_disabled_summary"
             app:summaryOn="@string/color_status_bar_enabled_summary"
