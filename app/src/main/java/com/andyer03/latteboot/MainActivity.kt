@@ -16,10 +16,10 @@ import android.content.pm.PackageManager
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
@@ -192,7 +192,6 @@ open class MainActivity : AppCompatActivity() {
         val sp = PreferenceManager.getDefaultSharedPreferences(this)
         val sharedPreferences = getSharedPreferences("window", Context.MODE_PRIVATE)
         val background = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.defaultLayout)
-        val backgrounds = resources.getStringArray(R.array.backgrounds)
 
         sp.registerOnSharedPreferenceChangeListener { _, _ ->
             val p = packageManager
@@ -210,17 +209,19 @@ open class MainActivity : AppCompatActivity() {
             )
 
             // Changing app theme
-            when (sp.getString("theme", backgrounds[0])) {
-                backgrounds[0] -> {
-                    background.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_1, null)
+            when (sp.getBoolean("theme", false)) {
+                true -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    background.background = ResourcesCompat.getDrawable(resources, R.color.black, null)
                     val editor = sharedPreferences.edit()
-                    editor.putInt("theme", 0)
+                    editor.putBoolean("theme", true)
                     editor.apply()
                 }
-                backgrounds[1] -> {
-                    background.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_2, null)
+                false -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    background.background = ResourcesCompat.getDrawable(resources, R.color.orange_dark, null)
                     val editor = sharedPreferences.edit()
-                    editor.putInt("theme", 1)
+                    editor.putBoolean("theme", false)
                     editor.apply()
                 }
             }
@@ -444,15 +445,16 @@ open class MainActivity : AppCompatActivity() {
         val activity = this@MainActivity
         val sp = getSharedPreferences("window", Context.MODE_PRIVATE)
         val background = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.defaultLayout)
-        val backgrounds = resources.getStringArray(R.array.backgrounds)
 
         // Changing app theme
-        when (sp.getInt("theme", 0)) {
-            0 -> {
-                background.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_1, null)
+        when (sp.getBoolean("theme", false)) {
+            true -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                background.background = ResourcesCompat.getDrawable(resources, R.color.black, null)
             }
-            1 -> {
-                background.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_2, null)
+            false -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                background.background = ResourcesCompat.getDrawable(resources, R.color.orange_dark, null)
             }
         }
 

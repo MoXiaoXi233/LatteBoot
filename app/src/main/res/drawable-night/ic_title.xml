@@ -10,9 +10,9 @@
       android:fillColor="@color/orange"
       android:pathData="m360,120h150v270h-150z"/>
   <path
-      android:fillColor="@color/black"
+      android:fillColor="@color/white"
       android:pathData="m360,75h45v-30h-120v30h45v45h30z"/>
   <path
-      android:fillColor="@color/black"
+      android:fillColor="@color/white"
       android:pathData="m330,390v45h-45v30h120v-30h-45v-45z"/>
 </vector>

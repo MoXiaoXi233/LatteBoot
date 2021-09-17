@@ -4,13 +4,19 @@
         app:iconSpaceReserved="false"
         app:title="@string/appearance_preferences_title">
 
-        <ListPreference
+        <SwitchPreferenceCompat
             app:defaultValue="Orange"
-            app:entries="@array/backgrounds"
-            app:entryValues="@array/backgrounds"
-            app:icon="@drawable/ic_brush"
+            app:icon="@drawable/ic_theme"
             app:key="theme"
-            app:title="@string/theme_title_preference" />
+            app:summaryOff="@string/dark_theme_disabled_summary"
+            app:summaryOn="@string/dark_theme_enabled_summary"
+            app:title="@string/dark_theme"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/hints_preferences_title"
+        app:iconSpaceReserved="false" >
 
         <SwitchPreferenceCompat
             app:icon="@drawable/ic_brush"
@@ -32,7 +38,6 @@
             app:summaryOff="@string/show_toast_disabled_summary"
             app:summaryOn="@string/show_toast_enabled_summary"
             app:title="@string/show_toast_preference" />
-
 
     </PreferenceCategory>
 

@@ -1,11 +1,8 @@
 package com.andyer03.latteboot
 
 import android.os.Bundle
-import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -19,13 +16,6 @@ class SettingsActivity : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        val ps = PreferenceManager.getDefaultSharedPreferences(this)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
