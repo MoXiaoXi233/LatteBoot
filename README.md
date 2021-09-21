@@ -12,7 +12,7 @@
 * Small app size
 * Simple reboot by one click
 * App supports Dual Boot *(Android + Windows)* and show or hide another system boot card depending on neccessary boot file availability
-* Next boot checker by hashing boot file
+* Next boot checker by hashing boot file *(Since v1.5)*
 
 ### For booting to Safe mode and Windows:
 * Grant app Root permission and click on preferred card
