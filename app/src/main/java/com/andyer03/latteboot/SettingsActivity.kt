@@ -8,7 +8,7 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings_activity)
+        setContentView(R.layout.activity_settings)
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
@@ -17,7 +17,6 @@ class SettingsActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true

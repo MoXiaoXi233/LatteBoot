@@ -6,7 +6,7 @@ import java.io.File
 
 class BootFile {
     @SuppressLint("SdCardPath")
-    fun check(): Boolean {
+    fun check(): String {
         System("mountEFI").boot()
         BootExec().copyTempBoot()
         val file = File(Com().tempBoot)
@@ -14,15 +14,15 @@ class BootFile {
         return when (Hash().crc32(file)) {
             Device().windowsHash -> {
                 BootExec().delTempBoot()
-                true
+                "Windows"
             }
             Device().androidHash -> {
                 BootExec().delTempBoot()
-                false
+                "Android"
             }
             else -> {
                 BootExec().delTempBoot()
-                false
+                "Error"
             }
         }
     }

@@ -6,13 +6,17 @@ class RebootAndroidCom {
 
     @SuppressLint("SdCardPath")
     fun execute() {
-        if (!BootFile().check()) {
-            System("reboot").boot()
-        } else if (BootFile().check()) {
-            System("and").boot()
-            System("reboot").boot()
-        } else {
-            return
+        when {
+            BootFile().check() == "Android" -> {
+                System("reboot").boot()
+            }
+            BootFile().check() == "Windows" -> {
+                System("and").boot()
+                System("reboot").boot()
+            }
+            else -> {
+                return
+            }
         }
     }
 }
