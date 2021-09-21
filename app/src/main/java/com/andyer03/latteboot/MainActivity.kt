@@ -1,17 +1,13 @@
 package com.andyer03.latteboot
 
 import android.annotation.SuppressLint
-import android.content.ComponentName
-import android.content.Context
+import android.content.*
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.andyer03.latteboot.databinding.ActivityMainBinding
-import java.io.File
-import android.content.DialogInterface
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.view.Gravity
 import android.view.Menu
@@ -59,17 +55,6 @@ open class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SdCardPath")
     private fun init() = with(binding) {
-        val tempFile = "/sdcard/.latteboot"
-        val winBoot = File(tempFile).exists()
-
-        if (Root().check()) {
-            if (!winBoot) {
-                System("mountEFI").boot()
-                Runtime.getRuntime()
-                    .exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi.win /sdcard/.latteboot")
-            }
-        }
-
         val orientation = resources.configuration.orientation
         val spanCount: Int = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             3
@@ -127,22 +112,19 @@ open class MainActivity : AppCompatActivity() {
         adapter.addBootOptions(bootOptions[4]) // DNX
         adapter.addBootOptions(bootOptions[5]) // Safe mode
 
-        when {
-            Root().check() -> {
-                when {
-                    winBoot -> {
-                        if (BootFile().check()) {
-                            adapter.addBootOptions(bootOptions[9]) // Reboot Windows
-                            adapter.addBootOptions(bootOptions[8]) // Android
-                        } else if (!BootFile().check()) {
-                            adapter.addBootOptions(bootOptions[10]) // Reboot Android
-                            adapter.addBootOptions(bootOptions[7]) // Windows
-                        } else {
-                            adapter.addBootOptions(bootOptions[6]) // Simple reboot
-                        }
+        when (Root().check()) {
+            true -> {
+                when (BootFile().check()) {
+                    "Windows" -> {
+                        adapter.addBootOptions(bootOptions[9]) // Reboot Windows
+                        adapter.addBootOptions(bootOptions[8]) // Android
                     }
-                    else -> {
-                        adapter.addBootOptions(bootOptions[6]) // Simple reboot
+                    "Android" -> {
+                        adapter.addBootOptions(bootOptions[10]) // Reboot Android
+                        adapter.addBootOptions(bootOptions[7]) // Windows
+                    }
+                    "Error" -> {
+                        // None
                     }
                 }
             }
@@ -189,11 +171,13 @@ open class MainActivity : AppCompatActivity() {
     open fun regSettingsChangeListener() {
         val window = this@MainActivity.window
         val activity = this@MainActivity
-        val sp = PreferenceManager.getDefaultSharedPreferences(this)
-        val sharedPreferences = getSharedPreferences("window", Context.MODE_PRIVATE)
+        val dsp = PreferenceManager.getDefaultSharedPreferences(this)
+        val sp = getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE)
+        val spEditor: SharedPreferences.Editor = sp.edit()
+
         val background = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.defaultLayout)
 
-        sp.registerOnSharedPreferenceChangeListener { _, _ ->
+        dsp.registerOnSharedPreferenceChangeListener { _, _ ->
             val p = packageManager
 
             val preferences = arrayOf (
@@ -209,77 +193,68 @@ open class MainActivity : AppCompatActivity() {
             )
 
             // Changing app theme
-            when (sp.getBoolean("theme", false)) {
+            when (dsp.getBoolean("theme", false)) {
                 true -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     background.background = ResourcesCompat.getDrawable(resources, R.color.black, null)
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("theme", true)
-                    editor.apply()
+                    spEditor.putBoolean("theme", true)
+                    spEditor.apply()
                 }
                 false -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     background.background = ResourcesCompat.getDrawable(resources, R.color.orange_dark, null)
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("theme", false)
-                    editor.apply()
+                    spEditor.putBoolean("theme", false)
+                    spEditor.apply()
                 }
             }
 
             // Changing title depending on bootloader
-            when (sp.getBoolean("window_title", false)) {
+            when (dsp.getBoolean("window_title", false)) {
                 true -> {
                     changeTitle()
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("window_title", true)
-                    editor.apply()
+                    spEditor.putBoolean("window_title", true)
+                    spEditor.apply()
                 }
                 false -> {
                     title = getString(R.string.app_name)
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("window_title", false)
-                    editor.apply()
+                    spEditor.putBoolean("window_title", false)
+                    spEditor.apply()
                 }
             }
 
             // Changing status bar color depending on bootloader
             when {
-                BootFile().check() && sp.getBoolean("status_bar", false) -> {
+                BootFile().check() == "Windows" && dsp.getBoolean("status_bar", false) -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("status_bar", true)
-                    editor.apply()
+                    spEditor.putBoolean("status_bar", true)
+                    spEditor.apply()
                 }
-                !BootFile().check() && sp.getBoolean("status_bar", false) -> {
+                BootFile().check() == "Android" && dsp.getBoolean("status_bar", false) -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.green)
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("status_bar", true)
-                    editor.apply()
+                    spEditor.putBoolean("status_bar", true)
+                    spEditor.apply()
                 }
                 else -> {
                     window.statusBarColor = ContextCompat.getColor(activity, R.color.orange_dark)
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("status_bar", false)
-                    editor.apply()
+                    spEditor.putBoolean("status_bar", false)
+                    spEditor.apply()
                 }
             }
 
             // Show toast after swapping boot files
-            when (sp.getBoolean("toast", false)) {
+            when (dsp.getBoolean("toast", false)) {
                 true -> {
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("toast", true)
-                    editor.apply()
+                    spEditor.putBoolean("toast", true)
+                    spEditor.apply()
                 }
                 false -> {
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("toast", false)
-                    editor.apply()
+                    spEditor.putBoolean("toast", false)
+                    spEditor.apply()
                 }
             }
 
             // Show or hide shortcuts from app drawer
-            when (sp.getBoolean("reboot", false)) {
+            when (dsp.getBoolean("reboot", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[0],
@@ -295,7 +270,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("screen_off", false)) {
+            when (dsp.getBoolean("screen_off", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[1],
@@ -311,7 +286,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("recovery", false)) {
+            when (dsp.getBoolean("recovery", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[2],
@@ -327,7 +302,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("fastboot", false)) {
+            when (dsp.getBoolean("fastboot", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[3],
@@ -343,7 +318,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("dnx", false)) {
+            when (dsp.getBoolean("dnx", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[4],
@@ -359,7 +334,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("power_down", false)) {
+            when (dsp.getBoolean("power_down", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[5],
@@ -375,7 +350,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("safe_mode", false)) {
+            when (dsp.getBoolean("safe_mode", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[6],
@@ -391,7 +366,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("windows", false)) {
+            when (dsp.getBoolean("windows", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[7],
@@ -407,7 +382,7 @@ open class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            when (sp.getBoolean("android", false)) {
+            when (dsp.getBoolean("android", false)) {
                 true -> {
                     p.setComponentEnabledSetting(
                         preferences[8],
@@ -429,11 +404,11 @@ open class MainActivity : AppCompatActivity() {
     // Changing title
     private fun changeTitle() {
         when {
-            Root().check() && BootFile().check() -> {
+            Root().check() && BootFile().check() == "Windows" -> {
                 title = getString(R.string.next_boot_windows)
 
             }
-            Root().check() && !BootFile().check() -> {
+            Root().check() && BootFile().check() == "Android" -> {
                 title = getString(R.string.next_boot_android)
             }
         }
@@ -443,7 +418,7 @@ open class MainActivity : AppCompatActivity() {
     private fun loadPreferences() {
         val window = this@MainActivity.window
         val activity = this@MainActivity
-        val sp = getSharedPreferences("window", Context.MODE_PRIVATE)
+        val sp = getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE)
         val background = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.defaultLayout)
 
         // Changing app theme
@@ -470,10 +445,10 @@ open class MainActivity : AppCompatActivity() {
 
         // Changing status bar color depending on bootloader
         when {
-            BootFile().check() && sp.getBoolean("status_bar", false) -> {
+            BootFile().check() == "Windows" && sp.getBoolean("status_bar", false) -> {
                 window.statusBarColor = ContextCompat.getColor(activity, R.color.blue)
             }
-            !BootFile().check() && sp.getBoolean("status_bar", false) -> {
+            BootFile().check() == "Android" && sp.getBoolean("status_bar", false) -> {
                 window.statusBarColor = ContextCompat.getColor(activity, R.color.green)
             }
             else -> {
@@ -484,7 +459,7 @@ open class MainActivity : AppCompatActivity() {
     
     // Show toast after swapping boot files
     private fun swapToast() {
-        val sp = getSharedPreferences("window", Context.MODE_PRIVATE)
+        val sp = getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE)
         when (sp.getBoolean("toast", false)) {
             true -> {
                 val toast = Toast.makeText(this, R.string.reboot_device_title, Toast.LENGTH_LONG)
@@ -497,14 +472,19 @@ open class MainActivity : AppCompatActivity() {
                 val image = view?.findViewById<ImageView>(R.id.image)
 
                 when {
-                    BootFile().check() -> {
+                    BootFile().check() == "Windows" -> {
                         title?.text = getString(R.string.reboot_win_title)
                         image?.setBackgroundResource(R.drawable.ic_windows)
                         toast.show()
                     }
-                    !BootFile().check() -> {
+                    BootFile().check() == "Android" -> {
                         title?.text = getString(R.string.reboot_and_title)
                         image?.setBackgroundResource(R.drawable.ic_android)
+                        toast.show()
+                    }
+                    BootFile().check() == "Error" -> {
+                        title?.text = getString(R.string.error_title)
+                        image?.setBackgroundResource(R.drawable.ic_bootloader)
                         toast.show()
                     }
                 }

@@ -10,13 +10,17 @@ class RebootWindowsCom {
         // Checking for temp file existing
         val tempFile = "/sdcard/.latteboot"
         val latteboot = File(tempFile).exists()
-        if (latteboot && BootFile().check()) {
-            System("reboot").boot()
-        } else if (latteboot && !BootFile().check()) {
-            System("win").boot()
-            System("reboot").boot()
-        } else {
-            return
+        when {
+            latteboot && BootFile().check() == "Windows" -> {
+                System("reboot").boot()
+            }
+            latteboot && BootFile().check() == "Android" -> {
+                System("win").boot()
+                System("reboot").boot()
+            }
+            else -> {
+                return
+            }
         }
     }
 }

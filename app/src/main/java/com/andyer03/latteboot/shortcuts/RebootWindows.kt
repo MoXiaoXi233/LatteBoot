@@ -13,7 +13,7 @@ class RebootWindows : AppCompatActivity() {
 
         if (Root().check()) {
             RebootWindowsCom().execute()
-            if (!BootFile().check()) {
+            if (BootFile().check() == "Android") {
                 Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
             }
         } else {
