@@ -11,8 +11,8 @@
 ### Features:
 * Small app size
 * Simple reboot by one click
-* App supports Dual Boot *(Android + Windows)*
-* *App checking for EFI BIOS OS boot availability by boot file in EFI partition exists and show or hide Windows boot option depending on it*
+* App supports Dual Boot *(Android + Windows)* and show or hide another system boot card depending on neccessary boot file availability
+* Next boot checker by hashing boot file
 
 ### For booting to Safe mode and Windows:
 * Grant app Root permission and click on preferred card
