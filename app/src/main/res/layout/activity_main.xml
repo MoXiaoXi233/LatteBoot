@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/orange_dark"
-    tools:ignore="Overdraw"
-    android:id="@+id/activityMain">
+    tools:ignore="Overdraw">
 
     <TextView
         android:id="@+id/choose"

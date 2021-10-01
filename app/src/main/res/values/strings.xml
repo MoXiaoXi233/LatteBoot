@@ -16,29 +16,8 @@
     <string name="next_boot_windows">Next boot in Windows</string>
     <string name="swap">Swap bootloader</string>
     <string name="unavailable_title">Unavailable</string>
-    <string name="about_dialog_title">About</string>
     <string name="about_title" translatable="false">by AndyER03</string>
-    <string name="exit_button">Close</string>
 
-    <string name="title_activity_settings">Settings</string>
-
-    <string name="appearance_preferences_title">Appearance</string>
-    <string name="dark_theme">Dark theme</string>
-    <string name="dark_theme_enabled_summary">Dark theme enabled</string>
-    <string name="dark_theme_disabled_summary">Dark theme disabled</string>
-
-    <string name="hints_preferences_title">Bootloader hints</string>
-    <string name="color_status_bar_preference">Coloring status bar</string>
-    <string name="color_status_bar_enabled_summary">Coloring enabled</string>
-    <string name="color_status_bar_disabled_summary">Coloring disabled</string>
-    <string name="change_window_title_preference">Change window title</string>
-    <string name="change_window_title_enabled_summary">Title changing enabled</string>
-    <string name="change_window_title_disabled_summary">Title changing disabled</string>
-    <string name="show_toast_preference">Bootloader swapping toast</string>
-    <string name="show_toast_enabled_summary">Toast enabled</string>
-    <string name="show_toast_disabled_summary">Toast disabled</string>
-
-    <string name="launcher_icons_preferences_title">Home screen</string>
     <string name="launcher_icon_enabled_summary">Shortcut enabled</string>
     <string name="launcher_icon_disabled_summary">Shortcut disabled</string>
 </resources>

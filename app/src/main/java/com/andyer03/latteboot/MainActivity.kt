@@ -19,12 +19,6 @@ import com.andyer03.latteboot.commands.*
 import com.andyer03.latteboot.other.Device
 import com.andyer03.latteboot.shortcuts.*
 import java.util.*
-import android.R.menu
-
-import androidx.appcompat.view.menu.MenuBuilder
-
-
-
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

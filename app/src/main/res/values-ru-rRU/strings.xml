@@ -11,28 +11,7 @@
     <string name="next_boot_windows">Следующая загрузка в Windows</string>
     <string name="swap">Сменить загрузчик</string>
     <string name="unavailable_title">Недоступно</string>
-    <string name="about_dialog_title">О приложении</string>
-    <string name="exit_button">Закрыть</string>
-    
-    <string name="title_activity_settings">Настройки</string>
 
-    <string name="appearance_preferences_title">Внешний вид</string>
-    <string name="dark_theme">Тёмная тема</string>
-    <string name="dark_theme_enabled_summary">Тёмная тема включена</string>
-    <string name="dark_theme_disabled_summary">Тёмная тема выключена</string>
-
-    <string name="hints_preferences_title">Подсказки загрузчика</string>
-    <string name="color_status_bar_preference">Окрашивать строку состояния</string>
-    <string name="color_status_bar_enabled_summary">Окрашивание включено</string>
-    <string name="color_status_bar_disabled_summary">Окрашивание выключено</string>
-    <string name="change_window_title_preference">Менять заголовок</string>
-    <string name="change_window_title_enabled_summary">Смена названия включена</string>
-    <string name="change_window_title_disabled_summary">Смена названия выключена</string>
-    <string name="show_toast_preference">Сообщение о смене загрузочных файлов</string>
-    <string name="show_toast_enabled_summary">Сообщение включено</string>
-    <string name="show_toast_disabled_summary">Сообщение выключено</string>
-
-    <string name="launcher_icons_preferences_title">Главный экран</string>
     <string name="launcher_icon_enabled_summary">Ярлык включен</string>
     <string name="launcher_icon_disabled_summary">Ярлык отключен</string>
 </resources>
