@@ -11,7 +11,6 @@
     <string name="next_boot_windows">Следующая загрузка в Windows</string>
     <string name="swap">Сменить загрузчик</string>
     <string name="unavailable_title">Недоступно</string>
-
-    <string name="launcher_icon_enabled_summary">Ярлык включен</string>
-    <string name="launcher_icon_disabled_summary">Ярлык отключен</string>
+    <string name="launcher_icon_enabled_toast">Ярлык включен</string>
+    <string name="launcher_icon_disabled_toast">Ярлык отключен</string>
 </resources>

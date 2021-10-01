@@ -17,7 +17,6 @@
     <string name="swap">Swap bootloader</string>
     <string name="unavailable_title">Unavailable</string>
     <string name="about_title" translatable="false">by AndyER03</string>
-
-    <string name="launcher_icon_enabled_summary">Shortcut enabled</string>
-    <string name="launcher_icon_disabled_summary">Shortcut disabled</string>
+    <string name="launcher_icon_enabled_toast">Shortcut enabled</string>
+    <string name="launcher_icon_disabled_toast">Shortcut disabled</string>
 </resources>

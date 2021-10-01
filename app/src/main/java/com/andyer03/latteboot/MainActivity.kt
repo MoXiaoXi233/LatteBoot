@@ -159,6 +159,7 @@ open class MainActivity : AppCompatActivity() {
                         LatteSwitchCom().execute() // Swap boot files
                         adapter.clear() // Clear adapter
                         init() // Recreating adapter
+                        changeTitle() // Changing title
                         swapToast() // Show toast after swap
                     }
                     else -> {
@@ -178,7 +179,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("reboot_switch", true)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
                     }
                     true -> {
                         p.setComponentEnabledSetting(
@@ -188,7 +189,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("reboot_switch", false)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -202,7 +203,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("power_switch", true)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
                     }
                     true -> {
                         p.setComponentEnabledSetting(
@@ -212,7 +213,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("power_switch", false)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -226,7 +227,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("recovery_switch", true)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
                     }
                     true -> {
                         p.setComponentEnabledSetting(
@@ -236,7 +237,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("recovery_switch", false)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -250,7 +251,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("bootloader_switch", true)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
                     }
                     true -> {
                         p.setComponentEnabledSetting(
@@ -260,7 +261,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("bootloader_switch", false)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -274,7 +275,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("dnx_switch", true)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
                     }
                     true -> {
                         p.setComponentEnabledSetting(
@@ -284,7 +285,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("dnx_switch", false)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -298,7 +299,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("power_down_switch", true)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
                     }
                     true -> {
                         p.setComponentEnabledSetting(
@@ -308,7 +309,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("power_down_switch", false)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -322,7 +323,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("safe_mode_switch", true)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
                     }
                     true -> {
                         p.setComponentEnabledSetting(
@@ -332,7 +333,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("safe_mode_switch", false)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -346,7 +347,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("windows_switch", true)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
                     }
                     true -> {
                         p.setComponentEnabledSetting(
@@ -356,7 +357,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("windows_switch", false)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -370,7 +371,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("android_switch", true)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
                     }
                     true -> {
                         p.setComponentEnabledSetting(
@@ -380,7 +381,7 @@ open class MainActivity : AppCompatActivity() {
                         )
                         spEditor.putBoolean("android_switch", false)
                         spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_summary), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
