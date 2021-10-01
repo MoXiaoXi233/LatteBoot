@@ -12,7 +12,6 @@
     <string name="swap">Сменить загрузчик</string>
     <string name="unavailable_title">Недоступно</string>
     <string name="about_dialog_title">О приложении</string>
-    <string name="about_title">разработал AndyER03</string>
     <string name="exit_button">Закрыть</string>
     
     <string name="title_activity_settings">Настройки</string>

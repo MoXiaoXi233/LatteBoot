@@ -17,7 +17,7 @@
     <string name="swap">Swap bootloader</string>
     <string name="unavailable_title">Unavailable</string>
     <string name="about_dialog_title">About</string>
-    <string name="about_title">created by AndyER03</string>
+    <string name="about_title" translatable="false">by AndyER03</string>
     <string name="exit_button">Close</string>
 
     <string name="title_activity_settings">Settings</string>
