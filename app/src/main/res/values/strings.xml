@@ -12,8 +12,6 @@
     <string name="reboot_safe_mode_title">Safe mode</string>
     <string name="reboot_screen_off_title">Screen off</string>
     <string name="error_title">Error</string>
-    <string name="next_boot_android">Next boot in Android</string>
-    <string name="next_boot_windows">Next boot in Windows</string>
     <string name="swap">Swap bootloader</string>
     <string name="unavailable_title">Unavailable</string>
     <string name="about_title" translatable="false">by AndyER03</string>

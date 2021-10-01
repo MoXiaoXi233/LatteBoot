@@ -39,8 +39,23 @@ open class MainActivity : AppCompatActivity() {
             val label = findViewById<TextView>(R.id.label)
             label.text = getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " " + getString(R.string.about_title)
 
+            val swapBootloader = findViewById<TextView>(R.id.swapBootloader)
+            swapBootloader.setOnClickListener {
+                when {
+                    Root().check() -> {
+                        LatteSwitchCom().execute() // Swap boot files
+                        adapter.clear() // Clear adapter
+                        init() // Recreating adapter
+                        swapToast() // Show toast after swap
+                    }
+                    else -> {
+                        Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
             // Changing title depending on bootloader
-            changeTitle()
+            title = "Shortcuts"
 
             // Load the main code
             init()
@@ -153,21 +168,6 @@ open class MainActivity : AppCompatActivity() {
         )
 
         when (item.itemId) {
-            R.id.swap_button -> {
-                when {
-                    Root().check() -> {
-                        LatteSwitchCom().execute() // Swap boot files
-                        adapter.clear() // Clear adapter
-                        init() // Recreating adapter
-                        changeTitle() // Changing title
-                        swapToast() // Show toast after swap
-                    }
-                    else -> {
-                        Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
             // Show or hide shortcuts from app drawer
             R.id.reboot_switch -> {
                 when (sp.getBoolean("reboot_switch", false)) {
@@ -387,22 +387,6 @@ open class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    // Changing title
-    private fun changeTitle() {
-        title = when {
-            Root().check() && BootFile().check() == "Windows" -> {
-                getString(R.string.next_boot_windows)
-
-            }
-            Root().check() && BootFile().check() == "Android" -> {
-                getString(R.string.next_boot_android)
-            }
-            else -> {
-                getString(R.string.app_name)
-            }
-        }
     }
     
     // Show toast after swapping boot files

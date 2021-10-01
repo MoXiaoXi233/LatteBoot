@@ -4,53 +4,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/swap_button"
-        android:title="@string/swap"
+        android:id="@+id/reboot_switch"
+        android:icon="@drawable/ic_reboot"
+        android:title="@string/reboot_device_title"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/reboot_switch"
-        android:title="@string/reboot_device_title"
-        app:showAsAction="never"/>
-
-    <item
         android:id="@+id/power_switch"
+        android:icon="@drawable/ic_power"
         android:title="@string/reboot_screen_off_title"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/recovery_switch"
+        android:icon="@drawable/ic_recovery"
         android:title="@string/reboot_recovery_title"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/bootloader_switch"
+        android:icon="@drawable/ic_bootloader"
         android:title="@string/reboot_bootloader_title"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/dnx_switch"
+        android:icon="@drawable/ic_bootloader"
         android:title="@string/reboot_dnx_title"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/power_down_switch"
+        android:icon="@drawable/ic_power"
         android:title="@string/reboot_shutdown_title"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/safe_mode_switch"
+        android:icon="@drawable/ic_safe_mode"
         android:title="@string/reboot_safe_mode_title"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/android_switch"
+        android:icon="@drawable/ic_android"
         android:title="@string/reboot_and_title"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/windows_switch"
+        android:icon="@drawable/ic_windows"
         android:title="@string/reboot_win_title"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
 </menu>
