@@ -170,7 +170,7 @@ open class MainActivity : AppCompatActivity() {
                     }
                     true -> {
                         p.setComponentEnabledSetting(
-                            preferences[1],
+                            preferences[0],
                             PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                             PackageManager.DONT_KILL_APP
                         )
@@ -184,7 +184,7 @@ open class MainActivity : AppCompatActivity() {
                 when (sp.getBoolean("windows_switch", false)) {
                     false -> {
                         p.setComponentEnabledSetting(
-                            preferences[7],
+                            preferences[1],
                             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                             PackageManager.DONT_KILL_APP
                         )
@@ -194,7 +194,7 @@ open class MainActivity : AppCompatActivity() {
                     }
                     true -> {
                         p.setComponentEnabledSetting(
-                            preferences[7],
+                            preferences[1],
                             PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                             PackageManager.DONT_KILL_APP
                         )
