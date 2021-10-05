@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">LatteBoot</string>
     <string name="mi_pad_2_toast">Only for MI Pad 2</string>
-    <string name="reboot_win_title" translatable="false">Windows</string>
-    <string name="reboot_and_title" translatable="false">Android</string>
+    <string name="reboot_windows_title" translatable="false">Windows</string>
+    <string name="reboot_android_title" translatable="false">Android</string>
     <string name="reboot_device_title">Reboot</string>
     <string name="reboot_recovery_title" translatable="false">Recovery</string>
     <string name="reboot_bootloader_title" translatable="false">Fastboot</string>
@@ -12,7 +12,9 @@
     <string name="reboot_safe_mode_title">Safe mode</string>
     <string name="reboot_screen_off_title">Screen off</string>
     <string name="error_title">Error</string>
-    <string name="swap">Swap bootloader</string>
+    <string name="bootloader_swap">Swap bootloader</string>
+    <string name="reboot_windows_shortcut">Windows shortcut</string>
+    <string name="reboot_recovery_shortcut">Recovery shortcut</string>
     <string name="unavailable_title">Unavailable</string>
     <string name="about_title" translatable="false">by AndyER03</string>
     <string name="launcher_icon_enabled_toast">Shortcut enabled</string>

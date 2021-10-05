@@ -39,30 +39,11 @@ open class MainActivity : AppCompatActivity() {
             val label = findViewById<TextView>(R.id.label)
             label.text = getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + " " + getString(R.string.about_title)
 
-            val swapBootloader = findViewById<TextView>(R.id.swapBootloader)
-            swapBootloader.setOnClickListener {
-                when {
-                    Root().check() -> {
-                        LatteSwitchCom().execute() // Swap boot files
-                        adapter.clear() // Clear adapter
-                        init() // Recreating adapter
-                        swapToast() // Show toast after swap
-                    }
-                    else -> {
-                        Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            // Changing title depending on bootloader
-            title = "Shortcuts"
-
             // Load the main code
             init()
         }
     }
 
-    @SuppressLint("SdCardPath")
     private fun init() = with(binding) {
         val orientation = resources.configuration.orientation
         val spanCount: Int = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -94,8 +75,8 @@ open class MainActivity : AppCompatActivity() {
             getString(R.string.reboot_dnx_title), // DNX
             getString(R.string.reboot_safe_mode_title), // Safe mode
             getString(R.string.reboot_device_title), // Reboot
-            getString(R.string.reboot_win_title), // Windows
-            getString(R.string.reboot_and_title) // Android
+            getString(R.string.reboot_windows_title), // Windows
+            getString(R.string.reboot_android_title) // Android
         )
 
         // Define icons + strings together
@@ -156,72 +137,30 @@ open class MainActivity : AppCompatActivity() {
         val spEditor: SharedPreferences.Editor = sp.edit()
 
         val preferences = arrayOf (
-            ComponentName(applicationContext, RebootDevice::class.java),    // 0 Reboot
-            ComponentName(applicationContext, ScreenOff::class.java),       // 1 Screen off
-            ComponentName(applicationContext, RebootRecovery::class.java),  // 2 Recovery
-            ComponentName(applicationContext, RebootFastboot::class.java),  // 3 Fastboot
-            ComponentName(applicationContext, RebootDNX::class.java),       // 4 DNX
-            ComponentName(applicationContext, ShutDown::class.java),        // 5 Shutdown
-            ComponentName(applicationContext, RebootSafeMode::class.java),  // 6 Safe mode
-            ComponentName(applicationContext, RebootWindows::class.java),   // 7 Windows
-            ComponentName(applicationContext, RebootAndroid::class.java)    // 8 Android
+            ComponentName(applicationContext, RebootRecovery::class.java),  // 0 Recovery
+            ComponentName(applicationContext, RebootWindows::class.java),   // 1 Windows
         )
 
         when (item.itemId) {
             // Show or hide shortcuts from app drawer
-            R.id.reboot_switch -> {
-                when (sp.getBoolean("reboot_switch", false)) {
-                    false -> {
-                        p.setComponentEnabledSetting(
-                            preferences[0],
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("reboot_switch", true)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
+            R.id.bootloader_swap -> {
+                when {
+                    Root().check() -> {
+                        LatteSwapBoot().swap() // Swap boot files
+                        adapter.clear() // Clear adapter
+                        init() // Recreating adapter
+                        swapToast() // Show toast after swap
                     }
-                    true -> {
-                        p.setComponentEnabledSetting(
-                            preferences[0],
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("reboot_switch", false)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
+                    else -> {
+                        Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
-            R.id.power_switch -> {
-                when (sp.getBoolean("power_switch", false)) {
-                    false -> {
-                        p.setComponentEnabledSetting(
-                            preferences[1],
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("power_switch", true)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                    true -> {
-                        p.setComponentEnabledSetting(
-                            preferences[1],
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("power_switch", false)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            R.id.recovery_switch -> {
+            R.id.recovery_shortcut -> {
                 when (sp.getBoolean("recovery_switch", false)) {
                     false -> {
                         p.setComponentEnabledSetting(
-                            preferences[2],
+                            preferences[0],
                             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                             PackageManager.DONT_KILL_APP
                         )
@@ -231,7 +170,7 @@ open class MainActivity : AppCompatActivity() {
                     }
                     true -> {
                         p.setComponentEnabledSetting(
-                            preferences[2],
+                            preferences[1],
                             PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                             PackageManager.DONT_KILL_APP
                         )
@@ -241,103 +180,7 @@ open class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            R.id.bootloader_switch -> {
-                when (sp.getBoolean("bootloader_switch", false)) {
-                    false -> {
-                        p.setComponentEnabledSetting(
-                            preferences[3],
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("bootloader_switch", true)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                    true -> {
-                        p.setComponentEnabledSetting(
-                            preferences[3],
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("bootloader_switch", false)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            R.id.dnx_switch -> {
-                when (sp.getBoolean("dnx_switch", false)) {
-                    false -> {
-                        p.setComponentEnabledSetting(
-                            preferences[4],
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("dnx_switch", true)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                    true -> {
-                        p.setComponentEnabledSetting(
-                            preferences[4],
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("dnx_switch", false)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            R.id.power_down_switch -> {
-                when (sp.getBoolean("power_down_switch", false)) {
-                    false -> {
-                        p.setComponentEnabledSetting(
-                            preferences[5],
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("power_down_switch", true)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                    true -> {
-                        p.setComponentEnabledSetting(
-                            preferences[5],
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("power_down_switch", false)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            R.id.safe_mode_switch -> {
-                when (sp.getBoolean("safe_mode_switch", false)) {
-                    false -> {
-                        p.setComponentEnabledSetting(
-                            preferences[6],
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("safe_mode_switch", true)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                    true -> {
-                        p.setComponentEnabledSetting(
-                            preferences[6],
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("safe_mode_switch", false)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            R.id.windows_switch -> {
+            R.id.windows_shortcut -> {
                 when (sp.getBoolean("windows_switch", false)) {
                     false -> {
                         p.setComponentEnabledSetting(
@@ -361,30 +204,6 @@ open class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            R.id.android_switch -> {
-                when (sp.getBoolean("android_switch", false)) {
-                    false -> {
-                        p.setComponentEnabledSetting(
-                            preferences[8],
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("android_switch", true)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                    true -> {
-                        p.setComponentEnabledSetting(
-                            preferences[8],
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("android_switch", false)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -402,12 +221,12 @@ open class MainActivity : AppCompatActivity() {
 
         when {
             BootFile().check() == "Windows" -> {
-                title?.text = getString(R.string.reboot_win_title)
+                title?.text = getString(R.string.reboot_windows_title)
                 image?.setBackgroundResource(R.drawable.ic_windows)
                 toast.show()
             }
             BootFile().check() == "Android" -> {
-                title?.text = getString(R.string.reboot_and_title)
+                title?.text = getString(R.string.reboot_android_title)
                 image?.setBackgroundResource(R.drawable.ic_android)
                 toast.show()
             }

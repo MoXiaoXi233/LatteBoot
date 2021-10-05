@@ -1,11 +1,9 @@
 package com.andyer03.latteboot.commands
 
-import android.annotation.SuppressLint
 import com.andyer03.latteboot.other.Device
 import java.io.File
 
 class BootFile {
-    @SuppressLint("SdCardPath")
     fun check(): String {
         System("mountEFI").boot()
         BootExec().copyTempBoot()

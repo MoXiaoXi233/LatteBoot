@@ -7,7 +7,9 @@
     <string name="reboot_screen_off_title">Сон</string>
     <string name="reboot_safe_mode_title">Безопасный режим</string>
     <string name="error_title">Ошибка</string>
-    <string name="swap">Сменить загрузчик</string>
+    <string name="bootloader_swap">Сменить загрузчик</string>
+    <string name="reboot_windows_shortcut">Ярлык Windows</string>
+    <string name="reboot_recovery_shortcut">Ярлык Recovery</string>
     <string name="unavailable_title">Недоступно</string>
     <string name="launcher_icon_enabled_toast">Ярлык включен</string>
     <string name="launcher_icon_disabled_toast">Ярлык отключен</string>

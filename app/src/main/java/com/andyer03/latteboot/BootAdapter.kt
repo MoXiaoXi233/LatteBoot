@@ -44,10 +44,10 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                     7 -> {
                         when {
                             BootFile().check() == "Windows" -> {
-                                RebootAndroidCom().execute()
+                                BootAnotherOS().android()
                             }
                             BootFile().check() == "Android" -> {
-                                RebootWindowsCom().execute()
+                                BootAnotherOS().windows()
                             }
                             else -> {
                                 return@setOnClickListener
