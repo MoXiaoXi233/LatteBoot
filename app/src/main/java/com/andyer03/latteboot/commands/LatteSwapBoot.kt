@@ -1,7 +1,7 @@
 package com.andyer03.latteboot.commands
 
-class LatteSwitchCom {
-    fun execute() {
+class LatteSwapBoot {
+    fun swap() {
         // Checking for temp file existing
         if (BootFile().check() == "Windows") {
             System("and").boot()

@@ -42,7 +42,7 @@ class BootExec {
     }
 
     fun copyTempBoot() {
-        Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi /sdcard/bf").waitFor()
+        Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi /storage/emulated/0/bf").waitFor()
     }
     fun delTempBoot() {
         Runtime.getRuntime().exec("rm /storage/emulated/0/bf").waitFor()

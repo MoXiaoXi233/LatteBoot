@@ -9,8 +9,8 @@ import com.andyer03.latteboot.commands.*
 class RebootWindows : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Root().check()) {
-            RebootWindowsCom().execute()
-            if (BootFile().check() == "Android") {
+            BootAnotherOS().windows()
+            if (BootFile().check() != "Windows") {
                 Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
             }
         } else {

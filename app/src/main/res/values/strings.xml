@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">LatteBoot</string>
     <string name="mi_pad_2_toast">Only for MI Pad 2</string>
-    <string name="reboot_win_title" translatable="false">Windows</string>
-    <string name="reboot_and_title" translatable="false">Android</string>
+    <string name="reboot_windows_title" translatable="false">Windows</string>
+    <string name="reboot_android_title" translatable="false">Android</string>
     <string name="reboot_device_title">Reboot</string>
     <string name="reboot_recovery_title" translatable="false">Recovery</string>
     <string name="reboot_bootloader_title" translatable="false">Fastboot</string>
@@ -12,33 +12,11 @@
     <string name="reboot_safe_mode_title">Safe mode</string>
     <string name="reboot_screen_off_title">Screen off</string>
     <string name="error_title">Error</string>
-    <string name="next_boot_android">Next boot in Android</string>
-    <string name="next_boot_windows">Next boot in Windows</string>
-    <string name="swap">Swap bootloader</string>
+    <string name="bootloader_swap">Swap bootloader</string>
+    <string name="reboot_windows_shortcut">Windows shortcut</string>
+    <string name="reboot_recovery_shortcut">Recovery shortcut</string>
     <string name="unavailable_title">Unavailable</string>
-    <string name="about_dialog_title">About</string>
-    <string name="about_title">created by AndyER03</string>
-    <string name="exit_button">Close</string>
-
-    <string name="title_activity_settings">Settings</string>
-
-    <string name="appearance_preferences_title">Appearance</string>
-    <string name="dark_theme">Dark theme</string>
-    <string name="dark_theme_enabled_summary">Dark theme enabled</string>
-    <string name="dark_theme_disabled_summary">Dark theme disabled</string>
-
-    <string name="hints_preferences_title">Bootloader hints</string>
-    <string name="color_status_bar_preference">Coloring status bar</string>
-    <string name="color_status_bar_enabled_summary">Coloring enabled</string>
-    <string name="color_status_bar_disabled_summary">Coloring disabled</string>
-    <string name="change_window_title_preference">Change window title</string>
-    <string name="change_window_title_enabled_summary">Title changing enabled</string>
-    <string name="change_window_title_disabled_summary">Title changing disabled</string>
-    <string name="show_toast_preference">Bootloader swapping toast</string>
-    <string name="show_toast_enabled_summary">Toast enabled</string>
-    <string name="show_toast_disabled_summary">Toast disabled</string>
-
-    <string name="launcher_icons_preferences_title">Home screen</string>
-    <string name="launcher_icon_enabled_summary">Shortcut enabled</string>
-    <string name="launcher_icon_disabled_summary">Shortcut disabled</string>
+    <string name="about_title" translatable="false">by AndyER03</string>
+    <string name="launcher_icon_enabled_toast">Shortcut enabled</string>
+    <string name="launcher_icon_disabled_toast">Shortcut disabled</string>
 </resources>
