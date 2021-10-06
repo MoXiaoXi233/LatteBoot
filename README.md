@@ -13,7 +13,7 @@
 * Click on ```Swap bootloader``` to swap boot files without reboot
 * Click on menu item to enable or disable shortcut
 ## EFI partition preparation for dual boot users
-* [**Boot files**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo "Google Drive") must be placed to ```/dev/block/platform/pci\*/\*/by-name/\*loader``` block to ```/EFI/BOOT/``` in advance
+* [**Boot files**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo "Google Drive") must be placed to ```/dev/block/platform/pci\*/\*/by-name/\*loader``` block to ```/EFI/BOOT/```
 * ```bootx64.efi.win``` for boot to Windows
 * ```bootx64.efi.miui``` for boot to Android
 * Just leave only ```.efi``` extension for preferred OS
