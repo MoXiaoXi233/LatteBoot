@@ -8,7 +8,7 @@
 * Shortcuts
 * Reboot to Windows OS
 * Swap boot files without reboot
-## How to use app
+## Tutorial
 * Just click on a preferred card for reboot
 * Click on ```Swap bootloader``` to swap boot files without reboot
 * Click on menu item to enable or disable shortcut
