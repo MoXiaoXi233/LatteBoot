@@ -1,46 +1,19 @@
-<p align="center">
-<a href="https://github.com/AndyER03/LatteBoot/"><img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" /></a>
-</p>
-<p align="center">
-   <b><a href="https://github.com/AndyER03/LatteBoot/">LatteBoot</a></b>
-</p>
-<p align="center">
-   Advanced boot options for MI Pad 2 tablet
-</p>
+<img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" align="right"/>
 
-### Features:
+# LatteBoot
+> Advanced boot options for Xiaomi MI Pad 2 tablet
+## Features
 * Small app size
-* Simple reboot by one click
-* App supports Dual Boot *(Android + Windows)* and shows or hide another system boot card depending on neccessary boot file availability
-* Next boot checker by hashing boot file *(Since v1.5)*
-
-### For booting to Safe mode and Windows:
-* Grant app Root permission and click on preferred card
-
-### For booting to other modes:
-* Just click on preferred card *(Root permissions not required)*
-
-### For Dual Boot users:
-* EFI partition preparation:
-    * [**Boot files**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo?usp=sharing "Google Drive") must be placed to **"/dev/block/platform/pci\*/\*/by-name/\*loader"** block to **/EFI/BOOT/** in advance *(You can do this with diskpart utility in Windows or WinPE booted on MI Pad 2 tablet by choosing 7th or 8th part with "System" label)*
-    * bootx64.efi.win file must be renamed to bootx64.efi to boot into Windows (then bootx64.efi.miui file to be placed near is needed)
-    * bootx64.efi.miui file must be renamed to bootx64.efi to boot into Android (then bootx64.efi.win file to be placed near is needed)
-    
-* How boot to Windows works:
-    * App mounts boot partition to mnt folder and changes the names of boot files with efi extension
-    * bootx64.efi -> bootx64.efi.miui
-    * bootx64.efi.win -> bootx64.efi
----
-<p align="center">
-Screenshots:
-</p>
-<p align="center">
-<img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_1.png" width=30% height=25%> <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_2.png" width=30% height=25%> <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/Screenshots/Scrn_3.png" width=30% height=25%>
-</p>
-
----
-<p align="right">
-By AndyER03
-</p>
-
-[**Russian README**](https://github.com/AndyER03/LatteBoot/blob/master/README.ru.md "Russian README")
+* Simple reboot
+* Shortcuts
+* Reboot to Windows OS
+* Swap boot files without reboot
+## How to use app
+* Just click on a preferred card for reboot
+* Click on ```Swap bootloader``` to swap boot files without reboot
+* Click on menu item to enable or disable shortcut
+## EFI partition preparation for dual boot users
+* [**Boot files**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo "Google Drive") must be placed to ```/dev/block/platform/pci\*/\*/by-name/\*loader``` block to ```/EFI/BOOT/``` in advance
+* ```bootx64.efi.win``` for boot to Windows
+* ```bootx64.efi.miui``` for boot to Android
+* Just leave only ```.efi``` extension for preferred OS
