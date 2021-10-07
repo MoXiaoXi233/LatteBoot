@@ -9,7 +9,7 @@
 * Reboot to Windows OS
 * Swap boot files without reboot
 ## Tutorial
-* Just click on a preferred card for reboot
+* Click on the card for reboot
 * Click on `Swap bootloader` to swap boot files without reboot
 * Click on menu item to enable or disable shortcut
 ## Dual boot preparation
