@@ -1,19 +1,28 @@
 <img src="https://raw.githubusercontent.com/AndyER03/LatteBoot/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" align="right"/>
 
 # LatteBoot
-> Advanced boot options for Xiaomi MI Pad 2 tablet
+Advanced boot options for Xiaomi MI Pad 2
 ## Features
-* Small app size
-* Simple reboot
+* Reboot
+  * Simple reboot
+  * Safe mode
+  * Recovery
+  * Fastboot
+  * DNX
+  * Windows *(if supported)*
+* Screen off
+* Bootloader swap
 * Shortcuts
-* Reboot to Windows OS
-* Swap boot files without reboot
-## Tutorial
-* Click on the card for reboot
-* Click on `Swap bootloader` to swap boot files without reboot
-* Click on menu item to enable or disable shortcut
+
+## Requirements
+* Grant root permission
 ## Dual boot preparation
-* [**Boot files**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo "Google Drive") must be placed to `/dev/block/platform/pci\*/\*/by-name/\*loader` block to `/EFI/BOOT/`
+Do the following steps only if you have Windows as the alternative OS installed on yout tablet in common with Android!
+* Place [**boot files**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo "Google Drive") to `/dev/block/platform/pci\*/\*/by-name/\*loader` block to `/EFI/BOOT/` subdirectory
 * `bootx64.efi.win` for boot to Windows
 * `bootx64.efi.miui` for boot to Android
-* Just leave only `.efi` extension for preferred OS
+* Leave only `.efi` extension for preferred OS
+## User guide
+* Click on the card to reboot
+* Click `Swap bootloader` to do it without reboot
+* Menu items switch shortcuts visibility in launcher
