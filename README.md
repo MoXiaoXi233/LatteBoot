@@ -26,3 +26,6 @@ Do the following steps only if you have Windows as the alternative OS installed 
 * Click on the card to reboot
 * Click `Swap bootloader` to do it without reboot
 * Menu items switch shortcuts visibility in launcher
+## Bugs
+* App crashes on deny root permission
+* App crashes if there is no any boot file in EFI block
