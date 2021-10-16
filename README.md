@@ -18,7 +18,7 @@ Advanced boot options for Xiaomi MI Pad 2
 * Grant root permission
 ## Dual boot preparation
 Do the following steps only if you have Windows as the alternative OS installed on yout tablet in common with Android!
-* Place [**boot files**](https://drive.google.com/drive/folders/1Son2vUjhO53f5fJRGg-mvrW7H79grvHo "Google Drive") to `/dev/block/platform/pci\*/\*/by-name/\*loader` block to `/EFI/BOOT/` subdirectory
+* Place [**boot files**](https://drive.google.com/drive/folders/1XnILUU79kNeCrRPrIFhPgjMbYFc8V8oW "Google Drive") to `/dev/block/platform/pci\*/\*/by-name/\*loader` block to `/EFI/BOOT/` subdirectory
 * `bootx64.efi.win` for boot to Windows
 * `bootx64.efi.miui` for boot to Android
 * Leave only `.efi` extension for preferred OS
