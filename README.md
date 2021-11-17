@@ -9,7 +9,7 @@ Advanced boot options for Xiaomi MI Pad 2
   * Recovery
   * Fastboot
   * DNX
-  * Windows *(if supported)*
+  * Windows *(if installed)*
 * Screen off
 * Bootloader swap
 * Shortcuts
