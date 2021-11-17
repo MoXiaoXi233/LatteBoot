@@ -15,6 +15,7 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
         fun bind(bootOptions: BootOptions) = with(binding) {
             icon.setImageResource(bootOptions.imageId)
             title.text = bootOptions.title
+            currentBootloader.text = bootOptions.current
         }
 
         init {
@@ -39,14 +40,18 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                         System("sfm").boot()
                     }
                     6 -> {
-                        System("reboot").boot()
+                        when {
+                            BootFile().check() == "Android" -> {
+                                BootAnotherOS().android()
+                            }
+                            else -> {
+                                return@setOnClickListener
+                            }
+                        }
                     }
                     7 -> {
                         when {
                             BootFile().check() == "Windows" -> {
-                                BootAnotherOS().android()
-                            }
-                            BootFile().check() == "Android" -> {
                                 BootAnotherOS().windows()
                             }
                             else -> {

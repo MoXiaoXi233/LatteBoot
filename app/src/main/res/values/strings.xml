@@ -9,7 +9,7 @@
     <string name="reboot_dnx_title" translatable="false">DNX</string>
     <string name="choose_option_title">Choose boot option:</string>
     <string name="reboot_shutdown_title">Shutdown</string>
-    <string name="reboot_safe_mode_title">Safe mode</string>
+    <string name="reboot_safe_mode_title">Safemode</string>
     <string name="reboot_screen_off_title">Screen off</string>
     <string name="error_title">Error</string>
     <string name="bootloader_swap">Swap bootloader</string>
@@ -19,4 +19,5 @@
     <string name="about_title" translatable="false">by AndyER03</string>
     <string name="launcher_icon_enabled_toast">Shortcut enabled</string>
     <string name="launcher_icon_disabled_toast">Shortcut disabled</string>
+    <string name="boot_item_current">Current bootloader</string>
 </resources>

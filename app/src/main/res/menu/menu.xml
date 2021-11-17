@@ -5,7 +5,7 @@
     <item
         android:id="@+id/bootloader_swap"
         android:title="@string/bootloader_swap"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/recovery_shortcut"

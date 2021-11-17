@@ -58,7 +58,7 @@ open class MainActivity : AppCompatActivity() {
         // Define icons
         val optionsImage = listOf (
             R.drawable.ic_reboot, // Reboot
-            R.drawable.ic_safe_mode, // Safe mode
+            R.drawable.ic_safe_mode, // Safemode
             R.drawable.ic_power, // Power
             R.drawable.ic_recovery, // Recovery
             R.drawable.ic_bootloader, // Bootloader
@@ -75,23 +75,29 @@ open class MainActivity : AppCompatActivity() {
             getString(R.string.reboot_dnx_title), // DNX
             getString(R.string.reboot_safe_mode_title), // Safe mode
             getString(R.string.reboot_device_title), // Reboot
-            getString(R.string.reboot_windows_title), // Windows
-            getString(R.string.reboot_android_title) // Android
+            getString(R.string.reboot_android_title), // Android
+            getString(R.string.reboot_windows_title) // Windows
+        )
+
+        // Define current bootloader
+        val currentBootloader = arrayOf (
+            "", // Nothing
+            getString(R.string.boot_item_current) // Current bootloader
         )
 
         // Define icons + strings together
         val bootOptions = arrayOf (
-            BootOptions(optionsImage[2], optionsTitles[0]), // 0 Screen off
-            BootOptions(optionsImage[2], optionsTitles[1]), // 1 Shutdown
-            BootOptions(optionsImage[3], optionsTitles[2]), // 2 Recovery
-            BootOptions(optionsImage[4], optionsTitles[3]), // 3 Bootloader
-            BootOptions(optionsImage[4], optionsTitles[4]), // 4 DNX
-            BootOptions(optionsImage[1], optionsTitles[5]), // 5 Safe mode
-            BootOptions(optionsImage[0], optionsTitles[6]), // 6 Simple reboot
-            BootOptions(optionsImage[6], optionsTitles[7]), // 7 Windows
-            BootOptions(optionsImage[5], optionsTitles[8]), // 8 Android
-            BootOptions(optionsImage[6], optionsTitles[6]+"\n"+optionsTitles[7]), // 9 Reboot Windows
-            BootOptions(optionsImage[5], optionsTitles[6]+"\n"+optionsTitles[8]) // 10 Reboot Android
+            BootOptions(optionsImage[2], optionsTitles[0], currentBootloader[0]), // 0 Screen off
+            BootOptions(optionsImage[2], optionsTitles[1], currentBootloader[0]), // 1 Shutdown
+            BootOptions(optionsImage[3], optionsTitles[2], currentBootloader[0]), // 2 Recovery
+            BootOptions(optionsImage[4], optionsTitles[3], currentBootloader[0]), // 3 Bootloader
+            BootOptions(optionsImage[4], optionsTitles[4], currentBootloader[0]), // 4 DNX
+            BootOptions(optionsImage[1], optionsTitles[5], currentBootloader[0]), // 5 Safemode
+            BootOptions(optionsImage[0], optionsTitles[6], currentBootloader[0]), // 6 Simple reboot
+            BootOptions(optionsImage[5], optionsTitles[7], currentBootloader[0]), // 7 Android
+            BootOptions(optionsImage[6], optionsTitles[8], currentBootloader[0]), // 8 Windows
+            BootOptions(optionsImage[5], optionsTitles[7], currentBootloader[1]), // 9 Android Current
+            BootOptions(optionsImage[6], optionsTitles[8], currentBootloader[1]), // 10 Windows Current
         )
 
         // Filling adapter
@@ -100,18 +106,18 @@ open class MainActivity : AppCompatActivity() {
         adapter.addBootOptions(bootOptions[2]) // Recovery
         adapter.addBootOptions(bootOptions[3]) // Bootloader
         adapter.addBootOptions(bootOptions[4]) // DNX
-        adapter.addBootOptions(bootOptions[5]) // Safe mode
+        adapter.addBootOptions(bootOptions[5]) // Safemode
 
         when (Root().check()) {
             true -> {
                 when (BootFile().check()) {
                     "Windows" -> {
-                        adapter.addBootOptions(bootOptions[9]) // Reboot Windows
-                        adapter.addBootOptions(bootOptions[8]) // Android
+                        adapter.addBootOptions(bootOptions[7]) // Android
+                        adapter.addBootOptions(bootOptions[10]) // Current bootloader Windows
                     }
                     "Android" -> {
-                        adapter.addBootOptions(bootOptions[10]) // Reboot Android
-                        adapter.addBootOptions(bootOptions[7]) // Windows
+                        adapter.addBootOptions(bootOptions[9]) // Current bootloader Android
+                        adapter.addBootOptions(bootOptions[8]) // Windows
                     }
                     "Error" -> {
                         // None
