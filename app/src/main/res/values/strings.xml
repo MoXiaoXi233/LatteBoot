@@ -20,4 +20,7 @@
     <string name="launcher_icon_enabled_toast">Shortcut enabled</string>
     <string name="launcher_icon_disabled_toast">Shortcut disabled</string>
     <string name="boot_item_current">Current bootloader</string>
+    <string name="cancel_title">Cancel</string>
+    <string name="after_title">after</string>
+    <string name="seconds_title">seconds</string>
 </resources>
