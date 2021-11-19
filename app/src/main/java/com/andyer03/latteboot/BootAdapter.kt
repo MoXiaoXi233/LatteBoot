@@ -3,7 +3,6 @@ package com.andyer03.latteboot
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andyer03.latteboot.commands.*
@@ -25,6 +24,7 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
 
         init {
             itemView.setOnClickListener {
+                // Delay command execution for abort possibility
                 val scn = Runnable {
                     System("scn").boot()
                 }
@@ -74,57 +74,60 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                     context.resources.getString(R.string.reboot_windows_title), // 7 Windows
                 )
 
+                // Cancel all delays befor executing one command to have no issue
+                handler.removeCallbacksAndMessages(null)
                 when (adapterPosition) {
                     0 -> {
                         handler.postDelayed(scn, 5000)
-                        snack(optionsTitles[0], duration, cancel, scn, abort)
+                        snack(optionsTitles[0], duration, cancel, abort)
                     }
                     1 -> {
                         handler.postDelayed(pwd, 5000)
-                        snack(optionsTitles[1], duration, cancel, pwd, abort)
+                        snack(optionsTitles[1], duration, cancel, abort)
                     }
                     2 -> {
                         handler.postDelayed(rec, 5000)
-                        snack(optionsTitles[2], duration, cancel, rec, abort)
+                        snack(optionsTitles[2], duration, cancel, abort)
                     }
                     3 -> {
                         handler.postDelayed(fbt, 5000)
-                        snack(optionsTitles[3], duration, cancel, fbt, abort)
+                        snack(optionsTitles[3], duration, cancel, abort)
                     }
                     4 -> {
                         handler.postDelayed(dnx, 5000)
-                        snack(optionsTitles[4], duration, cancel, dnx, abort)
+                        snack(optionsTitles[4], duration, cancel, abort)
                     }
                     5 -> {
                         handler.postDelayed(sfm, 5000)
-                        snack(optionsTitles[5], duration, cancel, sfm, abort)
+                        snack(optionsTitles[5], duration, cancel, abort)
                     }
                     6 -> {
                         handler.postDelayed(and, 5000)
-                        snack(optionsTitles[6], duration, cancel, and, abort)
+                        snack(optionsTitles[6], duration, cancel, abort)
                     }
                     7 -> {
                         handler.postDelayed(win, 5000)
-                        snack(optionsTitles[7], duration, cancel, win, abort)
+                        snack(optionsTitles[7], duration, cancel, abort)
                     }
                 }
             }
         }
 
-        private fun snack(title: String, duration: String, cancel: String, option: Runnable, abort: String) {
-
+        // Show snack bar
+        private fun snack(title: String, duration: String, cancel: String, abort: String) {
             val snackbar = Snackbar.make(
                 binding.root,
                 "$title $duration",
                 4500,
             ).setAction(cancel) {
-                handler.removeCallbacks(option)
+                handler.removeCallbacksAndMessages(null)
                 abortSnack(abort)
             }
             snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
             snackbar.show()
         }
 
+        // Show abort snack bar
         private fun abortSnack(abort: String) {
             val abortSnackBar = Snackbar.make(
                 binding.root,

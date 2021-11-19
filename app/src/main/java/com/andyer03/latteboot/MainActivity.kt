@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.andyer03.latteboot.databinding.ActivityMainBinding
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -45,7 +44,7 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun init() = with(binding) {
+    private fun init() = with(binding) {
         val orientation = resources.configuration.orientation
         val spanCount: Int = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             3
