@@ -1,11 +1,14 @@
 package com.andyer03.latteboot
 
+import android.net.sip.SipErrorCode.TIME_OUT
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andyer03.latteboot.commands.*
 import com.andyer03.latteboot.databinding.BootItemBinding
+import com.google.android.material.snackbar.Snackbar
 
 class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
     private val bootList = ArrayList<BootOptions>()
@@ -22,7 +25,23 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
             itemView.setOnClickListener {
                 when (adapterPosition) {
                     0 -> {
-                        System("scn").boot()
+                        val handler = Handler()
+
+                        val action = Runnable {
+                            System("scn").boot()
+                        }
+
+                        handler.postDelayed(action, 5000)
+
+                        val snack = Snackbar.make(
+                            binding.root,
+                            "Power down after 5 seconds",
+                            Snackbar.LENGTH_LONG,
+                        ).setAction("Undo", View.OnClickListener() {
+                            // Cancel handler
+                            handler.removeCallbacks(action)
+                        })
+                        snack.show()
                     }
                     1 -> {
                         System("pwd").boot()

@@ -9,20 +9,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.andyer03.latteboot.databinding.ActivityMainBinding
 import android.content.pm.PackageManager
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
 import android.widget.TextView
 import com.andyer03.latteboot.*
 import com.andyer03.latteboot.commands.*
 import com.andyer03.latteboot.other.Device
 import com.andyer03.latteboot.shortcuts.*
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val adapter = BootAdapter()
+    val adapter = BootAdapter()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun init() = with(binding) {
+    fun init() = with(binding) {
         val orientation = resources.configuration.orientation
         val spanCount: Int = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             3
@@ -57,26 +57,26 @@ open class MainActivity : AppCompatActivity() {
 
         // Define icons
         val optionsImage = listOf (
-            R.drawable.ic_reboot, // Reboot
-            R.drawable.ic_safe_mode, // Safemode
-            R.drawable.ic_power, // Power
-            R.drawable.ic_recovery, // Recovery
-            R.drawable.ic_bootloader, // Bootloader
-            R.drawable.ic_android, // Android
-            R.drawable.ic_windows // Windows
+            R.drawable.ic_reboot, // 0 Reboot
+            R.drawable.ic_safe_mode, // 1 Safemode
+            R.drawable.ic_power, // 2 Power
+            R.drawable.ic_recovery, // 3 Recovery
+            R.drawable.ic_bootloader, // 4 Bootloader
+            R.drawable.ic_android, // 5 Android
+            R.drawable.ic_windows // 6 Windows
         )
 
         // Define strings
         val optionsTitles = arrayOf (
-            getString(R.string.reboot_screen_off_title), // Screen off
-            getString(R.string.reboot_shutdown_title), // Shutdown
-            getString(R.string.reboot_recovery_title), // Recovery
-            getString(R.string.reboot_bootloader_title), // Bootloader
-            getString(R.string.reboot_dnx_title), // DNX
-            getString(R.string.reboot_safe_mode_title), // Safe mode
-            getString(R.string.reboot_device_title), // Reboot
-            getString(R.string.reboot_android_title), // Android
-            getString(R.string.reboot_windows_title) // Windows
+            getString(R.string.reboot_screen_off_title), // 0 Screen off
+            getString(R.string.reboot_shutdown_title), // 1 Shutdown
+            getString(R.string.reboot_recovery_title), // 2 Recovery
+            getString(R.string.reboot_bootloader_title), // 3 Bootloader
+            getString(R.string.reboot_dnx_title), // 4 DNX
+            getString(R.string.reboot_safe_mode_title), // 5 Safe mode
+            getString(R.string.reboot_device_title), // 6 Reboot
+            getString(R.string.reboot_android_title), // 7 Android
+            getString(R.string.reboot_windows_title), // 8 Windows
         )
 
         // Define current bootloader
@@ -117,7 +117,7 @@ open class MainActivity : AppCompatActivity() {
                     }
                     "Android" -> {
                         adapter.addBootOptions(bootOptions[9]) // Current bootloader Android
-                        adapter.addBootOptions(bootOptions[8]) // Windows
+                        adapter.addBootOptions(bootOptions[8]) //
                     }
                     "Error" -> {
                         // None
@@ -155,7 +155,7 @@ open class MainActivity : AppCompatActivity() {
                         LatteSwapBoot().swap() // Swap boot files
                         adapter.clear() // Clear adapter
                         init() // Recreating adapter
-                        swapToast() // Show toast after swap
+                        swapMessage() // Show toast after swap
                     }
                     else -> {
                         Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
@@ -213,34 +213,31 @@ open class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-    
-    // Show toast after swapping boot files
-    private fun swapToast() {
-        val toast = Toast.makeText(this, R.string.reboot_device_title, Toast.LENGTH_LONG)
-        toast.view = layoutInflater.inflate(R.layout.toast,findViewById(R.id.toast))
-        toast.setGravity(Gravity.CENTER,0,0)
 
-        val view = toast.view
-        view?.setBackgroundResource(R.drawable.toast_background)
-        val title = view?.findViewById<TextView>(R.id.title)
-        val image = view?.findViewById<ImageView>(R.id.image)
-
+    // Parameters for Snack Bar
+    fun swapMessage() {
         when {
             BootFile().check() == "Windows" -> {
-                title?.text = getString(R.string.reboot_windows_title)
-                image?.setBackgroundResource(R.drawable.ic_windows)
-                toast.show()
+                onSNACK(getString(R.string.reboot_windows_title))
             }
             BootFile().check() == "Android" -> {
-                title?.text = getString(R.string.reboot_android_title)
-                image?.setBackgroundResource(R.drawable.ic_android)
-                toast.show()
+                onSNACK(getString(R.string.reboot_android_title))
             }
             BootFile().check() == "Error" -> {
-                title?.text = getString(R.string.error_title)
-                image?.setBackgroundResource(R.drawable.ic_bootloader)
-                toast.show()
+                onSNACK(getString(R.string.error_title))
             }
         }
+    }
+
+    // Snack Bar
+    private fun onSNACK(text: String) {
+        val bootItem = getString(R.string.boot_item_current)
+        val snackbar = Snackbar.make(
+            binding.root,
+            "$bootItem: $text",
+            Snackbar.LENGTH_LONG,
+        )
+        snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+        snackbar.show()
     }
 }
