@@ -156,7 +156,35 @@ open class MainActivity : AppCompatActivity() {
                         LatteSwapBoot().swap() // Swap boot files
                         adapter.clear() // Clear adapter
                         init() // Recreating adapter
-                        swapMessage() // Show toast after swap
+
+                        val boot = when {
+                            BootFile().check() == "Windows" -> {
+                                getString(R.string.reboot_windows_title)
+                            }
+                            BootFile().check() == "Android" -> {
+                                getString(R.string.reboot_android_title)
+                            }
+                            BootFile().check() == "Error" -> {
+                                getString(R.string.error_title)
+                            }
+                            else -> {
+                                getString(R.string.error_title)
+                            }
+                        }
+
+                        val bootItem = getString(R.string.boot_item_current)
+                        val snackbar = Snackbar.make(
+                            binding.root,
+                            "$bootItem: $boot",
+                            Snackbar.LENGTH_LONG,
+                        )
+                        snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+                        snackbar.setAction(getString(R.string.cancel_title)) {
+                            LatteSwapBoot().swap() // Swap boot files
+                            adapter.clear() // Clear adapter
+                            init() // Recreating adapter
+                        }
+                        snackbar.show()
                     }
                     else -> {
                         Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
@@ -213,32 +241,5 @@ open class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    // Parameters for Snack Bar
-    fun swapMessage() {
-        when {
-            BootFile().check() == "Windows" -> {
-                onSNACK(getString(R.string.reboot_windows_title))
-            }
-            BootFile().check() == "Android" -> {
-                onSNACK(getString(R.string.reboot_android_title))
-            }
-            BootFile().check() == "Error" -> {
-                onSNACK(getString(R.string.error_title))
-            }
-        }
-    }
-
-    // Snack Bar
-    private fun onSNACK(text: String) {
-        val bootItem = getString(R.string.boot_item_current)
-        val snackbar = Snackbar.make(
-            binding.root,
-            "$bootItem: $text",
-            Snackbar.LENGTH_LONG,
-        )
-        snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
-        snackbar.show()
     }
 }

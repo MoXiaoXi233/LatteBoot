@@ -1,7 +1,5 @@
 package com.andyer03.latteboot
 
-import android.content.Context
-import android.content.res.Resources
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andyer03.latteboot.commands.*
 import com.andyer03.latteboot.databinding.BootItemBinding
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 
 class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
@@ -59,6 +58,8 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                 }
 
                 val context = it
+                val duration = context.resources.getString(R.string.after_5_seconds_title) // Duration
+                val cancel = context.resources.getString(R.string.cancel_title) // Cancel
 
                 val optionsTitles = arrayOf (
                     context.resources.getString(R.string.reboot_screen_off_title), // 0 Screen off
@@ -67,58 +68,58 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                     context.resources.getString(R.string.reboot_bootloader_title), // 3 Bootloader
                     context.resources.getString(R.string.reboot_dnx_title), // 4 DNX
                     context.resources.getString(R.string.reboot_safe_mode_title), // 5 Safe mode
-                    context.resources.getString(R.string.reboot_device_title), // 6 Reboot
-                    context.resources.getString(R.string.reboot_android_title), // 7 Android
-                    context.resources.getString(R.string.reboot_windows_title), // 8 Windows
+                    context.resources.getString(R.string.reboot_android_title), // 6 Android
+                    context.resources.getString(R.string.reboot_windows_title), // 7 Windows
                 )
 
                 when (adapterPosition) {
                     0 -> {
                         handler.postDelayed(scn, 5000)
-                        snack(optionsTitles[0], scn)
+                        snack(optionsTitles[0], duration, cancel, scn)
                     }
                     1 -> {
                         handler.postDelayed(pwd, 5000)
-                        snack(optionsTitles[1], pwd)
+                        snack(optionsTitles[1], duration, cancel, pwd)
                     }
                     2 -> {
                         handler.postDelayed(rec, 5000)
-                        snack(optionsTitles[2], rec)
+                        snack(optionsTitles[2], duration, cancel, rec)
                     }
                     3 -> {
                         handler.postDelayed(fbt, 5000)
-                        snack(optionsTitles[3], fbt)
+                        snack(optionsTitles[3], duration, cancel, fbt)
                     }
                     4 -> {
                         handler.postDelayed(dnx, 5000)
-                        snack(optionsTitles[4], dnx)
+                        snack(optionsTitles[4], duration, cancel, dnx)
                     }
                     5 -> {
                         handler.postDelayed(sfm, 5000)
-                        snack(optionsTitles[5], sfm)
+                        snack(optionsTitles[5], duration, cancel, sfm)
                     }
                     6 -> {
                         handler.postDelayed(and, 5000)
-                        snack(optionsTitles[6], and)
+                        snack(optionsTitles[6], duration, cancel, and)
                     }
                     7 -> {
                         handler.postDelayed(win, 5000)
-                        snack(optionsTitles[7], win)
+                        snack(optionsTitles[7], duration, cancel, win)
                     }
                 }
             }
         }
 
-        private fun snack(title: String, option: Runnable) {
+        private fun snack(title: String, duration: String, cancel: String, option: Runnable) {
 
-            val snack = Snackbar.make(
+            val snackbar = Snackbar.make(
                 binding.root,
-                "$title 1 5 3",
+                "$title $duration",
                 4500,
-            ).setAction("Cancel") {
+            ).setAction(cancel) {
                 handler.removeCallbacks(option)
             }
-            snack.show()
+            snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+            snackbar.show()
         }
     }
 

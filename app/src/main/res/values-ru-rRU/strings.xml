@@ -15,6 +15,5 @@
     <string name="launcher_icon_disabled_toast">Ярлык отключен</string>
     <string name="boot_item_current">Текущий загрузчик</string>
     <string name="cancel_title">Отмена</string>
-    <string name="after_title">через</string>
-    <string name="seconds_title">секунд</string>
+    <string name="after_5_seconds_title">через 5 секунд</string>
 </resources>
