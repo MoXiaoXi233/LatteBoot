@@ -1,5 +1,6 @@
 package com.andyer03.latteboot
 
+import android.content.Context
 import android.content.res.Resources
 import android.os.Handler
 import android.view.LayoutInflater
@@ -8,7 +9,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andyer03.latteboot.commands.*
 import com.andyer03.latteboot.databinding.BootItemBinding
-import com.andyer03.latteboot.other.Arrays
 import com.google.android.material.snackbar.Snackbar
 
 class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
@@ -58,50 +58,62 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                     }
                 }
 
+                val context = it
+
+                val optionsTitles = arrayOf (
+                    context.resources.getString(R.string.reboot_screen_off_title), // 0 Screen off
+                    context.resources.getString(R.string.reboot_shutdown_title), // 1 Shutdown
+                    context.resources.getString(R.string.reboot_recovery_title), // 2 Recovery
+                    context.resources.getString(R.string.reboot_bootloader_title), // 3 Bootloader
+                    context.resources.getString(R.string.reboot_dnx_title), // 4 DNX
+                    context.resources.getString(R.string.reboot_safe_mode_title), // 5 Safe mode
+                    context.resources.getString(R.string.reboot_device_title), // 6 Reboot
+                    context.resources.getString(R.string.reboot_android_title), // 7 Android
+                    context.resources.getString(R.string.reboot_windows_title), // 8 Windows
+                )
+
                 when (adapterPosition) {
                     0 -> {
                         handler.postDelayed(scn, 5000)
-                        snack(Arrays().optionsTitles[0], scn)
+                        snack(optionsTitles[0], scn)
                     }
                     1 -> {
                         handler.postDelayed(pwd, 5000)
-                        snack(Arrays().optionsTitles[1], scn)
+                        snack(optionsTitles[1], pwd)
                     }
                     2 -> {
                         handler.postDelayed(rec, 5000)
-                        snack(Arrays().optionsTitles[2], scn)
+                        snack(optionsTitles[2], rec)
                     }
                     3 -> {
                         handler.postDelayed(fbt, 5000)
-                        snack(Arrays().optionsTitles[3], scn)
+                        snack(optionsTitles[3], fbt)
                     }
                     4 -> {
                         handler.postDelayed(dnx, 5000)
-                        snack(Arrays().optionsTitles[4], scn)
+                        snack(optionsTitles[4], dnx)
                     }
                     5 -> {
                         handler.postDelayed(sfm, 5000)
-                        snack(Arrays().optionsTitles[5], scn)
+                        snack(optionsTitles[5], sfm)
                     }
                     6 -> {
                         handler.postDelayed(and, 5000)
-                        snack(Arrays().optionsTitles[6], scn)
+                        snack(optionsTitles[6], and)
                     }
                     7 -> {
                         handler.postDelayed(win, 5000)
-                        snack(Arrays().optionsTitles[7], scn)
+                        snack(optionsTitles[7], win)
                     }
                 }
             }
         }
 
         private fun snack(title: String, option: Runnable) {
-            val afterTitle = Resources.getSystem().getString(R.string.after_title)
-            val secondsTitle = Resources.getSystem().getString(R.string.seconds_title)
 
             val snack = Snackbar.make(
                 binding.root,
-                "$title $afterTitle 5 $secondsTitle",
+                "$title 1 5 3",
                 4500,
             ).setAction("Cancel") {
                 handler.removeCallbacks(option)

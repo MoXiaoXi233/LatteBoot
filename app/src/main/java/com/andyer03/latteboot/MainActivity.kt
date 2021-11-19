@@ -9,12 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.andyer03.latteboot.databinding.ActivityMainBinding
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import com.andyer03.latteboot.*
 import com.andyer03.latteboot.commands.*
-import com.andyer03.latteboot.other.Arrays
 import com.andyer03.latteboot.other.Device
 import com.andyer03.latteboot.shortcuts.*
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -56,24 +56,69 @@ open class MainActivity : AppCompatActivity() {
         rcView.layoutManager = GridLayoutManager(this@MainActivity, spanCount)
         rcView.adapter = adapter
 
+        // Define icons
+        val optionsImage = listOf (
+            R.drawable.ic_reboot, // 0 Reboot
+            R.drawable.ic_safe_mode, // 1 Safemode
+            R.drawable.ic_power, // 2 Power
+            R.drawable.ic_recovery, // 3 Recovery
+            R.drawable.ic_bootloader, // 4 Bootloader
+            R.drawable.ic_android, // 5 Android
+            R.drawable.ic_windows // 6 Windows
+        )
+
+        // Define strings
+        val optionsTitles = arrayOf (
+            getString(R.string.reboot_screen_off_title), // 0 Screen off
+            getString(R.string.reboot_shutdown_title), // 1 Shutdown
+            getString(R.string.reboot_recovery_title), // 2 Recovery
+            getString(R.string.reboot_bootloader_title), // 3 Bootloader
+            getString(R.string.reboot_dnx_title), // 4 DNX
+            getString(R.string.reboot_safe_mode_title), // 5 Safe mode
+            getString(R.string.reboot_device_title), // 6 Reboot
+            getString(R.string.reboot_android_title), // 7 Android
+            getString(R.string.reboot_windows_title), // 8 Windows
+        )
+
+        // Define current bootloader
+        val currentBootloader = arrayOf (
+            "", // Nothing
+            getString(R.string.boot_item_current) // Current bootloader
+        )
+
+        // Define icons & strings together
+        val bootOptions = arrayOf (
+            BootOptions(optionsImage[2], optionsTitles[0], currentBootloader[0]), // 0 Screen off
+            BootOptions(optionsImage[2], optionsTitles[1], currentBootloader[0]), // 1 Shutdown
+            BootOptions(optionsImage[3], optionsTitles[2], currentBootloader[0]), // 2 Recovery
+            BootOptions(optionsImage[4], optionsTitles[3], currentBootloader[0]), // 3 Bootloader
+            BootOptions(optionsImage[4], optionsTitles[4], currentBootloader[0]), // 4 DNX
+            BootOptions(optionsImage[1], optionsTitles[5], currentBootloader[0]), // 5 Safemode
+            BootOptions(optionsImage[0], optionsTitles[6], currentBootloader[0]), // 6 Simple reboot
+            BootOptions(optionsImage[5], optionsTitles[7], currentBootloader[0]), // 7 Android
+            BootOptions(optionsImage[6], optionsTitles[8], currentBootloader[0]), // 8 Windows
+            BootOptions(optionsImage[5], optionsTitles[7], currentBootloader[1]), // 9 Android Current
+            BootOptions(optionsImage[6], optionsTitles[8], currentBootloader[1]), // 10 Windows Current
+        )
+
         // Filling adapter
-        adapter.addBootOptions(Arrays().bootOptions[0]) // Screen off
-        adapter.addBootOptions(Arrays().bootOptions[1]) // Shutdown
-        adapter.addBootOptions(Arrays().bootOptions[2]) // Recovery
-        adapter.addBootOptions(Arrays().bootOptions[3]) // Bootloader
-        adapter.addBootOptions(Arrays().bootOptions[4]) // DNX
-        adapter.addBootOptions(Arrays().bootOptions[5]) // Safemode
+        adapter.addBootOptions(bootOptions[0]) // Screen off
+        adapter.addBootOptions(bootOptions[1]) // Shutdown
+        adapter.addBootOptions(bootOptions[2]) // Recovery
+        adapter.addBootOptions(bootOptions[3]) // Bootloader
+        adapter.addBootOptions(bootOptions[4]) // DNX
+        adapter.addBootOptions(bootOptions[5]) // Safemode
 
         when (Root().check()) {
             true -> {
                 when (BootFile().check()) {
                     "Windows" -> {
-                        adapter.addBootOptions(Arrays().bootOptions[7]) // Android
-                        adapter.addBootOptions(Arrays().bootOptions[10]) // Current bootloader Windows
+                        adapter.addBootOptions(bootOptions[7]) // Android
+                        adapter.addBootOptions(bootOptions[10]) // Current bootloader Windows
                     }
                     "Android" -> {
-                        adapter.addBootOptions(Arrays().bootOptions[9]) // Current bootloader Android
-                        adapter.addBootOptions(Arrays().bootOptions[8]) //
+                        adapter.addBootOptions(bootOptions[9]) // Current bootloader Android
+                        adapter.addBootOptions(bootOptions[8]) //
                     }
                     "Error" -> {
                         // None
@@ -81,7 +126,7 @@ open class MainActivity : AppCompatActivity() {
                 }
             }
             else -> {
-                adapter.addBootOptions(Arrays().bootOptions[6]) // Simple reboot
+                adapter.addBootOptions(bootOptions[6]) // Simple reboot
             }
         }
     }
