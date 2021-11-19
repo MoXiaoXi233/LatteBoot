@@ -180,9 +180,18 @@ open class MainActivity : AppCompatActivity() {
                         )
                         snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
                         snackbar.setAction(getString(R.string.cancel_title)) {
+                            val text = getString(R.string.action_aborted)
                             LatteSwapBoot().swap() // Swap boot files
                             adapter.clear() // Clear adapter
                             init() // Recreating adapter
+
+                            val abortSnackBar = Snackbar.make(
+                                binding.root,
+                                text,
+                                Snackbar.LENGTH_LONG,
+                            )
+                            abortSnackBar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+                            abortSnackBar.show()
                         }
                         snackbar.show()
                     }

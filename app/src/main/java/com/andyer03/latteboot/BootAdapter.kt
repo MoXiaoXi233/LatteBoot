@@ -117,10 +117,23 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                 4500,
             ).setAction(cancel) {
                 handler.removeCallbacks(option)
+                //abortSnack()
             }
             snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
             snackbar.show()
         }
+
+        /** private fun abortSnack() = with(BootAdapter.BootHolder(this).itemView) {
+        *    val context = it
+        *    val text = context.resources.getString(R.string.action_aborted)
+        *    val abortSnackBar = Snackbar.make(
+        *        binding.root,
+        *        text,
+        *        Snackbar.LENGTH_LONG,
+        *    )
+        *    abortSnackBar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+        *    abortSnackBar.show()
+        }*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BootHolder {
