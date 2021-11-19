@@ -21,6 +21,6 @@
     <string name="launcher_icon_disabled_toast">Shortcut disabled</string>
     <string name="boot_item_current">Current bootloader</string>
     <string name="cancel_title">Cancel</string>
-    <string name="after_5_seconds_title">after 5 seconds</string>
+    <string name="after_5_seconds_title">in 5 seconds</string>
     <string name="action_aborted">Action aborted</string>
 </resources>

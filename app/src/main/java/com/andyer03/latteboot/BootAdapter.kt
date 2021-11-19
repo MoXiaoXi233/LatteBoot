@@ -3,6 +3,7 @@ package com.andyer03.latteboot
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andyer03.latteboot.commands.*
@@ -60,6 +61,7 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                 val context = it
                 val duration = context.resources.getString(R.string.after_5_seconds_title) // Duration
                 val cancel = context.resources.getString(R.string.cancel_title) // Cancel
+                val abort = context.resources.getString(R.string.action_aborted)
 
                 val optionsTitles = arrayOf (
                     context.resources.getString(R.string.reboot_screen_off_title), // 0 Screen off
@@ -75,41 +77,41 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                 when (adapterPosition) {
                     0 -> {
                         handler.postDelayed(scn, 5000)
-                        snack(optionsTitles[0], duration, cancel, scn)
+                        snack(optionsTitles[0], duration, cancel, scn, abort)
                     }
                     1 -> {
                         handler.postDelayed(pwd, 5000)
-                        snack(optionsTitles[1], duration, cancel, pwd)
+                        snack(optionsTitles[1], duration, cancel, pwd, abort)
                     }
                     2 -> {
                         handler.postDelayed(rec, 5000)
-                        snack(optionsTitles[2], duration, cancel, rec)
+                        snack(optionsTitles[2], duration, cancel, rec, abort)
                     }
                     3 -> {
                         handler.postDelayed(fbt, 5000)
-                        snack(optionsTitles[3], duration, cancel, fbt)
+                        snack(optionsTitles[3], duration, cancel, fbt, abort)
                     }
                     4 -> {
                         handler.postDelayed(dnx, 5000)
-                        snack(optionsTitles[4], duration, cancel, dnx)
+                        snack(optionsTitles[4], duration, cancel, dnx, abort)
                     }
                     5 -> {
                         handler.postDelayed(sfm, 5000)
-                        snack(optionsTitles[5], duration, cancel, sfm)
+                        snack(optionsTitles[5], duration, cancel, sfm, abort)
                     }
                     6 -> {
                         handler.postDelayed(and, 5000)
-                        snack(optionsTitles[6], duration, cancel, and)
+                        snack(optionsTitles[6], duration, cancel, and, abort)
                     }
                     7 -> {
                         handler.postDelayed(win, 5000)
-                        snack(optionsTitles[7], duration, cancel, win)
+                        snack(optionsTitles[7], duration, cancel, win, abort)
                     }
                 }
             }
         }
 
-        private fun snack(title: String, duration: String, cancel: String, option: Runnable) {
+        private fun snack(title: String, duration: String, cancel: String, option: Runnable, abort: String) {
 
             val snackbar = Snackbar.make(
                 binding.root,
@@ -117,23 +119,21 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                 4500,
             ).setAction(cancel) {
                 handler.removeCallbacks(option)
-                //abortSnack()
+                abortSnack(abort)
             }
             snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
             snackbar.show()
         }
 
-        /** private fun abortSnack() = with(BootAdapter.BootHolder(this).itemView) {
-        *    val context = it
-        *    val text = context.resources.getString(R.string.action_aborted)
-        *    val abortSnackBar = Snackbar.make(
-        *        binding.root,
-        *        text,
-        *        Snackbar.LENGTH_LONG,
-        *    )
-        *    abortSnackBar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
-        *    abortSnackBar.show()
-        }*/
+        private fun abortSnack(abort: String) {
+            val abortSnackBar = Snackbar.make(
+                binding.root,
+                abort,
+                Snackbar.LENGTH_LONG,
+            )
+            abortSnackBar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+            abortSnackBar.show()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BootHolder {

@@ -45,7 +45,7 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun init() = with(binding) {
+    fun init() = with(binding) {
         val orientation = resources.configuration.orientation
         val spanCount: Int = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             3
