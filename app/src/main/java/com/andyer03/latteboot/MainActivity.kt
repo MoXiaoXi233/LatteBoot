@@ -51,8 +51,67 @@ open class MainActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun init() = with(binding) {
-        when (BootFile().check()) {
-            "Error" -> {
+        val orientation = resources.configuration.orientation
+        val spanCount: Int = if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            title = getString(R.string.choose_option_title)
+            2
+        } else {
+            title = getString(R.string.app_name)
+            3
+        }
+
+        rcView.layoutManager = GridLayoutManager(this@MainActivity, spanCount)
+        rcView.adapter = adapter
+
+        // Define icons
+        val optionsImage = listOf (
+            R.drawable.ic_reboot, // 0 Reboot
+            R.drawable.ic_safe_mode, // 1 Safemode
+            R.drawable.ic_power, // 2 Power
+            R.drawable.ic_recovery, // 3 Recovery
+            R.drawable.ic_bootloader, // 4 Bootloader
+            R.drawable.ic_android, // 5 Android
+            R.drawable.ic_windows // 6 Windows
+        )
+
+        // Define strings
+        val optionsTitles = arrayOf (
+            getString(R.string.reboot_shutdown_title), // 0 Shutdown
+            getString(R.string.reboot_recovery_title), // 1 Recovery
+            getString(R.string.reboot_bootloader_title), // 2 Bootloader
+            getString(R.string.reboot_dnx_title), // 3 DNX
+            getString(R.string.reboot_device_title), // 4 Simple reboot
+            getString(R.string.reboot_screen_off_title), // 5 Screen off
+            getString(R.string.reboot_safe_mode_title), // 6 Safe mode
+            getString(R.string.reboot_android_title), // 7 Android
+            getString(R.string.reboot_windows_title), // 8 Windows
+        )
+
+        // Define current bootloader
+        val description = arrayOf (
+            "", // Nothing
+            getString(R.string.boot_item_current), // Current bootloader
+            getString(R.string.root_title) // Root
+        )
+
+        // Define icons & strings together
+        val bootOptions = arrayOf (
+            BootOptions(optionsImage[2], optionsTitles[0], description[0], description[0]), // 0 Shutdown
+            BootOptions(optionsImage[3], optionsTitles[1], description[0], description[0]), // 1 Recovery
+            BootOptions(optionsImage[4], optionsTitles[2], description[0], description[0]), // 2 Bootloader
+            BootOptions(optionsImage[4], optionsTitles[3], description[0], description[0]), // 3 DNX
+            BootOptions(optionsImage[0], optionsTitles[4], description[0], description[0]), // 4 Simple reboot
+            BootOptions(optionsImage[2], optionsTitles[5], description[2], description[0]), // 5 Screen off
+            BootOptions(optionsImage[1], optionsTitles[6], description[2], description[0]), // 6 Safemode
+            BootOptions(optionsImage[5], optionsTitles[7], description[2], description[0]), // 7 Android
+            BootOptions(optionsImage[6], optionsTitles[8], description[2], description[0]), // 8 Windows
+            BootOptions(optionsImage[5], optionsTitles[7], description[2], description[1]), // 9 Android Current
+            BootOptions(optionsImage[6], optionsTitles[8], description[2], description[1]), // 10 Windows Current
+        )
+
+        // Checking for root availability (kids protection)
+        if (Root().check()) {
+            if (BootFile().check() == "Error") { // Root with corrupted files
                 val corrupt = getString(R.string.boot_files_critical_error)
 
                 val snackBarBootError = Snackbar.make(
@@ -67,65 +126,7 @@ open class MainActivity : AppCompatActivity() {
                 bootList.visibility = View.GONE
                 title = corrupt
             }
-            else -> {
-                val orientation = resources.configuration.orientation
-                val spanCount: Int = if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    title = getString(R.string.choose_option_title)
-                    2
-                } else {
-                    title = getString(R.string.app_name)
-                    3
-                }
-
-                rcView.layoutManager = GridLayoutManager(this@MainActivity, spanCount)
-                rcView.adapter = adapter
-
-                // Define icons
-                val optionsImage = listOf (
-                    R.drawable.ic_reboot, // 0 Reboot
-                    R.drawable.ic_safe_mode, // 1 Safemode
-                    R.drawable.ic_power, // 2 Power
-                    R.drawable.ic_recovery, // 3 Recovery
-                    R.drawable.ic_bootloader, // 4 Bootloader
-                    R.drawable.ic_android, // 5 Android
-                    R.drawable.ic_windows // 6 Windows
-                )
-
-                // Define strings
-                val optionsTitles = arrayOf (
-                    getString(R.string.reboot_shutdown_title), // 0 Shutdown
-                    getString(R.string.reboot_recovery_title), // 1 Recovery
-                    getString(R.string.reboot_bootloader_title), // 2 Bootloader
-                    getString(R.string.reboot_dnx_title), // 3 DNX
-                    getString(R.string.reboot_device_title), // 4 Simple reboot
-                    getString(R.string.reboot_screen_off_title), // 5 Screen off
-                    getString(R.string.reboot_safe_mode_title), // 6 Safe mode
-                    getString(R.string.reboot_android_title), // 7 Android
-                    getString(R.string.reboot_windows_title), // 8 Windows
-                )
-
-                // Define current bootloader
-                val description = arrayOf (
-                    "", // Nothing
-                    getString(R.string.boot_item_current), // Current bootloader
-                    getString(R.string.root_title) // Root
-                )
-
-                // Define icons & strings together
-                val bootOptions = arrayOf (
-                    BootOptions(optionsImage[2], optionsTitles[0], description[0], description[0]), // 0 Shutdown
-                    BootOptions(optionsImage[3], optionsTitles[1], description[0], description[0]), // 1 Recovery
-                    BootOptions(optionsImage[4], optionsTitles[2], description[0], description[0]), // 2 Bootloader
-                    BootOptions(optionsImage[4], optionsTitles[3], description[0], description[0]), // 3 DNX
-                    BootOptions(optionsImage[0], optionsTitles[4], description[0], description[0]), // 4 Simple reboot
-                    BootOptions(optionsImage[2], optionsTitles[5], description[2], description[0]), // 5 Screen off
-                    BootOptions(optionsImage[1], optionsTitles[6], description[2], description[0]), // 6 Safemode
-                    BootOptions(optionsImage[5], optionsTitles[7], description[2], description[0]), // 7 Android
-                    BootOptions(optionsImage[6], optionsTitles[8], description[2], description[0]), // 8 Windows
-                    BootOptions(optionsImage[5], optionsTitles[7], description[2], description[1]), // 9 Android Current
-                    BootOptions(optionsImage[6], optionsTitles[8], description[2], description[1]), // 10 Windows Current
-                )
-
+            else { // Root without corrupted files
                 // Filling adapter
                 adapter.addBootOptions(bootOptions[0]) // Shutdown
                 adapter.addBootOptions(bootOptions[1]) // Recovery
@@ -135,36 +136,39 @@ open class MainActivity : AppCompatActivity() {
                 adapter.addBootOptions(bootOptions[5]) // Screen off
                 adapter.addBootOptions(bootOptions[6]) // Safemode
 
-                when (Root().check()) {
-                    true -> {
-                        try {
-                            when (BootFile().check()) {
-                                "Windows" -> {
-                                    adapter.addBootOptions(bootOptions[7]) // Android
-                                    adapter.addBootOptions(bootOptions[10]) // Current bootloader Windows
-                                }
-                                "Android" -> {
-                                    adapter.addBootOptions(bootOptions[9]) // Current bootloader Android
-                                    adapter.addBootOptions(bootOptions[8]) // Windows
-                                }
-                                "Error" -> {
-                                    // None
-                                }
-                            }
+                try {
+                    when (BootFile().check()) {
+                        "Windows" -> {
+                            adapter.addBootOptions(bootOptions[7]) // Android
+                            adapter.addBootOptions(bootOptions[10]) // Current bootloader Windows
                         }
-                        catch (ex: Exception) {
-                            when (ex) {
-                                is FileNotFoundException,
-                                is NumberFormatException,
-                                is IOException -> {
-                                    ex.printStackTrace() // handle
-                                }
-                                else -> throw ex
-                            }
+                        "Android" -> {
+                            adapter.addBootOptions(bootOptions[9]) // Current bootloader Android
+                            adapter.addBootOptions(bootOptions[8]) // Windows
                         }
+                        "Error" -> {
+                            // None
+                        }
+                    }
+                } catch (ex: Exception) {
+                    when (ex) {
+                        is FileNotFoundException,
+                        is NumberFormatException,
+                        is IOException -> {
+                            ex.printStackTrace() // handle
+                        }
+                        else -> throw ex
                     }
                 }
             }
+        }
+        else { // Without Root and without corrupted files
+            // Filling adapter
+            adapter.addBootOptions(bootOptions[0]) // Shutdown
+            adapter.addBootOptions(bootOptions[1]) // Recovery
+            adapter.addBootOptions(bootOptions[2]) // Bootloader
+            adapter.addBootOptions(bootOptions[3]) // DNX
+            adapter.addBootOptions(bootOptions[4]) // Simple reboot
         }
     }
 
