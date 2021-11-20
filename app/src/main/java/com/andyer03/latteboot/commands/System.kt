@@ -2,6 +2,7 @@ package com.andyer03.latteboot.commands
 
 import com.andyer03.latteboot.MainActivity
 
+@ExperimentalStdlibApi
 class System (private val OS: String) : MainActivity() {
 
     fun boot() {

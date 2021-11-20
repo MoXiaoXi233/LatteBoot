@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.andyer03.latteboot.R
 import com.andyer03.latteboot.commands.*
 
+@ExperimentalStdlibApi
 class RebootWindows : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Root().check()) {

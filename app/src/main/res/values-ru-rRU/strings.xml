@@ -17,4 +17,5 @@
     <string name="cancel_title">Отмена</string>
     <string name="after_5_seconds_title">через 5 секунд</string>
     <string name="action_aborted">Действие отменено</string>
+    <string name="boot_files_critical_error">Файлы загрузки повреждены или не найдены !</string>
 </resources>

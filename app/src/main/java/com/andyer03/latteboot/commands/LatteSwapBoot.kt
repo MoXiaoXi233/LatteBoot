@@ -1,5 +1,6 @@
 package com.andyer03.latteboot.commands
 
+@ExperimentalStdlibApi
 class LatteSwapBoot {
     fun swap() {
         // Checking for temp file existing

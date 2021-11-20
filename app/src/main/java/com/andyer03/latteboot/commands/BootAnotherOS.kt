@@ -1,5 +1,6 @@
 package com.andyer03.latteboot.commands
 
+@ExperimentalStdlibApi
 class BootAnotherOS {
 
     fun android() {

@@ -10,6 +10,7 @@ import com.andyer03.latteboot.databinding.BootItemBinding
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 
+@ExperimentalStdlibApi
 class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
     private val bootList = ArrayList<BootOptions>()
 
@@ -19,15 +20,13 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
         fun bind(bootOptions: BootOptions) = with(binding) {
             icon.setImageResource(bootOptions.imageId)
             title.text = bootOptions.title
-            currentBootloader.text = bootOptions.current
+            root.text = bootOptions.root
+            currentBootloader.text = bootOptions.description
         }
 
         init {
             itemView.setOnClickListener {
                 // Delay command execution for abort possibility
-                val scn = Runnable {
-                    System("scn").boot()
-                }
                 val pwd = Runnable {
                     System("pwd").boot()
                 }
@@ -40,11 +39,14 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                 val dnx = Runnable {
                     System("dnx").boot()
                 }
-                val sfm = Runnable {
-                    System("sfm").boot()
-                }
                 val reboot = Runnable {
                     System("reboot").boot()
+                }
+                val scn = Runnable {
+                    System("scn").boot()
+                }
+                val sfm = Runnable {
+                    System("sfm").boot()
                 }
                 val and = Runnable {
                     when {
@@ -67,13 +69,13 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                 val abort = context.resources.getString(R.string.action_aborted)
 
                 val optionsTitles = arrayOf (
-                    context.resources.getString(R.string.reboot_screen_off_title), // 0 Screen off
-                    context.resources.getString(R.string.reboot_shutdown_title), // 1 Shutdown
-                    context.resources.getString(R.string.reboot_recovery_title), // 2 Recovery
-                    context.resources.getString(R.string.reboot_bootloader_title), // 3 Bootloader
-                    context.resources.getString(R.string.reboot_dnx_title), // 4 DNX
-                    context.resources.getString(R.string.reboot_safe_mode_title), // 5 Safe mode
-                    context.resources.getString(R.string.reboot_device_title), // 6 Reboot
+                    context.resources.getString(R.string.reboot_shutdown_title), // 0 Shutdown
+                    context.resources.getString(R.string.reboot_recovery_title), // 1 Recovery
+                    context.resources.getString(R.string.reboot_bootloader_title), // 2 Bootloader
+                    context.resources.getString(R.string.reboot_dnx_title), // 3 DNX
+                    context.resources.getString(R.string.reboot_device_title), // 4 Simple reboot
+                    context.resources.getString(R.string.reboot_screen_off_title), // 5 Screen off
+                    context.resources.getString(R.string.reboot_safe_mode_title), // 6 Safe mode
                     context.resources.getString(R.string.reboot_android_title), // 7 Android
                     context.resources.getString(R.string.reboot_windows_title), // 8 Windows
                 )
@@ -82,39 +84,39 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                 handler.removeCallbacksAndMessages(null)
                 when (adapterPosition) {
                     0 -> {
-                        handler.postDelayed(scn, 5000)
-                        snack(optionsTitles[0], duration, cancel, abort)
-                    }
-                    1 -> {
-                        handler.postDelayed(pwd, 5000)
+                        handler.postDelayed(pwd, 5000) // Power off
                         snack(optionsTitles[1], duration, cancel, abort)
                     }
-                    2 -> {
-                        handler.postDelayed(rec, 5000)
+                    1 -> {
+                        handler.postDelayed(rec, 5000) // Recovery
                         snack(optionsTitles[2], duration, cancel, abort)
                     }
-                    3 -> {
-                        handler.postDelayed(fbt, 5000)
+                    2 -> {
+                        handler.postDelayed(fbt, 5000) // Fastboot
                         snack(optionsTitles[3], duration, cancel, abort)
                     }
-                    4 -> {
-                        handler.postDelayed(dnx, 5000)
+                    3 -> {
+                        handler.postDelayed(dnx, 5000) // DNX
                         snack(optionsTitles[4], duration, cancel, abort)
                     }
-                    5 -> {
-                        handler.postDelayed(sfm, 5000)
-                        snack(optionsTitles[5], duration, cancel, abort)
-                    }
-                    6 -> {
-                        handler.postDelayed(reboot, 5000)
+                    4 -> {
+                        handler.postDelayed(reboot, 5000) // Reboot
                         snack(optionsTitles[6], duration, cancel, abort)
                     }
+                    5 -> {
+                        handler.postDelayed(scn, 5000) // Screen off
+                        snack(optionsTitles[0], duration, cancel, abort)
+                    }
+                    6 -> {
+                        handler.postDelayed(sfm, 5000) // Safemode
+                        snack(optionsTitles[5], duration, cancel, abort)
+                    }
                     7 -> {
-                        handler.postDelayed(and, 5000)
+                        handler.postDelayed(and, 5000) // Android
                         snack(optionsTitles[7], duration, cancel, abort)
                     }
                     8 -> {
-                        handler.postDelayed(win, 5000)
+                        handler.postDelayed(win, 5000) // Windows
                         snack(optionsTitles[8], duration, cancel, abort)
                     }
                 }

@@ -3,42 +3,43 @@ package com.andyer03.latteboot.commands
 import com.andyer03.latteboot.commands.Com as C
 
 class BootExec {
-    fun reboot() {
-        Runtime.getRuntime().exec(C().reboot)
+    fun shutdown() {
+        Runtime.getRuntime().exec(arrayOf(C().reboot, C().shutdown)) // No-Root
     }
+    fun reboot() {
+        Runtime.getRuntime().exec(C().reboot) // No-Root
+    }
+    fun recovery() {
+        Runtime.getRuntime().exec(arrayOf(C().reboot, C().recovery)) // No-Root
+    }
+    fun bootloader() {
+        Runtime.getRuntime().exec(arrayOf(C().reboot, C().bootloader)) // No-Root
+    }
+    fun dnx() {
+        Runtime.getRuntime().exec(arrayOf(C().reboot, C().dnx)) // No-Root
+    }
+    fun screenOff() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().screenOff)) // Root
+    }
+    fun safeMode() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().safeMode)).waitFor() // Root
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().reboot))
+    }
+    fun windows() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().noMIUI)).waitFor() // Root
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().win)).waitFor()
+    }
+    fun android() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().noWIN)).waitFor() // Root
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().miui)).waitFor()
+    }
+
     fun mountEFI() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().remount)).waitFor()
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().remount)).waitFor() // Root
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().cifs)).waitFor()
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().efi)).waitFor()
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().umount)).waitFor()
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().mount)).waitFor()
-    }
-    fun windows() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().noMIUI)).waitFor()
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().win)).waitFor()
-    }
-    fun android() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().noWIN)).waitFor()
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().miui)).waitFor()
-    }
-    fun recovery() {
-        Runtime.getRuntime().exec(arrayOf(C().reboot, C().recovery))
-    }
-    fun bootloader() {
-        Runtime.getRuntime().exec(arrayOf(C().reboot, C().bootloader))
-    }
-    fun dnx() {
-        Runtime.getRuntime().exec(arrayOf(C().reboot, C().dnx))
-    }
-    fun shutdown() {
-        Runtime.getRuntime().exec(arrayOf(C().reboot, C().shutdown))
-    }
-    fun safeMode() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().safeMode)).waitFor()
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().reboot))
-    }
-    fun screenOff() {
-        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().screenOff))
     }
 
     fun copyTempBoot() {
