@@ -7,7 +7,7 @@
     <string name="reboot_recovery_title" translatable="false">Recovery</string>
     <string name="reboot_bootloader_title" translatable="false">Fastboot</string>
     <string name="reboot_dnx_title" translatable="false">DNX</string>
-    <string name="choose_option_title">Choose boot option:</string>
+    <string name="choose_option_title">Choose boot option</string>
     <string name="reboot_shutdown_title">Shutdown</string>
     <string name="reboot_safe_mode_title">Safemode</string>
     <string name="reboot_screen_off_title">Screen off</string>

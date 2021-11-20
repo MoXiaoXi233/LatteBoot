@@ -2,16 +2,16 @@ package com.andyer03.latteboot
 
 import android.annotation.SuppressLint
 import android.content.*
-import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import com.andyer03.latteboot.databinding.ActivityMainBinding
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.andyer03.latteboot.*
 import com.andyer03.latteboot.commands.*
 import com.andyer03.latteboot.other.Device
@@ -46,10 +46,12 @@ open class MainActivity : AppCompatActivity() {
 
     private fun init() = with(binding) {
         val orientation = resources.configuration.orientation
-        val spanCount: Int = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            3
-        } else {
+        val spanCount: Int = if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            title = getString(R.string.choose_option_title)
             2
+        } else {
+            title = getString(R.string.app_name)
+            3
         }
 
         rcView.layoutManager = GridLayoutManager(this@MainActivity, spanCount)
@@ -107,6 +109,7 @@ open class MainActivity : AppCompatActivity() {
         adapter.addBootOptions(bootOptions[3]) // Bootloader
         adapter.addBootOptions(bootOptions[4]) // DNX
         adapter.addBootOptions(bootOptions[5]) // Safemode
+        adapter.addBootOptions(bootOptions[6]) // Simple reboot
 
         when (Root().check()) {
             true -> {
@@ -117,15 +120,12 @@ open class MainActivity : AppCompatActivity() {
                     }
                     "Android" -> {
                         adapter.addBootOptions(bootOptions[9]) // Current bootloader Android
-                        adapter.addBootOptions(bootOptions[8]) //
+                        adapter.addBootOptions(bootOptions[8]) // Windows
                     }
                     "Error" -> {
                         // None
                     }
                 }
-            }
-            else -> {
-                adapter.addBootOptions(bootOptions[6]) // Simple reboot
             }
         }
     }

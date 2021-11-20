@@ -1,5 +1,7 @@
 package com.andyer03.latteboot
 
+import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +45,9 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                 val sfm = Runnable {
                     System("sfm").boot()
                 }
+                val reboot = Runnable {
+                    System("reboot").boot()
+                }
                 val and = Runnable {
                     when {
                         BootFile().check() == "Android" -> {
@@ -70,8 +75,9 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                     context.resources.getString(R.string.reboot_bootloader_title), // 3 Bootloader
                     context.resources.getString(R.string.reboot_dnx_title), // 4 DNX
                     context.resources.getString(R.string.reboot_safe_mode_title), // 5 Safe mode
-                    context.resources.getString(R.string.reboot_android_title), // 6 Android
-                    context.resources.getString(R.string.reboot_windows_title), // 7 Windows
+                    context.resources.getString(R.string.reboot_device_title), // 6 Reboot
+                    context.resources.getString(R.string.reboot_android_title), // 7 Android
+                    context.resources.getString(R.string.reboot_windows_title), // 8 Windows
                 )
 
                 // Cancel all delays befor executing one command to have no issue
@@ -102,12 +108,16 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                         snack(optionsTitles[5], duration, cancel, abort)
                     }
                     6 -> {
-                        handler.postDelayed(and, 5000)
+                        handler.postDelayed(reboot, 5000)
                         snack(optionsTitles[6], duration, cancel, abort)
                     }
                     7 -> {
-                        handler.postDelayed(win, 5000)
+                        handler.postDelayed(and, 5000)
                         snack(optionsTitles[7], duration, cancel, abort)
+                    }
+                    8 -> {
+                        handler.postDelayed(win, 5000)
+                        snack(optionsTitles[8], duration, cancel, abort)
                     }
                 }
             }
