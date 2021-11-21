@@ -123,18 +123,16 @@ open class MainActivity : AppCompatActivity() {
             adapter.addBootOptions(bootOptions[6]) // Safemode
 
             try {
-                when (BootFile().checkBoot()) {
-                    "Windows" -> {
-                        adapter.addBootOptions(bootOptions[7]) // Android
-                        adapter.addBootOptions(bootOptions[10]) // Current bootloader Windows
-                    }
-                    "Android" -> {
-                        adapter.addBootOptions(bootOptions[9]) // Current bootloader Android
-                        adapter.addBootOptions(bootOptions[8]) // Windows
-                    }
-                    "Error" -> {
-                        // None
-                    }
+                if (BootFile().checkBoot() == "Windows") {
+                    adapter.addBootOptions(bootOptions[7]) // Android
+                    adapter.addBootOptions(bootOptions[10]) // Current bootloader Windows
+                }
+                else if (BootFile().checkBoot() == "Android" && BootFile().checkWin()) {
+                    adapter.addBootOptions(bootOptions[9]) // Current bootloader Android
+                    adapter.addBootOptions(bootOptions[8]) // Windows
+                }
+                else if (BootFile().checkBoot() == "Error") {
+                    // None
                 }
             } catch (ex: Exception) {
                 when (ex) {
@@ -191,7 +189,7 @@ open class MainActivity : AppCompatActivity() {
             // Show or hide shortcuts from app drawer
             R.id.bootloader_swap -> {
                 when {
-                    (BootFile().checkWin() && (BootFile().checkBoot() == "Windows" || BootFile().checkBoot() == "Android"))  -> {
+                    (BootFile().checkBoot() == "Windows" || (BootFile().checkBoot() == "Android") && BootFile().checkWin())  -> {
                         BootAnotherMode().swap() // Swap boot files
                         recreateBootList() // Recreate boot list
 
