@@ -51,6 +51,8 @@ open class MainActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun init() = with(binding) {
+        winShortcut() // Load Windows shortcut in Launcher
+
         val mainLayout = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.main_layout)
         mainLayout.visibility = View.VISIBLE
 
@@ -131,9 +133,6 @@ open class MainActivity : AppCompatActivity() {
                     adapter.addBootOptions(bootOptions[9]) // Current bootloader Android
                     adapter.addBootOptions(bootOptions[8]) // Windows
                 }
-                else if (BootFile().checkBoot() == "Error") {
-                    // None
-                }
             } catch (ex: Exception) {
                 when (ex) {
                     is FileNotFoundException,
@@ -155,12 +154,9 @@ open class MainActivity : AppCompatActivity() {
         val snackBarBootError = Snackbar.make(
             binding.root,
             corrupt,
-            Snackbar.LENGTH_INDEFINITE,
+            Snackbar.LENGTH_LONG,
         )
         snackBarBootError.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
-        snackBarBootError.setAction("Fix") {
-            bootFix()
-        }
         snackBarBootError.show()
 
         val mainLayout = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.main_layout)
@@ -267,30 +263,6 @@ open class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            R.id.windows_shortcut -> {
-                when (sp.getBoolean("windows_switch", false)) {
-                    false -> {
-                        p.setComponentEnabledSetting(
-                            preferences[1],
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("windows_switch", true)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_enabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                    true -> {
-                        p.setComponentEnabledSetting(
-                            preferences[1],
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                        spEditor.putBoolean("windows_switch", false)
-                        spEditor.apply()
-                        Toast.makeText(this, getString(R.string.launcher_icon_disabled_toast), Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -352,8 +324,25 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun recreateBootList() {
+    private fun recreateBootList() {
         adapter.clear() // Clear adapter
         init() // Recreating adapter
+    }
+
+    private fun winShortcut() {
+        val p = packageManager
+        if (BootFile().checkWin()) {
+            p.setComponentEnabledSetting(
+                ComponentName(applicationContext, RebootWindows::class.java),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP
+            )
+        } else {
+            p.setComponentEnabledSetting(
+                ComponentName(applicationContext, RebootWindows::class.java),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP
+            )
+        }
     }
 }

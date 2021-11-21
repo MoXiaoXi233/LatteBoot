@@ -13,7 +13,6 @@
     <string name="reboot_screen_off_title">Screen off</string>
     <string name="error_title">Error</string>
     <string name="bootloader_swap">Swap bootloader</string>
-    <string name="reboot_windows_shortcut">Windows shortcut</string>
     <string name="reboot_recovery_shortcut">Recovery shortcut</string>
     <string name="unavailable_title">Unavailable</string>
     <string name="about_title" translatable="false">by AndyER03</string>

@@ -1,6 +1,5 @@
 package com.andyer03.latteboot.commands
 
-import java.io.File
 import com.andyer03.latteboot.commands.Com as C
 
 class BootExec {

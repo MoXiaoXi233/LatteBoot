@@ -22,9 +22,4 @@
         android:title="@string/reboot_recovery_shortcut"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/windows_shortcut"
-        android:title="@string/reboot_windows_shortcut"
-        app:showAsAction="never" />
-
 </menu>
