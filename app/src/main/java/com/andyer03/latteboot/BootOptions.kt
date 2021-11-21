@@ -1,3 +1,3 @@
 package com.andyer03.latteboot
 
-data class BootOptions(val imageId: Int, val title: String, val root: String, val description: String)
+data class BootOptions(val imageId: Int, val title: String, val description: String)

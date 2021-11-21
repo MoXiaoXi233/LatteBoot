@@ -20,7 +20,6 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
         fun bind(bootOptions: BootOptions) = with(binding) {
             icon.setImageResource(bootOptions.imageId)
             title.text = bootOptions.title
-            root.text = bootOptions.root
             currentBootloader.text = bootOptions.description
         }
 
@@ -28,39 +27,31 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
             itemView.setOnClickListener {
                 // Delay command execution for abort possibility
                 val pwd = Runnable {
-                    System("pwd").boot()
+                    System("pwd").boot() // Bootloader swap not needed
                 }
                 val rec = Runnable {
-                    System("rec").boot()
+                    BootAnotherMode().boot("Android", "Windows", "rec", "and") // Bootloader swap is needed
                 }
                 val fbt = Runnable {
-                    System("fbt").boot()
+                    System("fbt").boot() // Bootloader swap not needed
                 }
                 val dnx = Runnable {
-                    System("dnx").boot()
+                    System("dnx").boot() // Bootloader swap not needed
                 }
                 val reboot = Runnable {
-                    System("reboot").boot()
+                    System("reboot").boot() // Bootloader swap not needed
                 }
                 val scn = Runnable {
-                    System("scn").boot()
+                    System("scn").boot() // Bootloader swap not needed
                 }
                 val sfm = Runnable {
-                    System("sfm").boot()
+                    BootAnotherMode().boot("Android", "Windows", "sfm", "and") // Bootloader swap is needed
                 }
                 val and = Runnable {
-                    when {
-                        BootFile().check() == "Android" -> {
-                            BootAnotherOS().android()
-                        }
-                    }
+                    BootAnotherMode().boot("Android", "Windows", "reboot", "and") // Bootloader swap is needed
                 }
                 val win = Runnable {
-                    when {
-                        BootFile().check() == "Windows" -> {
-                            BootAnotherOS().windows()
-                        }
-                    }
+                    BootAnotherMode().boot("Windows", "Android", "reboot", "win") // Bootloader swap is needed
                 }
 
                 val context = it
@@ -85,31 +76,31 @@ class BootAdapter: RecyclerView.Adapter<BootAdapter.BootHolder>() {
                 when (adapterPosition) {
                     0 -> {
                         handler.postDelayed(pwd, 5000) // Power off
-                        snack(optionsTitles[1], duration, cancel, abort)
+                        snack(optionsTitles[0], duration, cancel, abort)
                     }
                     1 -> {
                         handler.postDelayed(rec, 5000) // Recovery
-                        snack(optionsTitles[2], duration, cancel, abort)
+                        snack(optionsTitles[1], duration, cancel, abort)
                     }
                     2 -> {
                         handler.postDelayed(fbt, 5000) // Fastboot
-                        snack(optionsTitles[3], duration, cancel, abort)
+                        snack(optionsTitles[2], duration, cancel, abort)
                     }
                     3 -> {
                         handler.postDelayed(dnx, 5000) // DNX
-                        snack(optionsTitles[4], duration, cancel, abort)
+                        snack(optionsTitles[3], duration, cancel, abort)
                     }
                     4 -> {
                         handler.postDelayed(reboot, 5000) // Reboot
-                        snack(optionsTitles[6], duration, cancel, abort)
+                        snack(optionsTitles[4], duration, cancel, abort)
                     }
                     5 -> {
                         handler.postDelayed(scn, 5000) // Screen off
-                        snack(optionsTitles[0], duration, cancel, abort)
+                        snack(optionsTitles[5], duration, cancel, abort)
                     }
                     6 -> {
                         handler.postDelayed(sfm, 5000) // Safemode
-                        snack(optionsTitles[5], duration, cancel, abort)
+                        snack(optionsTitles[6], duration, cancel, abort)
                     }
                     7 -> {
                         handler.postDelayed(and, 5000) // Android

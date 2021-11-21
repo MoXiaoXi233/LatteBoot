@@ -2,20 +2,19 @@ package com.andyer03.latteboot
 
 import android.annotation.SuppressLint
 import android.content.*
-import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.andyer03.latteboot.databinding.ActivityMainBinding
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.andyer03.latteboot.*
 import com.andyer03.latteboot.commands.*
+import com.andyer03.latteboot.databinding.ActivityMainBinding
 import com.andyer03.latteboot.other.Device
 import com.andyer03.latteboot.shortcuts.*
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -91,42 +90,27 @@ open class MainActivity : AppCompatActivity() {
         val description = arrayOf (
             "", // Nothing
             getString(R.string.boot_item_current), // Current bootloader
-            getString(R.string.root_title) // Root
         )
 
         // Define icons & strings together
         val bootOptions = arrayOf (
-            BootOptions(optionsImage[2], optionsTitles[0], description[0], description[0]), // 0 Shutdown
-            BootOptions(optionsImage[3], optionsTitles[1], description[0], description[0]), // 1 Recovery
-            BootOptions(optionsImage[4], optionsTitles[2], description[0], description[0]), // 2 Bootloader
-            BootOptions(optionsImage[4], optionsTitles[3], description[0], description[0]), // 3 DNX
-            BootOptions(optionsImage[0], optionsTitles[4], description[0], description[0]), // 4 Simple reboot
-            BootOptions(optionsImage[2], optionsTitles[5], description[2], description[0]), // 5 Screen off
-            BootOptions(optionsImage[1], optionsTitles[6], description[2], description[0]), // 6 Safemode
-            BootOptions(optionsImage[5], optionsTitles[7], description[2], description[0]), // 7 Android
-            BootOptions(optionsImage[6], optionsTitles[8], description[2], description[0]), // 8 Windows
-            BootOptions(optionsImage[5], optionsTitles[7], description[2], description[1]), // 9 Android Current
-            BootOptions(optionsImage[6], optionsTitles[8], description[2], description[1]), // 10 Windows Current
+            BootOptions(optionsImage[2], optionsTitles[0], description[0]), // 0 Shutdown
+            BootOptions(optionsImage[3], optionsTitles[1], description[0]), // 1 Recovery
+            BootOptions(optionsImage[4], optionsTitles[2], description[0]), // 2 Bootloader
+            BootOptions(optionsImage[4], optionsTitles[3], description[0]), // 3 DNX
+            BootOptions(optionsImage[0], optionsTitles[4], description[0]), // 4 Simple reboot
+            BootOptions(optionsImage[2], optionsTitles[5], description[0]), // 5 Screen off
+            BootOptions(optionsImage[1], optionsTitles[6], description[0]), // 6 Safemode
+            BootOptions(optionsImage[5], optionsTitles[7], description[0]), // 7 Android
+            BootOptions(optionsImage[6], optionsTitles[8], description[0]), // 8 Windows
+            BootOptions(optionsImage[5], optionsTitles[7], description[1]), // 9 Android Current
+            BootOptions(optionsImage[6], optionsTitles[8], description[1]), // 10 Windows Current
         )
 
         // Checking for root availability (kids protection)
-        if (Root().check()) {
-            if (BootFile().check() == "Error") { // Root with corrupted files
-                val corrupt = getString(R.string.boot_files_critical_error)
 
-                val snackBarBootError = Snackbar.make(
-                    binding.root,
-                    corrupt,
-                    Snackbar.LENGTH_INDEFINITE,
-                )
-                snackBarBootError.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
-                snackBarBootError.show()
-
-                val bootList = findViewById<RecyclerView>(R.id.rcView)
-                bootList.visibility = View.GONE
-                title = corrupt
-            }
-            else { // Root without corrupted files
+        if (Root().check()) { // Root without corrupted files
+            if (BootFile().check() == "Windows" || BootFile().check() == "Android") {
                 // Filling adapter
                 adapter.addBootOptions(bootOptions[0]) // Shutdown
                 adapter.addBootOptions(bootOptions[1]) // Recovery
@@ -161,15 +145,28 @@ open class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+            else { // Root with corrupted files
+                criticalError()
+            }
         }
-        else { // Without Root and without corrupted files
-            // Filling adapter
-            adapter.addBootOptions(bootOptions[0]) // Shutdown
-            adapter.addBootOptions(bootOptions[1]) // Recovery
-            adapter.addBootOptions(bootOptions[2]) // Bootloader
-            adapter.addBootOptions(bootOptions[3]) // DNX
-            adapter.addBootOptions(bootOptions[4]) // Simple reboot
+        else {
+            criticalError()
         }
+    }
+
+    fun criticalError() {
+        val corrupt = getString(R.string.boot_files_critical_error)
+        val snackBarBootError = Snackbar.make(
+            binding.root,
+            corrupt,
+            Snackbar.LENGTH_INDEFINITE,
+        )
+        snackBarBootError.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+        snackBarBootError.show()
+
+        val mainLayout = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.main_layout)
+        mainLayout.visibility = View.GONE
+        title = corrupt
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -194,7 +191,7 @@ open class MainActivity : AppCompatActivity() {
             R.id.bootloader_swap -> {
                 when {
                     (Root().check() && (BootFile().check() == "Windows" || BootFile().check() == "Android"))  -> {
-                        LatteSwapBoot().swap() // Swap boot files
+                        BootAnotherMode().swap() // Swap boot files
                         adapter.clear() // Clear adapter
                         init() // Recreating adapter
 
@@ -222,7 +219,7 @@ open class MainActivity : AppCompatActivity() {
                         snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
                         snackbar.setAction(getString(R.string.cancel_title)) {
                             val text = getString(R.string.action_aborted)
-                            LatteSwapBoot().swap() // Swap boot files
+                            BootAnotherMode().swap() // Swap boot files
                             adapter.clear() // Clear adapter
                             init() // Recreating adapter
 
