@@ -24,7 +24,6 @@ import android.os.Environment
 import android.util.Log
 import java.io.*
 
-
 @ExperimentalStdlibApi
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -294,6 +293,7 @@ open class MainActivity : AppCompatActivity() {
 
     // Fix missing boot files
     private fun bootFix() {
+        System("cleanEFI").boot()
         copyAssets("bootx64.efi")
         copyAssets("bootx64.efi.win")
         System("copyEFI").boot()

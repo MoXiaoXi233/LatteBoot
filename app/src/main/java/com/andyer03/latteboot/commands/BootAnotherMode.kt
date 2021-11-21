@@ -30,11 +30,10 @@ class BootAnotherMode {
     }
 
     fun swap() {
-        // Checking for temp file existing
-        if (BootFile().check() == "Windows") {
-            System("and").boot()
-        } else if (BootFile().check() == "Android") {
+        if (BootFile().check() == "Android") {
             System("win").boot()
+        } else if (BootFile().check() == "Windows") {
+            System("and").boot()
         }
     }
 }

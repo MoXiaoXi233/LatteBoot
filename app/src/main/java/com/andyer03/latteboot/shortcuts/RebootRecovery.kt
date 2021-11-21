@@ -7,7 +7,6 @@ import com.andyer03.latteboot.commands.BootAnotherMode
 @ExperimentalStdlibApi
 class RebootRecovery : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-
         BootAnotherMode().boot("Windows", "Android", "rec", "and")
         super.onCreate(savedInstanceState)
         finish()
