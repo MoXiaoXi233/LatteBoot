@@ -53,7 +53,8 @@ open class MainActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun init() = with(binding) {
-        copyAssets()
+        copyAssets("bootx64.efi")
+        copyAssets("bootx64.efi.win")
 
         val orientation = resources.configuration.orientation
         val spanCount: Int = if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -295,7 +296,7 @@ open class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    open fun copyAssets() {
+    open fun copyAssets(bootfile: String) {
         val assetManager = assets
         var files: Array<String>? = null
         try {
@@ -307,8 +308,8 @@ open class MainActivity : AppCompatActivity() {
             var `in`: InputStream? = null
             var out: OutputStream? = null
             try {
-                `in` = assetManager.open("bootx64.efi")
-                val outFile = File(Environment.getExternalStorageDirectory().getPath(), filename)
+                `in` = assetManager.open(bootfile)
+                val outFile = File(Environment.getExternalStorageDirectory().path, bootfile)
                 out = FileOutputStream(outFile)
                 copyFile(`in`, out)
             } catch (e: IOException) {
