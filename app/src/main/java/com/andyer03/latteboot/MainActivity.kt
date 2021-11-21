@@ -235,9 +235,11 @@ open class MainActivity : AppCompatActivity() {
                 bootFix()
             }
             R.id.disable_windows -> {
-                System("delWinEFI").boot()
-                adapter.clear() // Clear adapter
-                init() // Recreating adapter
+                if (BootFile().checkWin()) {
+                    System("delWinEFI").boot()
+                    adapter.clear() // Clear adapter
+                    init() // Recreating adapter
+                }
             }
             R.id.recovery_shortcut -> {
                 when (sp.getBoolean("recovery_switch", false)) {
@@ -265,6 +267,20 @@ open class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        when (BootFile().checkWin()) {
+            true -> {
+                menu?.findItem(R.id.bootloader_swap)?.isVisible = true
+                menu?.findItem(R.id.disable_windows)?.isVisible = true
+            }
+            false -> {
+                menu?.findItem(R.id.bootloader_swap)?.isVisible = false
+                menu?.findItem(R.id.disable_windows)?.isVisible = false
+            }
+        }
+        return super.onPrepareOptionsMenu(menu)
     }
 
     // Fix missing boot files

@@ -30,6 +30,7 @@ class BootFile {
     @ExperimentalStdlibApi
     fun checkWin(): Boolean {
         System("mountEFI").boot()
+        BootExec().copyTempBoot()
         BootExec().copyTempAnotherBoot()
         val file = File(Com().tempBoot)
         val file2 = File(Com().tempBoot2)

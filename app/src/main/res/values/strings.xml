@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">LatteBoot</string>
+    <string name="app_name" translatable="false">LatteGO</string>
     <string name="mi_pad_2_toast">Only for MI Pad 2</string>
     <string name="reboot_windows_title" translatable="false">Windows</string>
     <string name="reboot_android_title" translatable="false">Android</string>
