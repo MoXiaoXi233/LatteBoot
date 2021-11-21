@@ -1,10 +1,5 @@
 package com.andyer03.latteboot.commands
 
-import android.widget.Toast
-import com.andyer03.latteboot.MainActivity
-import com.andyer03.latteboot.R
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import java.io.FileNotFoundException
 import java.io.IOException
 

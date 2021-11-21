@@ -23,5 +23,5 @@
     <string name="cancel_title">Cancel</string>
     <string name="after_5_seconds_title">in 5 seconds</string>
     <string name="action_aborted">Action aborted</string>
-    <string name="boot_files_critical_error">Boot files not found or Root access denied !</string>
+    <string name="boot_files_critical_error">Boot files are corrupted or not found !</string>
 </resources>

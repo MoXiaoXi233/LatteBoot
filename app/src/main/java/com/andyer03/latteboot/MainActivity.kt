@@ -112,49 +112,43 @@ open class MainActivity : AppCompatActivity() {
             BootOptions(optionsImage[6], optionsTitles[8], description[1]), // 10 Windows Current
         )
 
-        // Checking for root availability (kids protection)
+        // Check for boot files availability
+        if (BootFile().check() == "Windows" || BootFile().check() == "Android") {
+            // Filling adapter
+            adapter.addBootOptions(bootOptions[0]) // Shutdown
+            adapter.addBootOptions(bootOptions[1]) // Recovery
+            adapter.addBootOptions(bootOptions[2]) // Bootloader
+            adapter.addBootOptions(bootOptions[3]) // DNX
+            adapter.addBootOptions(bootOptions[4]) // Simple reboot
+            adapter.addBootOptions(bootOptions[5]) // Screen off
+            adapter.addBootOptions(bootOptions[6]) // Safemode
 
-        if (Root().check()) { // Root without corrupted files
-            if (BootFile().check() == "Windows" || BootFile().check() == "Android") {
-                // Filling adapter
-                adapter.addBootOptions(bootOptions[0]) // Shutdown
-                adapter.addBootOptions(bootOptions[1]) // Recovery
-                adapter.addBootOptions(bootOptions[2]) // Bootloader
-                adapter.addBootOptions(bootOptions[3]) // DNX
-                adapter.addBootOptions(bootOptions[4]) // Simple reboot
-                adapter.addBootOptions(bootOptions[5]) // Screen off
-                adapter.addBootOptions(bootOptions[6]) // Safemode
-
-                try {
-                    when (BootFile().check()) {
-                        "Windows" -> {
-                            adapter.addBootOptions(bootOptions[7]) // Android
-                            adapter.addBootOptions(bootOptions[10]) // Current bootloader Windows
-                        }
-                        "Android" -> {
-                            adapter.addBootOptions(bootOptions[9]) // Current bootloader Android
-                            adapter.addBootOptions(bootOptions[8]) // Windows
-                        }
-                        "Error" -> {
-                            // None
-                        }
+            try {
+                when (BootFile().check()) {
+                    "Windows" -> {
+                        adapter.addBootOptions(bootOptions[7]) // Android
+                        adapter.addBootOptions(bootOptions[10]) // Current bootloader Windows
                     }
-                } catch (ex: Exception) {
-                    when (ex) {
-                        is FileNotFoundException,
-                        is NumberFormatException,
-                        is IOException -> {
-                            ex.printStackTrace() // handle
-                        }
-                        else -> throw ex
+                    "Android" -> {
+                        adapter.addBootOptions(bootOptions[9]) // Current bootloader Android
+                        adapter.addBootOptions(bootOptions[8]) // Windows
+                    }
+                    "Error" -> {
+                        // None
                     }
                 }
-            }
-            else { // Root with corrupted files
-                criticalError()
+            } catch (ex: Exception) {
+                when (ex) {
+                    is FileNotFoundException,
+                    is NumberFormatException,
+                    is IOException -> {
+                        ex.printStackTrace() // handle
+                    }
+                    else -> throw ex
+                }
             }
         }
-        else {
+        else { // Root with corrupted files
             criticalError()
         }
     }
@@ -198,7 +192,7 @@ open class MainActivity : AppCompatActivity() {
             // Show or hide shortcuts from app drawer
             R.id.bootloader_swap -> {
                 when {
-                    (Root().check() && (BootFile().check() == "Windows" || BootFile().check() == "Android"))  -> {
+                    (BootFile().check() == "Windows" || BootFile().check() == "Android")  -> {
                         BootAnotherMode().swap() // Swap boot files
                         adapter.clear() // Clear adapter
                         init() // Recreating adapter
