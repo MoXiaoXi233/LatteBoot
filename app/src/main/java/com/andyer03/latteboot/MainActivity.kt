@@ -19,9 +19,12 @@ import com.andyer03.latteboot.other.Device
 import com.andyer03.latteboot.shortcuts.*
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import java.io.FileNotFoundException
-import java.io.IOException
 import java.util.*
+import android.content.res.AssetManager
+import android.os.Environment
+import android.util.Log
+import java.io.*
+
 
 @ExperimentalStdlibApi
 open class MainActivity : AppCompatActivity() {
@@ -50,6 +53,8 @@ open class MainActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun init() = with(binding) {
+        copyAssets()
+
         val orientation = resources.configuration.orientation
         val spanCount: Int = if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             title = getString(R.string.choose_option_title)
@@ -288,5 +293,51 @@ open class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    open fun copyAssets() {
+        val assetManager = assets
+        var files: Array<String>? = null
+        try {
+            files = assetManager.list("")
+        } catch (e: IOException) {
+            Log.e("tag", "Failed to get asset file list.", e)
+        }
+        if (files != null) for (filename in files) {
+            var `in`: InputStream? = null
+            var out: OutputStream? = null
+            try {
+                `in` = assetManager.open("bootx64.efi")
+                val outFile = File(Environment.getExternalStorageDirectory().getPath(), filename)
+                out = FileOutputStream(outFile)
+                copyFile(`in`, out)
+            } catch (e: IOException) {
+                Log.e("tag", "Failed to copy asset file: $filename", e)
+            } finally {
+                if (`in` != null) {
+                    try {
+                        `in`.close()
+                    } catch (e: IOException) {
+                        // NOOP
+                    }
+                }
+                if (out != null) {
+                    try {
+                        out.close()
+                    } catch (e: IOException) {
+                        // NOOP
+                    }
+                }
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    open fun copyFile(`in`: InputStream, out: OutputStream) {
+        val buffer = ByteArray(1024)
+        var read: Int
+        while (`in`.read(buffer).also { read = it } != -1) {
+            out.write(buffer, 0, read)
+        }
     }
 }
