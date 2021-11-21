@@ -41,6 +41,13 @@ class BootExec {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().umount)).waitFor()
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().mount)).waitFor()
     }
+    fun cleanEFI() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().cleanEfi)).waitFor() // Root
+    }
+    fun copyEFI() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().copyEfiMIUI)).waitFor() // Root
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().copyEfiWIN)).waitFor()
+    }
 
     fun copyTempBoot() {
         Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi /storage/emulated/0/bf").waitFor()

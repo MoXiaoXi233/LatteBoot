@@ -20,7 +20,6 @@ import com.andyer03.latteboot.shortcuts.*
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
-import android.content.res.AssetManager
 import android.os.Environment
 import android.util.Log
 import java.io.*
@@ -53,8 +52,8 @@ open class MainActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun init() = with(binding) {
-        copyAssets("bootx64.efi")
-        copyAssets("bootx64.efi.win")
+        val mainLayout = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.main_layout)
+        mainLayout.visibility = View.VISIBLE
 
         val orientation = resources.configuration.orientation
         val spanCount: Int = if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -160,7 +159,7 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun criticalError() {
+    private fun criticalError() {
         val corrupt = getString(R.string.boot_files_critical_error)
         val snackBarBootError = Snackbar.make(
             binding.root,
@@ -168,6 +167,9 @@ open class MainActivity : AppCompatActivity() {
             Snackbar.LENGTH_INDEFINITE,
         )
         snackBarBootError.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+        snackBarBootError.setAction("Fix") {
+            bootFix()
+        }
         snackBarBootError.show()
 
         val mainLayout = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.main_layout)
@@ -296,7 +298,16 @@ open class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    open fun copyAssets(bootfile: String) {
+    // Fix missing boot files
+    private fun bootFix() {
+        copyAssets("bootx64.efi")
+        copyAssets("bootx64.efi.win")
+        System("copyEFI").boot()
+        init()
+    }
+
+    // Define files for cupying
+    private fun copyAssets(bootfile: String) {
         val assetManager = assets
         var files: Array<String>? = null
         try {
@@ -333,6 +344,7 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Copying missing boot files
     @Throws(IOException::class)
     open fun copyFile(`in`: InputStream, out: OutputStream) {
         val buffer = ByteArray(1024)

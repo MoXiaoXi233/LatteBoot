@@ -28,6 +28,12 @@ class System (private val OS: String) : MainActivity() {
             "mountEFI" -> {
                 BootExec().mountEFI()
             }
+            "cleanEFI" -> {
+                BootExec().cleanEFI()
+            }
+            "copyEFI" -> {
+                BootExec().copyEFI()
+            }
             "sfm" -> {
                 BootExec().safeMode()
             }

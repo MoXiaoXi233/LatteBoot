@@ -26,4 +26,11 @@ class Com {
     val dnx = "dnx"
     val shutdown = "-p"
     val screenOff = "input keyevent KEYCODE_POWER"
+
+    private val efiMIUISDcard = Environment.getExternalStorageDirectory().path + "/" + file
+    private val efiWinSDcard = Environment.getExternalStorageDirectory().path + "/" + file + ".win"
+
+    val cleanEfi = "rm $efiPath/*"
+    val copyEfiMIUI = "mv $efiMIUISDcard $efiPath/EFI/BOOT/$file"
+    val copyEfiWIN = "mv $efiWinSDcard $efiPath/EFI/BOOT/$file.win"
 }
