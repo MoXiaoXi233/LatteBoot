@@ -18,6 +18,7 @@ class Com {
     val noWIN = "mv $efiPath/EFI/BOOT/$file $efiPath/EFI/BOOT/$file.win"
     val miui = "mv $efiPath/EFI/BOOT/$file.miui $efiPath/EFI/BOOT/$file"
     val tempBoot = Environment.getExternalStorageDirectory().path + "/bf"
+    val tempBoot2 = Environment.getExternalStorageDirectory().path + "/bf2"
 
     val safeMode = "setprop persist.sys.safemode 1"
     val reboot = "reboot"
@@ -33,4 +34,5 @@ class Com {
     val cleanEfi = "rm $efiPath/*"
     val copyEfiMIUI = "mv $efiMIUISDcard $efiPath/EFI/BOOT/$file"
     val copyEfiWIN = "mv $efiWinSDcard $efiPath/EFI/BOOT/$file.win"
+    val delEfiWIN = "rm $efiPath/EFI/BOOT/$file.win"
 }

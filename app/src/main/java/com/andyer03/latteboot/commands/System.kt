@@ -34,6 +34,9 @@ class System (private val OS: String) : MainActivity() {
             "copyEFI" -> {
                 BootExec().copyEFI()
             }
+            "delWinEFI" -> {
+                BootExec().delWinEFI()
+            }
             "sfm" -> {
                 BootExec().safeMode()
             }

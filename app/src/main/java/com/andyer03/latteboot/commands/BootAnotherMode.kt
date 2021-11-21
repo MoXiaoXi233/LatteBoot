@@ -9,10 +9,10 @@ class BootAnotherMode {
     fun boot(os1: String, os2: String, target: String, bootloader: String) {
         try {
             when {
-                BootFile().check() == os1 -> {
+                BootFile().checkBoot() == os1 -> {
                     System(target).boot()
                 }
-                BootFile().check() == os2 -> {
+                BootFile().checkBoot() == os2 -> {
                     System(bootloader).boot()
                     System(target).boot()
                 }
@@ -30,9 +30,9 @@ class BootAnotherMode {
     }
 
     fun swap() {
-        if (BootFile().check() == "Android") {
+        if (BootFile().checkBoot() == "Android") {
             System("win").boot()
-        } else if (BootFile().check() == "Windows") {
+        } else if (BootFile().checkBoot() == "Windows") {
             System("and").boot()
         }
     }

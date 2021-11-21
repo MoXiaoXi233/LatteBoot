@@ -6,7 +6,7 @@ import java.io.File
 class BootFile {
 
     @ExperimentalStdlibApi
-    fun check(): String {
+    fun checkBoot(): String {
         System("mountEFI").boot()
         BootExec().copyTempBoot()
         val file = File(Com().tempBoot)
@@ -24,6 +24,24 @@ class BootFile {
                 BootExec().delTempBoot()
                 "Error"
             }
+        }
+    }
+
+    @ExperimentalStdlibApi
+    fun checkWin(): Boolean {
+        System("mountEFI").boot()
+        BootExec().copyTempAnotherBoot()
+        val file = File(Com().tempBoot)
+        val file2 = File(Com().tempBoot2)
+
+        return if ((Hash().crc32(file) == Device().windowsHash) || (Hash().crc32(file2) == Device().windowsHash)) {
+            BootExec().delTempBoot()
+            BootExec().delTempAnotherBoot()
+            true
+        } else {
+            BootExec().delTempBoot()
+            BootExec().delTempAnotherBoot()
+            false
         }
     }
 }

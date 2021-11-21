@@ -24,4 +24,6 @@
     <string name="after_5_seconds_title">in 5 seconds</string>
     <string name="action_aborted">Action aborted</string>
     <string name="boot_files_critical_error">Boot files are corrupted or not found !</string>
+    <string name="bootloader_repair">Repair bootloader</string>
+    <string name="disable_windows">Disable Windows</string>
 </resources>

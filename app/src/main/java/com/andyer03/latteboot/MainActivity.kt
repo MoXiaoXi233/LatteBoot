@@ -112,7 +112,7 @@ open class MainActivity : AppCompatActivity() {
         )
 
         // Check for boot files availability
-        if (BootFile().check() == "Windows" || BootFile().check() == "Android") {
+        if (BootFile().checkBoot() == "Windows" || BootFile().checkBoot() == "Android") {
             // Filling adapter
             adapter.addBootOptions(bootOptions[0]) // Shutdown
             adapter.addBootOptions(bootOptions[1]) // Recovery
@@ -123,7 +123,7 @@ open class MainActivity : AppCompatActivity() {
             adapter.addBootOptions(bootOptions[6]) // Safemode
 
             try {
-                when (BootFile().check()) {
+                when (BootFile().checkBoot()) {
                     "Windows" -> {
                         adapter.addBootOptions(bootOptions[7]) // Android
                         adapter.addBootOptions(bootOptions[10]) // Current bootloader Windows
@@ -191,19 +191,18 @@ open class MainActivity : AppCompatActivity() {
             // Show or hide shortcuts from app drawer
             R.id.bootloader_swap -> {
                 when {
-                    (BootFile().check() == "Windows" || BootFile().check() == "Android")  -> {
+                    (BootFile().checkWin() && (BootFile().checkBoot() == "Windows" || BootFile().checkBoot() == "Android"))  -> {
                         BootAnotherMode().swap() // Swap boot files
-                        adapter.clear() // Clear adapter
-                        init() // Recreating adapter
+                        recreateBootList() // Recreate boot list
 
                         val boot = when {
-                            BootFile().check() == "Windows" -> {
+                            BootFile().checkBoot() == "Windows" -> {
                                 getString(R.string.reboot_windows_title)
                             }
-                            BootFile().check() == "Android" -> {
+                            BootFile().checkBoot() == "Android" -> {
                                 getString(R.string.reboot_android_title)
                             }
-                            BootFile().check() == "Error" -> {
+                            BootFile().checkBoot() == "Error" -> {
                                 getString(R.string.error_title)
                             }
                             else -> {
@@ -221,8 +220,7 @@ open class MainActivity : AppCompatActivity() {
                         snackbar.setAction(getString(R.string.cancel_title)) {
                             val text = getString(R.string.action_aborted)
                             BootAnotherMode().swap() // Swap boot files
-                            adapter.clear() // Clear adapter
-                            init() // Recreating adapter
+                            recreateBootList() // Recreate boot list
 
                             val abortSnackBar = Snackbar.make(
                                 binding.root,
@@ -238,6 +236,14 @@ open class MainActivity : AppCompatActivity() {
                         Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
                     }
                 }
+            }
+            R.id.bootloader_repair -> {
+                bootFix()
+            }
+            R.id.disable_windows -> {
+                System("delWinEFI").boot()
+                adapter.clear() // Clear adapter
+                init() // Recreating adapter
             }
             R.id.recovery_shortcut -> {
                 when (sp.getBoolean("recovery_switch", false)) {
@@ -297,7 +303,7 @@ open class MainActivity : AppCompatActivity() {
         copyAssets("bootx64.efi")
         copyAssets("bootx64.efi.win")
         System("copyEFI").boot()
-        init()
+        recreateBootList()
     }
 
     // Define files for cupying
@@ -346,5 +352,10 @@ open class MainActivity : AppCompatActivity() {
         while (`in`.read(buffer).also { read = it } != -1) {
             out.write(buffer, 0, read)
         }
+    }
+
+    fun recreateBootList() {
+        adapter.clear() // Clear adapter
+        init() // Recreating adapter
     }
 }

@@ -8,6 +8,16 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/bootloader_repair"
+        android:title="@string/bootloader_repair"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/disable_windows"
+        android:title="@string/disable_windows"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/recovery_shortcut"
         android:title="@string/reboot_recovery_shortcut"
         app:showAsAction="never" />

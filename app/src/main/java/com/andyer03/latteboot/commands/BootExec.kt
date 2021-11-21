@@ -49,11 +49,21 @@ class BootExec {
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().copyEfiMIUI)).waitFor() // Root
         Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().copyEfiWIN)).waitFor()
     }
+    fun delWinEFI() {
+        Runtime.getRuntime().exec(arrayOf(C().su, C().c, C().delEfiWIN)).waitFor() // Root
+    }
 
     fun copyTempBoot() {
         Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi /storage/emulated/0/bf").waitFor()
     }
     fun delTempBoot() {
         Runtime.getRuntime().exec("rm /storage/emulated/0/bf").waitFor()
+    }
+
+    fun copyTempAnotherBoot() {
+        Runtime.getRuntime().exec("su -c cp /mnt/cifs/efi/EFI/BOOT/bootx64.efi.win /storage/emulated/0/bf2").waitFor()
+    }
+    fun delTempAnotherBoot() {
+        Runtime.getRuntime().exec("rm /storage/emulated/0/bf2").waitFor()
     }
 }

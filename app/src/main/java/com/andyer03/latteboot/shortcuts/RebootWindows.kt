@@ -10,11 +10,19 @@ import com.andyer03.latteboot.commands.BootFile
 @ExperimentalStdlibApi
 class RebootWindows : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        BootAnotherMode().boot("Windows", "Android", "reboot", "win")
-        if (BootFile().check() != "Windows") {
-            Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
+        if (BootFile().checkWin()) {
+            BootAnotherMode().boot("Windows", "Android", "reboot", "win")
+            if (BootFile().checkBoot() != "Windows") {
+                toast()
+            }
+        } else {
+            toast()
         }
         finish()
         super.onCreate(savedInstanceState)
+    }
+
+    private fun toast() {
+        Toast.makeText(this, R.string.unavailable_title, Toast.LENGTH_SHORT).show()
     }
 }
