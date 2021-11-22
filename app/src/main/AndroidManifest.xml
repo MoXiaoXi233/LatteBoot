@@ -29,7 +29,7 @@
             android:name=".shortcuts.RebootRecovery"
             android:enabled="false"
             android:exported="true"
-            android:icon="@drawable/ic_recovery"
+            android:icon="@drawable/ic_recovery_shortcut"
             android:label="@string/reboot_recovery_title"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -43,7 +43,7 @@
             android:name=".shortcuts.RebootWindows"
             android:enabled="false"
             android:exported="true"
-            android:icon="@drawable/ic_windows"
+            android:icon="@drawable/ic_windows_shortcut"
             android:label="@string/reboot_windows_title"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.NoActionBar">
